@@ -1,8 +1,10 @@
 import os
-os.environ['JAVA_HOME'] = 'C:\Program Files\Java\jdk1.8.0_261'
+
+os.environ['JAVA_HOME'] = '/Library/Java/JavaVirtualMachines/jdk-1.8.jdk/Contents/Home'
 
 from pyspark import HiveContext
 from SparkSessionBase import SparkSessionBase
+
 
 class TextRandJob(SparkSessionBase):
     SPARK_URL = "local"
