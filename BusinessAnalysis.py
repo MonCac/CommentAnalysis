@@ -2,7 +2,9 @@ from SparkSessionBase import SparkSessionBase
 from pyspark.sql import HiveContext
 from pyspark.sql.functions import *
 import os
-os.environ['JAVA_HOME'] = 'C:\Program Files\Java\jdk1.8.0_261'
+
+os.environ['JAVA_HOME'] = '/Library/Java/JavaVirtualMachines/jdk-1.8.jdk/Contents/Home'
+
 
 
 class TextRandJob(SparkSessionBase):

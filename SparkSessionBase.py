@@ -15,7 +15,7 @@ class SparkSessionBase:
 
     def _create_spark_session(self):
         if not os.environ.get('HADOOP_HOME'):
-            os.environ['HADOOP_HOME'] = 'D:\\hadoop-2.9.2'
+            os.environ['HADOOP_HOME'] = '/Users/moncheri/Downloads/hadoop-2.9.2/hadoop-2.9.2 '
 
         if not os.environ.get('HADOOP_CONF_DIR'):
             os.environ['HADOOP_CONF_DIR'] = 'conf/hadoop-conf'
