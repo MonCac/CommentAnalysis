@@ -2,7 +2,11 @@
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
+<<<<<<< HEAD
     <orderEntry type="jdk" jdkName="Python 3.7 (SparkTest)" jdkType="Python SDK" />
+=======
+    <orderEntry type="jdk" jdkName="Python 3.7 (Spark)" jdkType="Python SDK" />
+>>>>>>> c3c2dc36b898c9add0e7f726e98fde93895d18bf
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

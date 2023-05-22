@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.7 (SparkTest)" project-jdk-type="Python SDK" />
+=======
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.7 (Spark)" project-jdk-type="Python SDK" />
+>>>>>>> c3c2dc36b898c9add0e7f726e98fde93895d18bf
 </project>
