@@ -2,7 +2,6 @@
 用户名的规则：只能是大小写字母或数字，且不能以数字开头，长度为5~12位
 '''
 import re  ##引用内置正则表达式模块
-from LoginAndRegister import main  ##引用主菜单页面模块
 
 
 def check_user(username):  # 定义个函数，备用个参数username

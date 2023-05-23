@@ -1,4 +1,5 @@
-from LoginAndRegister import regist, login,storage
+from backend.apps.service.LoginAndRegister import regist, storage, login
+
 
 # select函数
 

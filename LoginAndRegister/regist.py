@@ -1,7 +1,4 @@
-from LoginAndRegister import check  ##引用正则判断脚本
-from LoginAndRegister import storage  ##引用日志系统函数
-from LoginAndRegister import main  ##引用菜单
-from LoginAndRegister import db  ##引用数据库操作
+from backend.apps.service.LoginAndRegister import db, main, storage, check
 
 
 def regist():
