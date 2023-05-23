@@ -1,11 +1,8 @@
-from SparkSessionBase import SparkSessionBase
-from pyspark.sql import HiveContext
-from pyspark.sql.functions import *
 import os
+os.environ['JAVA_HOME'] = 'C:\Program Files\Java\jdk1.8.0_261'
 
-os.environ['JAVA_HOME'] = '/Library/Java/JavaVirtualMachines/jdk-1.8.jdk/Contents/Home'
-
-
+from pyspark import HiveContext
+from SparkSessionBase import SparkSessionBase
 
 class TextRandJob(SparkSessionBase):
     SPARK_URL = "local"
@@ -17,11 +14,11 @@ class TextRandJob(SparkSessionBase):
 
     def start(self):
         hc = HiveContext(self.spark.sparkContext)
-        b_df = hc.table('users')
+        b_df = hc.table('business')
         b_df.show()
 
-# XXX 大数据分析代码
 
+# XXX 大数据分析代码
 
 if __name__ == '__main__':
     TextRandJob().start()
