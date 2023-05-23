@@ -18,10 +18,10 @@ class SparkSessionBase:
             os.environ['HADOOP_HOME'] = 'D:\\hadoop-2.9.2'
 
         if not os.environ.get('HADOOP_CONF_DIR'):
-            os.environ['HADOOP_CONF_DIR'] = '../conf/hadoop-conf'
+            os.environ['HADOOP_CONF_DIR'] = 'C:\\Users\\Administrator\\PycharmProjects\\Spark\\comment-analysis-08\\backend\\config\\hadoop-conf'
 
         if not os.environ.get('YARN_CONF_DIR'):
-            os.environ['YARN_CONF_DIR'] = '../conf/yarn-conf'
+            os.environ['YARN_CONF_DIR'] = 'C:\\Users\\Administrator\\PycharmProjects\\Spark\\comment-analysis-08\\backend\\config\\yarn-conf'
 
         conf = SparkConf()
         settings = (
