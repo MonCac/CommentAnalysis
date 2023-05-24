@@ -13,7 +13,7 @@ df = spark.read.format("jdbc") \
     .option("url", "jdbc:mysql://192.168.102.130:3306/school") \
     .option("dbtable", "SC") \
     .option("user", "root") \
-    .option("password", "ss1234lei.") \
+    .option("password", "homura520") \
     .load()
 
 df.printSchema()

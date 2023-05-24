@@ -15,13 +15,13 @@ class SparkSessionBase:
 
     def _create_spark_session(self):
         if not os.environ.get('HADOOP_HOME'):
-            os.environ['HADOOP_HOME'] = '/Users/moncheri/Downloads/hadoop-2.9.2/hadoop-2.9.2 '
+            os.environ['HADOOP_HOME'] = 'C:\\Users\\Administrator\\Desktop\\hadoop-2.9.2\\hadoop-2.9.2'
 
         if not os.environ.get('HADOOP_CONF_DIR'):
-            os.environ['HADOOP_CONF_DIR'] = 'config/hadoop-conf'
+            os.environ['HADOOP_CONF_DIR'] = 'conf/hadoop-conf'
 
         if not os.environ.get('YARN_CONF_DIR'):
-            os.environ['YARN_CONF_DIR'] = 'config/yarn-conf'
+            os.environ['YARN_CONF_DIR'] = 'conf/yarn-conf'
 
         conf = SparkConf()
         settings = (
