@@ -26,9 +26,3 @@ class TextRandJob(SparkSessionBase):
             .where(new_b_df['is_open'] == 1) \
             .select(col('name'), col('score')) \
             .orderBy(col('score').desc()).show(1500, truncate=False)
-
-
-# XXX 大数据分析代码
-
-if __name__ == '__main__':
-    TextRandJob().start()
