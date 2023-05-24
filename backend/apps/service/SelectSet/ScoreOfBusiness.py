@@ -1,6 +1,6 @@
 # 用户故事：我需要一个计算功能，根据数据信息将商家的优劣量化
 #
-# 描述：根据商家的距离远近，点评数量(business)，点评分数，以及结合用户打卡与评论的情况等，对商家进行综合性评分，用量化的数据评价不同商家对于用户的推荐程度，完成计算后可作为排序的标准。
+# 描述：根据商家的距离远近，点评数量(business)，点评分数(stars)，以及结合用户打卡与评论的情况等，对商家进行综合性评分，用量化的数据评价不同商家对于用户的推荐程度，完成计算后可作为排序的标准。
 #
 # 验收准则：能够根据商家情况实际打分进行分析。
 from pyspark.sql import HiveContext
@@ -21,17 +21,17 @@ class TextRandJob(SparkSessionBase):
         hc = HiveContext(self.spark.sparkContext)
         b_df = hc.table('business')
         c_df = hc.table('checkin')
-        r_df = hc.table('review')
 
-        c_df = c_df.groupBy(col('business_id')).agg(count('checkin_dates').alias('打卡数'))
-        r_df.where(col('rev_useful') == 1).groupBy(col('rev_business_id')).agg(avg('rev_stars').alias('平均分'))
+        c_df = c_df.select(col('business_id'), explode(split(col('checkin_dates'), ',')).alias('datetime')) \
+            .groupBy('business_id') \
+            .agg(count('business_id').alias('打卡数')) \
+            .orderBy(col('打卡数').desc())
 
-        b_df = b_df.join(c_df, b_df['business_id'] == c_df['business_id'])
+        new_df = b_df.select(col('business_id'), col('review_count'), col('stars'), col('name'), col('is_open')) \
+            .join(c_df, b_df['business_id'] == c_df['business_id'])
 
-        new_b_df = b_df.join(r_df, b_df['business_id'] == r_df['rev_business_id'])
-
-        # 加权得分（权值设置后期可修改）
-        new_b_df.withColumn('score', new_b_df['stars'] + new_b_df['review_count'] + new_b_df['平均分'] + new_b_df['打卡数']) \
+        new_df.withColumn('score', new_df['stars'] + new_df['打卡数'] + new_df['review_count']) \
+            .where(col('is_open') == 1) \
             .select(col('name'), col('score')) \
             .distinct() \
             .orderBy(col('score').desc()) \

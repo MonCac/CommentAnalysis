@@ -2,7 +2,7 @@ import os
 os.environ['JAVA_HOME'] = 'C:\Program Files\Java\jdk1.8.0_261'
 
 from pyspark import HiveContext
-from SparkSessionBase import SparkSessionBase
+from backend.apps.service.SparkSessionBase import SparkSessionBase
 
 class TextRandJob(SparkSessionBase):
     SPARK_URL = "local"
