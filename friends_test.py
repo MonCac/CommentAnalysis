@@ -1,6 +1,6 @@
 from pyspark.sql import HiveContext
 import os
-from backend.apps.service.FriendRecommand.SparkSessionBase import SparkSessionBase
+from backend.apps.service.friendrecommend.SparkSessionBase import SparkSessionBase
 os.environ['JAVA_HOME'] = 'C:\Program Files\Java\jdk1.8.0_261'
 
 
