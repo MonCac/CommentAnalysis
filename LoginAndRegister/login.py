@@ -1,4 +1,4 @@
-from backend.apps.service.LoginAndRegister import db, main, storage, check
+from backend.apps.service.loginandregister import db, main, storage, check
 
 
 def login1():  # 改密码
