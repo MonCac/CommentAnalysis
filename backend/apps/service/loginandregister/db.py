@@ -1,6 +1,6 @@
 import pymysql
 from pymysql import IntegrityError  # 引用内置函数
-from backend.apps.service.loginandregister import main, storage
+from backend.apps.service.loginandregister import main
 
 
 def query(username):  # 查询，校验注册及登录
