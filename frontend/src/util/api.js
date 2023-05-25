@@ -1,4 +1,4 @@
-import request from ".//request";
+import request from "./request";
 
 // 登陆
 export function login() {
@@ -135,9 +135,9 @@ export function recommendByQuantization(params) {
 }
 
 // 个性化推荐
-export function recommendPersionalized(params) {
+export function recommendPersonalized(params) {
     return request({
-        url: "/recommendPersionalized",
+        url: "/recommendPersonalized",
         method: "post",
         params
     });

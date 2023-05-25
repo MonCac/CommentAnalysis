@@ -1,4 +1,5 @@
-from backend.apps.service.LoginAndRegister import db, main
+from backend.apps.service.loginandregister import db, main, storage, check
+
 
 
 def login():  # 包括登录成功和登录失败三次
