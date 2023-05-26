@@ -1,0 +1,20 @@
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: start
+}
+
+.logo-img {
+    width: 300px;
+    height: 100px;
+}
+
+.search-img {
+    width: 30px;
+    height: 30px;
+}
+
+.nav {
+    background-color: #4b4d52;
+}
+

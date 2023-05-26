@@ -90,11 +90,8 @@ import {
           } else {
             new proxy.$tips(res.data.message, 'success').mess_age()
             localStorage.setItem('token', res.data.data.token)
-            debugger
-            console.log(1234)
             // 成功跳转页面
             router.push('/recommend') // 使用 Vue Router 实现跳转到 home 页面
-            debugger
           }recommend
           state.loading = false
         } catch (e) {
@@ -139,6 +136,7 @@ import {
     font-size: 50px;
     font-family:"Arial", sans-serif;
     text-align:center;
+    color: #fff;
   }
 
   .login-box {
