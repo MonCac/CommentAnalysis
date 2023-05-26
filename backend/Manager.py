@@ -4,8 +4,6 @@ from backend.apps.service.suggestion import suggestion
 from backend.apps.service.friendrecommend import friendrecommend
 from backend.apps.service.merchantrecommend import merchantrecommend
 from backend.apps.service.loginandregister import basefunction
-
-
 app = Flask(__name__)
 
 app.register_blueprint(suggestion)
