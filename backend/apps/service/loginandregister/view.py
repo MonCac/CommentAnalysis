@@ -30,9 +30,9 @@ def login(params):
 
 
 # 用户注册
-@basefunction.route('userregister/')
+@basefunction.route('/api/userregister/')
 def userRegister(params):
-
+    print(111111)
     username = params[0]
     password = params[1]
     status = 0
