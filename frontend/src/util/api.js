@@ -1,17 +1,21 @@
 import request from "./request";
 
 // 登陆
-export function login() {
+export function login(params) {
     return request({
         url: "/login/",
-        method: "get"
+        method: "post"
     });
 }
 
 // 用户注册
 export function userRegister(params) {
+    debugger
+    console.log("gogogo")
+    console.log(params)
+    debugger
     return request({
-        url: "/userregister",
+        url: "/userregister/",
         method: "post",
         params
     });

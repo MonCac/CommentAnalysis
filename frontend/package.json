@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "lint": "vue-cli-service lint",
+    "dev": "node --max-http-header-size=1000000 ./node_modules/.bin/webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "serve": "set NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve",
     "build": "vue-cli-service build"
   },
