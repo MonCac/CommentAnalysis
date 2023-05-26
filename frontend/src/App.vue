@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
   <div id="app">
     <!-- 路由占位符 -->

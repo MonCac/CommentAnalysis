@@ -3,7 +3,7 @@ os.environ['JAVA_HOME'] = 'C:\Program Files\Java\jdk1.8.0_261'
 
 from pyspark import HiveContext
 from pyspark.sql.functions import *
-from SparkSessionBase import SparkSessionBase
+from backend.useless_file import SparkSessionBase
 
 class TextRandJob(SparkSessionBase):
     SPARK_URL = "local"
@@ -172,12 +172,12 @@ class TextRandJob(SparkSessionBase):
 #描述：获取用户的评论数，将当年评论数为零的人统计出来，计算这类沉默用户和总用户的比例。
 # 统计要求：获取用户本年评论数为零的用户并统计数量，与总用户比对得到比例
 #验收准则：获得每年沉默用户占所有用户的比例
-        u_df.join(r_df,u_df[user_id]==)
-            .select(year(to_date('user_yelping_since')).alias('year')) \
-            .groupBy('year') \
-            .agg(count(col('year')).alias('count')) \
-            .orderBy(col('year').asc()) \
-            .show()
+        # u_df.join(r_df,u_df[user_id]==)
+        #     .select(year(to_date('user_yelping_since')).alias('year')) \
+        #     .groupBy('year') \
+        #     .agg(count(col('year')).alias('count')) \
+        #     .orderBy(col('year').asc()) \
+        #     .show()
 
 
 
