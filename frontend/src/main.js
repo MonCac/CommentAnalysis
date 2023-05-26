@@ -1,8 +1,12 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 
-router.replace('/login')
+Vue.use(ElementUI)
+router.replace('/merchantdisplay')
+// axios.defaults.baseURL = 'http://localhost:5000'
 new Vue({
   router,
   render: h => h(App)

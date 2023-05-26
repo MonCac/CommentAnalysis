@@ -1,4 +1,4 @@
-from flask import Blueprints
+from flask import Blueprint
 
 # 客户登录以及注册等基本功能
-basefunction = Blueprints('basefunction', __name__)
+basefunction = Blueprint('basefunction', __name__)
