@@ -16,7 +16,7 @@
         <label for="confirm-password">确认密码</label>
         <input type="password" id="confirm-password" v-model="confirmPassword" placeholder="请再次输入密码" required>
       </div>
-      <button type="submit" class="btn">注册</button>
+      <button type="submit" class="btn"  @click="register">注册</button>
     </form>
     <div class="footer">
       <span>已有账号？</span>
@@ -38,7 +38,9 @@ export default {
   methods: {
     register() {
       // 这里可以添加注册的逻辑，比如发送请求到后端保存用户信息
+      debugger
       console.log(`用户名：${this.username}，密码：${this.password}，确认密码：${this.confirmPassword}`)
+      debugger
     }
   }
 }
