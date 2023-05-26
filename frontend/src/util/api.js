@@ -16,7 +16,7 @@ export function userRegister(params) {
     debugger
     return request({
         url: "/userregister/",
-        method: "post",
+        method: "get",
         params
     });
 }
