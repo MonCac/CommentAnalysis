@@ -1,11 +1,11 @@
 '''
-用户名的规则：只能是大小写字母或数字，且不能以数字开头，长度为5~12位
+用户名的规则：只能是大小写字母或数字，且不能以数字开头，长度为5~20位
 '''
 import re  ##引用内置正则表达式模块
 
 
 def check_user(username):  # 定义个函数，备用个参数username
-    pattern = "^[a-zA-Z][0-9a-zA-Z]{4,11}$"
+    pattern = "^[a-zA-Z][0-9a-zA-Z]{4,30}$"
     ##上面定义正则规则，下面正则固定写法re.match，规则在先字符串在后，储存在res变量中，全拼result；结果
     res = re.match(pattern=pattern, string=username)
     if res:  # 这里if判断如果值出来个给返回True反之False
@@ -17,7 +17,7 @@ def check_user(username):  # 定义个函数，备用个参数username
 
 
 '''
-密码的规则：密码必须且只能由大小写字母和数字组成，长度为6~15位
+密码的规则：密码必须且只能由大小写字母和数字组成，长度为5~20位
 print(ord(st)) #a-97 z-122 A-65 Z=90 0-48 9-57 将字符转换成ASCII
 print(chr(97)) #将ASCII值转换成对应的字符
 '''
@@ -27,7 +27,7 @@ def check_pwd(pwd):
     low = 0
     up = 0
     num = 0
-    if len(pwd) >= 6 and len(pwd) < 15:
+    if len(pwd) >= 5 and len(pwd) < 30:
         # 原生比较/ASII数值比较
         for p in pwd:
             ##这里可参照ascii表来查明意义
@@ -47,7 +47,7 @@ def check_pwd(pwd):
     if up >= 1 or low >= 1 or num >= 1:
         return True
     else:
-        # print("密码必须且只能由大小写字母和数字组成，长度为6~15位：")
+        # print("密码必须且只能由大小写字母和数字组成，长度为5~15位：")
         # main.select()
         return False
 
