@@ -3,42 +3,65 @@
   <div class="wrapper">
   <div class="register-container">
     <h2 class="title">用户注册</h2>
-    <form class="form" @submit.prevent="register">
+    <form class="form">
       <div class="form-group">
         <label for="username">用户名</label>
-        <input type="text" id="username" v-model="username" placeholder="请输入用户名" required>
+        <input type="text" id="username" v-model="pwdUserRegisterForm.username" placeholder="请输入用户名" required>
       </div>
       <div class="form-group">
         <label for="password">密码</label>
-        <input type="password" id="password" v-model="password" placeholder="请输入密码" required>
+        <input type="password" id="password" v-model="pwdUserRegisterForm.password" placeholder="请输入密码" required>
       </div>
       <div class="form-group">
         <label for="confirm-password">确认密码</label>
         <input type="password" id="confirm-password" v-model="confirmPassword" placeholder="请再次输入密码" required>
       </div>
-      <button type="submit" class="btn" @click="goToRecommend">注册</button>
+      <button type="submit" class="btn" @click="register">注册</button>
     </form>
     <div class="footer">
       <span>已有账号？</span>
-      <a href="#" @click.prevent="$router.push('/login')">立即登录</a>
+ 
     </div>
   </div>
 </div>
 </template>
 
 <script>
+import Axios from "axios"
+import { userRegister } from "../util/api"
 export default {
  data() {
     return {
-      username: '',
-      password: '',
+      pwdUserRegisterForm: {
+        username: '',
+        password: ''
+      },
       confirmPassword: ''
     }
   },
   methods: {
     register() {
       // 这里可以添加注册的逻辑，比如发送请求到后端保存用户信息
-      console.log(`用户名：${this.username}，密码：${this.password}，确认密码：${this.confirmPassword}`)
+      debugger
+      console.log(`用户名：${this.pwdUserRegisterForm.username}，密码：${this.pwdUserRegisterForm.password}，确认密码：${this.confirmPassword}`)
+      debugger
+      const jsonData = JSON.stringify(this.pwdUserRegisterForm)
+      userRegister(jsonData).then((res) => {
+        debugger
+        if (res.status == 200){
+          debugger
+          console.log("ok")
+        
+          debugger
+        }
+        else{
+          debugger
+          console.log("出错了")
+          debugger
+        }
+      })
+
+
     },
     goToRecommend() {
       this.$router.push('/recommend');

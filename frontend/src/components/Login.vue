@@ -12,7 +12,7 @@
           <el-form ref="pwdLoginFormRef" :model="pwdLoginForm" :rules="pwdLoginFormRules">
             <!-- 用户名 -->
             <el-form-item prop="username" label="用户名">
-              <el-input placeholder="请输入用户名" prefix-icon="el-icon-user-solid" v-model="pwdLoginForm.username" required>
+              <el-input placeholder="请输入用户名" prefix-icon="el-icon-user-solid" v-model="pwdLoginForm.username"  required>
               </el-input>
             </el-form-item>
             <!-- 密码 -->

@@ -1,6 +1,7 @@
 from backend.apps.service.loginandregister import basefunction
 import pymysql
 
+
 # 登录
 @basefunction.route('/login')
 def login(params):
@@ -27,9 +28,11 @@ def login(params):
         else:
             return "密码错误"
 
+
 # 用户注册
-@basefunction.route('/userregister')
+@basefunction.route('userregister/')
 def userRegister(params):
+
     username = params[0]
     password = params[1]
     status = 0
