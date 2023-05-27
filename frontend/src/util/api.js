@@ -1,10 +1,11 @@
 import request from "./request";
 
 // 登陆
-export function login(params) {
+export function login(paramss) {
     return request({
-        url: "/login/",
-        method: "post"
+        url: "/login",
+        method: "get",
+        params: {login : paramss}
     });
 }
 
@@ -22,11 +23,11 @@ export function userRegister(paramss) {
 }
 
 // 商户注册
-export function merchantRegister(params) {
+export function merchantRegister(paramss) {
     return request({
         url: "/merchantregister",
-        method: "post",
-        params
+        method: "get",
+        params: {register : paramss}
     });
 }
 
@@ -34,7 +35,7 @@ export function merchantRegister(params) {
 export function changePassword(params) {
     return request({
         url: "/changepassword",
-        method: "post",
+        method: "get",
         params
     });
 }
@@ -43,7 +44,7 @@ export function changePassword(params) {
 export function changeMerchantName(params) {
     return request({
         url: "/changemerchantname",
-        method: "post",
+        method: "get",
         params
     });
 }
@@ -52,7 +53,7 @@ export function changeMerchantName(params) {
 export function changeMerchantAddress(params) {
     return request({
         url: "/changemerchantaddress",
-        method: "post",
+        method: "get",
         params
     });
 }
@@ -61,7 +62,7 @@ export function changeMerchantAddress(params) {
 export function changeMerchantState(params) {
     return request({
         url: "/changemerchantstate",
-        method: "post",
+        method: "get",
         params
     });
 }
@@ -70,17 +71,17 @@ export function changeMerchantState(params) {
 export function changeMerchantCity(params) {
     return request({
         url: "/changemerchantcity",
-        method: "post",
+        method: "get",
         params
     });
 }
 
 // 搜索
-export function normalSearch(params) {
+export function normalSearch(paramss) {
     return request({
         url: "/normalsearch",
-        method: "post",
-        params
+        method: "get",
+        params: {friendRecommend :paramss}
     });
 }
 
@@ -88,7 +89,7 @@ export function normalSearch(params) {
 export function fuzzySearch(params) {
     return request({
         url: "/fuzzysearch",
-        method: "post",
+        method: "get",
         params
     });
 }
@@ -97,7 +98,7 @@ export function fuzzySearch(params) {
 export function recommendByBrowsing(params) {
     return request({
         url: "/recommendbybrowsing",
-        method: "post",
+        method: "get",
         params
     });
 }
@@ -106,7 +107,7 @@ export function recommendByBrowsing(params) {
 export function recommendByPosition(params) {
     return request({
         url: "/recommendbyposition",
-        method: "post",
+        method: "get",
         params
     });
 }
@@ -115,7 +116,7 @@ export function recommendByPosition(params) {
 export function recommendDefault(params) {
     return request({
         url: "/recommenddefault",
-        method: "post",
+        method: "get",
         params
     });
 }
@@ -124,7 +125,7 @@ export function recommendDefault(params) {
 export function recommendByChoice(params) {
     return request({
         url: "/recommendbychoice",
-        method: "post",
+        method: "get",
         params
     });
 }
@@ -133,7 +134,7 @@ export function recommendByChoice(params) {
 export function recommendByQuantization(params) {
     return request({
         url: "/recommendbyquantization",
-        method: "post",
+        method: "get",
         params
     });
 }
@@ -142,7 +143,7 @@ export function recommendByQuantization(params) {
 export function recommendPersonalized(params) {
     return request({
         url: "/recommendPersonalized",
-        method: "post",
+        method: "get",
         params
     });
 }
@@ -172,10 +173,13 @@ export function userManagementSuggestion() {
 }
 
 // 相似商户评价推荐好友
-export function evaluationRecommendFriend() {
+export function evaluationRecommendFriend(paramss) {
+    debugger
+    console.log(paramss)
     return request({
         url: "/evaluationrecommendfriend",
-        method: "get"
+        method: "get",
+        params: {friendRecommend :paramss}
     });
 }
 

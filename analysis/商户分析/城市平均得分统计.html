@@ -1,0 +1,127 @@
+<!--
+	此示例下载自 https://echarts.apache.org/examples/zh/editor.html?c=mix-line-bar&code=PYBwLglsB2AEC8sDeAoWszGAG0iAXMmuhgE4QDmFApqYQOQCGAHhAM70A0x6L7ACsAjQwtQqhIkwATxDUGAY1LA2HbpPRKVbAMozs8ohpIKcwOrHoBiAJx36PEgF9HL9E_UYs2AEbBm4o4AZtSMYACupIYSGgAmYYwAahDUAO7isGwAFsDpZOHUnLBRjLEA8tDY0oRBjNhs1LAejugAtowUEAoAKrLRmTl5YKQFRTJyhADa9NjC1FyWPoyk9AC6TZ6SUWyYURnZuYTDBRstmYwAbtQAgmwAku00-4NHI41uzsTN6AY00LGBSTxMCMKb0QBz6oAgPUA3AaAEejAF3RgAdTBaWKGAZz1AOLqgHT9QBgSmsvp5mNdWGwpo4YpJxoZ6AowtQKOZpFwzsDQbBpjpGCJGLAAELLJakRgLegAOTSsDKpAMXLUlj0ADpYPxqKJSGwfJEKCKAMLLVrUbAigBK1GgwBFAHEcKrhUV6AARYDSAw7XLQEWc4RgZWq2garUi3lCBoi_h1VqwAASAvMa02JD4bEE3rERmMGD6DGypVyDmMH3cxFWnmkxPYZMkFKkWcsFzqBWZxmgjANDARyITbWEhAArAAGftd2DtAKwABsAGZB8PU6R69hCAAmGdnJMAGUYPkNgIzQXM7TAaoYSAXBScljOhdOVbOVIYZ_mw5bbcsmNxTY0rR7sEnCt7w6joQAAsCoAIyziItALn2w4bluO7psY-6kIex6WKeDbUBeeJXq4xaeA05DUKS7LkmcL7Uh2n6UrW9CCjRUjeHgu7GI-ABiB5hOhQThNACiQDAsAABSPgAlEhGZRBEpBwI-sAANSWPQADcZxFgWw6slMk4ABxLjYRTjiuhmwGBYG6QBsA2OOADsRS9jYk5WbZNi6Q5k6mWB45TkUBmTvZE7jr2qyuAm1boJRDDvniw73pYszQE-ZxliSdz_NQY4QXezEQAQkmSBxXFHmmvH8YJcCiVhEkRRo0mRHJWGKZYeJqRmTRXlpCRTKB_a9mBwHATYwHBUUf76UudlTWNCrub-Cq2bZwG9uO_ZDeOM22eOYG9rpelLlZf5LU5tmTsBZ2bUutlXTdgVHQNAXeRZm0Dd5wHmZOM3jrpw2nd9wGhZIHyhU4KlAA
+	⚠ 请注意，该图表不是 Apache ECharts 官方示例，而是由用户代码生成的。请注意鉴别其内容。
+-->
+<!DOCTYPE html>
+<html lang="zh-CN" style="height: 100%">
+<head>
+  <meta charset="utf-8">
+</head>
+<body style="height: 100%; margin: 0">
+  <div id="container" style="height: 100%"></div>
+
+
+  <script type="text/javascript" src="../echarts.js"></script>
+  <!-- Uncomment this line if you want to dataTool extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.2/dist/extension/dataTool.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use gl extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to echarts-stat extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use map
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/china.js"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+  -->
+  <!-- Uncomment these two lines if you want to use bmap extension
+  <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.2/dist/extension/bmap.min.js"></script>
+  -->
+
+  <script type="text/javascript">
+    var dom = document.getElementById('container');
+    var myChart = echarts.init(dom, null, {
+      renderer: 'canvas',
+      useDirtyRect: false
+    });
+    var app = {};
+
+    var option;
+
+    option = {
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'cross',
+      crossStyle: {
+        color: '#999'
+      }
+    }
+  },
+  toolbox: {
+    feature: {
+      dataView: { show: true, readOnly: false },
+      magicType: { show: true, type: ['line', 'bar'] },
+      restore: { show: true },
+      saveAsImage: { show: true }
+    }
+  },
+  legend: {
+    data: ['城市总评论数',  '城市平均得分']
+  },
+  xAxis: [
+    {
+      type: 'category',
+      data: ['Santa Barbara', 'New Orleans', 'St. Petersburg', 'Carmel', 'Reno', 'Goleta', 'Doylestown', 'Saint Petersburg', 'Boise', 'Palm Harbor'],
+      axisPointer: {
+        type: 'shadow'
+      }
+    }
+  ],
+  yAxis: [
+    {
+      type: 'value',
+      name: '评论数',
+      min: 500,
+      max: 6300,
+      interval: 200,
+      axisLabel: {
+        formatter: '{value} '
+      }
+    },
+    {
+      type: 'value',
+      name: '平均得分',
+      min: 3.5,
+      max: 4.1,
+      interval: 5,
+      axisLabel: {
+        formatter: '{value} 分'
+      }
+    }
+  ],
+  series: [
+    {
+      name: '评论数',
+      type: 'bar',
+      tooltip: {
+        valueFormatter: function (value) {
+          return value + '';
+        }
+      },
+      data: [3829, 6209, 1185, 967, 5935, 798, 539, 1663, 2937, 665]
+    },
+    {
+      name: '平均得分',
+      type: 'line',
+      yAxisIndex: 1,
+      tooltip: {
+        valueFormatter: function (value) {
+          return value + '分';
+        }
+      },
+      data: [4.051449465, 3.82267676, 3.8, 3.774560496, 3.761583825, 3.749373434, 3.727272727, 3.714371618, 3.714164113, 3.689473684]
+    }
+  ]
+};
+
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+  </script>
+</body>
+</html>

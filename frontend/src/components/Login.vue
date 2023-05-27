@@ -64,6 +64,7 @@ import {
   import {
     useRouter
   } from 'vue-router'
+  import { login } from "../util/api";
   export default {
     data() {
       return {
@@ -76,36 +77,27 @@ import {
       }
     },
     methods: {
-      pwdLogin: async () => {
-        state.loading = true
-        const obj = {
-          username: state.pwdLoginForm.username,
-          password: state.pwdLoginForm.password
+      pwdLogin() {
+      // 这里可以添加注册的逻辑，比如发送请求到后端保存用户信息
+      console.log(`用户名：${this.pwdLoginForm.username}，密码：${this.pwdLoginForm.password}`)
+      login(this.pwdLoginForm).then((res) => {
+        if (res.status == 200){
+          this.$router.push('/recommend')
         }
-        try {
-          const res = await new proxy.$request(proxy.$urls.m().pwdLogin, qs.stringify(obj)).modepost()
-          console.log(res)
-          if (res.data.success != true) {
-            new proxy.$tips(res.data.message, 'warning').mess_age()
-          } else {
-            new proxy.$tips(res.data.message, 'success').mess_age()
-            localStorage.setItem('token', res.data.data.token)
-            // 成功跳转页面
-            router.push('/recommend') // 使用 Vue Router 实现跳转到 home 页面
-          }recommend
-          state.loading = false
-        } catch (e) {
-          state.loading = false
-          new proxy.$tips('服务器发生错误', 'error').mess_age()
+        else{
+          console.log("出错了")
         }
+      })
       },
       handleClick(tab, event) {
         console.log(tab, event)
       },
       goUserRegister() {
+        debugger
         this.$router.push('/userregister')
       },
       goMerchantRegister() {
+        debugger
         this.$router.push('/merchantregister')
       }
     }

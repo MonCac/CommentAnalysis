@@ -1,4 +1,6 @@
-from flask import Blueprint
+import pymysql
+import json
+from flask import Blueprint, request
 
 # 推荐好友功能
 
@@ -7,21 +9,28 @@ friendrecommend = Blueprint('friendrecommend', __name__)
 
 
 @friendrecommend.route('/evaluationrecommendfriend')
-def evaluationRecommendFriend(params):
-    user_id = params
+def evaluationRecommendFriend():
+    params = request.args.get("friendRecommend")
+    user_id = str(params)
+    print(user_id)
     con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
                           charset='utf8')
     cursor = con.cursor()
     #包含用户姓名，但搜索速度较慢
-    # sql = f" select user_name,a.rev_user_id from review a join review b on a.rev_business_id=b.rev_business_id" \
-    #     f" join users u on user_id=a.rev_user_id where a.rev_stars=b.rev_stars and b.rev_user_id!=a.rev_user_id " \
-    #     f" and b.rev_user_id='{user_id}'limit 10;"
-    sql = f" select a.rev_user_id,a.business_id from review a join review b on a.rev_business_id=b.rev_business_id" \
-        f" where a.rev_stars=b.rev_stars and b.rev_user_id!=a.rev_user_id " \
+    sql = f" select a.rev_user_id,user_name from review a join review b on a.rev_business_id=b.rev_business_id" \
+        f" join users u on user_id=a.rev_user_id where a.rev_stars=b.rev_stars and b.rev_user_id!=a.rev_user_id " \
         f" and b.rev_user_id='{user_id}'limit 10;"
+    # sql = f" select a.rev_user_id,a.business_id from review a join review b on a.rev_business_id=b.rev_business_id" \
+    #     f" where a.rev_stars=b.rev_stars and b.rev_user_id!=a.rev_user_id " \
+    #     f" and b.rev_user_id='{user_id}'limit 10;"
     cursor.execute(sql)
-    results = (cursor.fetchall())
-    return results
+    results = cursor.fetchall()
+    key = ("id", "name")
+    resultList=[]
+    for row in results:
+         resultList.append(dict(zip(key, row)))
+    print(resultList)
+    return resultList
 
 
 # # 相似好友推荐好友
