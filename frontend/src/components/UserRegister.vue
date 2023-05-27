@@ -45,8 +45,7 @@ export default {
       debugger
       console.log(`用户名：${this.pwdUserRegisterForm.username}，密码：${this.pwdUserRegisterForm.password}，确认密码：${this.confirmPassword}`)
       debugger
-      const jsonData = JSON.stringify(this.pwdUserRegisterForm)
-      userRegister(jsonData).then((res) => {
+      userRegister(this.pwdUserRegisterForm).then((res) => {
         debugger
         if (res.status == 200){
           debugger
