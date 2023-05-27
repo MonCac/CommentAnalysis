@@ -9,15 +9,15 @@ export function login(params) {
 }
 
 // 用户注册
-export function userRegister(params) {
+export function userRegister(paramss) {
     debugger
     console.log("gogogo")
-    console.log(params)
+    console.log(paramss)
     debugger
     return request({
-        url: "/userregister/",
+        url: "/userregister",
         method: "get",
-        params
+        params: {register : paramss}
     });
 }
 
