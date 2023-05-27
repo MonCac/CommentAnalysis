@@ -1,36 +1,36 @@
 <!-- 用户注册界面  -->
 <template>
   <div class="wrapper">
-  <div class="register-container">
-    <h2 class="title">用户注册</h2>
-    <form class="form">
-      <div class="form-group">
-        <label for="username">用户名</label>
-        <input type="text" id="username" v-model="pwdUserRegisterForm.username" placeholder="请输入用户名" required>
+    <div class="register-container">
+      <h2 class="title">用户注册</h2>
+      <form class="form">
+        <div class="form-group">
+          <label for="username">用户名</label>
+          <input type="text" id="username" v-model="pwdUserRegisterForm.username" placeholder="请输入用户名" required>
+        </div>
+        <div class="form-group">
+          <label for="password">密码</label>
+          <input type="password" id="password" v-model="pwdUserRegisterForm.password" placeholder="请输入密码" required>
+        </div>
+        <div class="form-group">
+          <label for="confirm-password">确认密码</label>
+          <input type="password" id="confirm-password" v-model="confirmPassword" placeholder="请再次输入密码" required>
+        </div>
+        <button type="submit" class="btn" @click="register">注册</button>
+      </form>
+      <div class="footer">
+        <span>已有账号？</span>
+        <a href="#" @click.prevent="$router.push('/login')">立即登录</a>
       </div>
-      <div class="form-group">
-        <label for="password">密码</label>
-        <input type="password" id="password" v-model="pwdUserRegisterForm.password" placeholder="请输入密码" required>
-      </div>
-      <div class="form-group">
-        <label for="confirm-password">确认密码</label>
-        <input type="password" id="confirm-password" v-model="confirmPassword" placeholder="请再次输入密码" required>
-      </div>
-      <button type="submit" class="btn" @click="register">注册</button>
-    </form>
-    <div class="footer">
-      <span>已有账号？</span>
- 
     </div>
   </div>
-</div>
 </template>
 
 <script>
 import Axios from "axios"
 import { userRegister } from "../util/api"
 export default {
- data() {
+  data() {
     return {
       pwdUserRegisterForm: {
         username: '',
@@ -42,24 +42,30 @@ export default {
   methods: {
     register() {
       // 这里可以添加注册的逻辑，比如发送请求到后端保存用户信息
-      debugger
-      console.log(`用户名：${this.pwdUserRegisterForm.username}，密码：${this.pwdUserRegisterForm.password}，确认密码：${this.confirmPassword}`)
-      debugger
-      userRegister(this.pwdUserRegisterForm).then((res) => {
-        debugger
-        if (res.status == 200){
-          debugger
-          console.log("ok")
-        
-          debugger
-        }
-        else{
-          debugger
-          console.log("出错了")
-          debugger
-        }
-      })
-
+      if (this.pwdUserRegisterForm.password != this.confirmPassword) {
+        alert('密码不一致')
+      }
+      else if (this.pwdUserRegisterForm.username.length < 6) {
+        alert('用户名太短')
+      }
+      else if (this.pwdUserRegisterForm.password.length < 6) {
+        alert('密码太短')
+      }
+      else if (this.pwdUserRegisterForm.password.length > 40) {
+        alert('密码太长')
+      }
+      else {
+        userRegister(this.pwdUserRegisterForm).then((res) => {
+          if (res.status == 200) {
+            console.log("ok")
+          }
+          else {
+            debugger
+            console.log("出错了")
+            debugger
+          }
+        })
+      }
 
     },
     goToRecommend() {
