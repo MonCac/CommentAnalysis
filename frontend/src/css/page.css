@@ -17,4 +17,40 @@
 .nav {
     background-color: #4b4d52;
 }
-
+/*navbar*/
+.navbar {
+    height: 200px;
+      width: 100%;
+      background-color: white;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+  }
+  
+  .nav-info div {
+    height: 40px;
+      background-color: #4b4d52;
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+  }
+  
+  .nav-info div:last-child {
+    margin-right: 0;
+  }
+  
+  .nav-info a:hover {
+      color: white !important;
+  }
+  
+  .nav-search {
+      height: 100px;
+      width: 100%;
+      background-color: gray;
+      display: flex;
+      justify-content: flex-start;
+      align-content: center;
+      position: relative;
+  }

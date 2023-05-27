@@ -464,4 +464,29 @@ footer a {
 .friend-action {
   margin-top: 10px;
 }
+
+.tabs .el-tabs__nav-wrap {
+  background-color: #f2f1ea;
+}
+.tabs .el-tabs__nav-wrap::after {
+  background-color: #f2f1ea;
+}
+.tabs .el-tabs__active-bar {
+  background-color: #b5aa9a;
+}
+.tabs .el-tabs__nav {
+  margin-left: 17%;
+}
+.tabs .el-tabs__item.is-active {
+  color: #3f4247;
+  font-size: 16px;
+  font-weight: 600;
+}
+.tabs .el-tabs__item {
+  font-size: 16px;
+}
+.tabs .el-tabs__item:hover {
+  color: #3f4247;
+  font-weight: 600;
+}
 </style>

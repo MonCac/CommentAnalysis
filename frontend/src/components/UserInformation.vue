@@ -23,8 +23,10 @@
       <!--  nav-search -->
     </header>
     <div class="personal-space">
+      
       <h1>{{ username }} 的个人空间</h1>
       <div class="user-info">
+        <h2>个人信息</h2>
         <div class="info-item">
           <span class="label">联系方式：</span>
           <span v-if="!editContact">{{ contact }}</span>
@@ -64,6 +66,7 @@
         <ul>
           <li v-for="friend in friends" :key="friend.id">{{ friend.name }}</li>
         </ul>
+        
       </div>
       <div class="comment-list">
         <h2>历史评论</h2>
@@ -78,11 +81,11 @@
         </ul>
      </div>
     <!-- container end-->
-    <footer>
+  </div>
+  <footer>
       <a href="#">©2023 点评数据分析与推荐</a>
       <a href="#">意见反馈&nbsp;&nbsp;&nbsp;联系我们&nbsp;&nbsp;&nbsp;隐私权声明&nbsp;&nbsp;&nbsp;使用条款</a>
     </footer>
-  </div>
 </div>
 </template>
 
@@ -194,51 +197,28 @@ export default {
   color: #333;
   max-width: 100%;
   margin: 0 auto;
-  
-}
-
-.navbar {
-  height: 200px;
-	width: 100%;
-	background-color: white;
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-	justify-content: flex-start;
-}
-
-.nav-info div {
-  height: 40px;
-	background-color: #4b4d52;
-	display: flex;
-	justify-content: flex-end;
-	flex-wrap: wrap;
-}
-
-.nav-info div:last-child {
-  margin-right: 0;
-}
-
-.nav-info a:hover {
-	color: white !important;
-}
-
-.nav-search {
-	height: 100px;
-	width: 100%;
-	/*background-color: gray;*/
-	display: flex;
-	justify-content: flex-start;
-	align-content: center;
-	position: relative;
 }
 
 .personal-space {
+  background-color: #fff;
+  width: 1200px;
+  align-content: center;
+  margin: 0 auto;
+  padding: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+.personal-space  h1{
+  font-size: 50px;
+  font-family:"宋体", SimSun, STSong, "Microsoft YaHei", Arial, sans-serif;
+}
+.user-info {
   margin-top: 40px;
+  margin-bottom: 40px;
 }
 
-.user-info {
+.user-info h2{
+  margin-top: 40px;
   margin-bottom: 40px;
 }
 
@@ -248,6 +228,8 @@ export default {
 
 .label {
   font-weight: bold;
+  font-size: large;
+  
 }
 
 .edit-input,
@@ -264,6 +246,10 @@ export default {
 }
 
 .edit-btn {
+  margin-left: 50px;
+  width: 50px;
+  border-radius: 10px;
+  display: inline-block; /* Add this line */
   border: 1px solid #ccc;
   background-color: #fff;
   color: #333;
@@ -278,12 +264,28 @@ export default {
 
 .friend-list {
   margin-bottom: 40px;
+  display: flex;
+  gap: 50px; /* 设置标题和列表之间的间隙 */
+  
+  
 }
 
+.friend-list h2{
+  display: block;
+}
+.friend-list ul{
+  display: block;
+  margin: 0;
+  padding: 0;
+  
+}
 .comment-list {
   margin-bottom: 40px;
 }
 
+.comment-list h2{
+  margin-bottom: 40px;
+}
 .comment-header {
   display: flex;
   justify-content: space-between;
