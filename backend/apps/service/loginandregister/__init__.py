@@ -13,6 +13,7 @@ def hello():
     return 'hhhhh'
 
 
+# 用户注册
 @basefunction.route('/userregister')
 def userRegister():
     print(111111)
@@ -52,23 +53,12 @@ def login():
     sql = f"select password,status from pwd where username='{username}';"
     cursor.execute(sql)
     results = (cursor.fetchone())
-    if results is None:  # 如果查询结果是空
-        return (f"用户'{username}'不存在")
-        cursor.close()
-        con.close()
-    else:
-        cursor.close()
-        con.close()
-        if password == results[0]:
-            if results[1] == 0:
-                return "用户登录成功"
-            else:
-                return "商户登录成功"
-        else:
-            return "密码错误"
-
-
-# 用户注册
+    sql_business = f"select business_id from pwd where username='{username}';"
+    cursor.execute(sql_business)
+    result_business = cursor.fetchone()
+    key = ("business_id")
+    print(dict(zip(key, result_business)))
+    return dict(zip(key, result_business))
 
 
 # 商户注册

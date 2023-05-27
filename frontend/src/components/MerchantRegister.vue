@@ -9,6 +9,10 @@
           <input type="text" id="username" v-model="pwdMerchantRegisterForm.username" placeholder="请输入用户名" required>
         </div>
         <div class="form-group">
+          <label for="password">商户id</label>
+          <input type="text" id="business_id" v-model="pwdMerchantRegisterForm.business_id" placeholder="请输入密码" required>
+        </div>
+        <div class="form-group">
           <label for="password">密码</label>
           <input type="password" id="password" v-model="pwdMerchantRegisterForm.password" placeholder="请输入密码" required>
         </div>
@@ -34,7 +38,8 @@ export default {
     return {
       pwdMerchantRegisterForm: {
         username: '',
-        password: ''
+        password: '',
+        business_id: ''
       },
       confirmPassword: ''
     }
@@ -47,6 +52,9 @@ export default {
       else if(this.pwdMerchantRegisterForm.username.length < 6){
         alert('商户名太短')
       }
+      else if(this.pwdMerchantRegisterForm.business_id.length < 6){
+        alert('商户名太短')
+      }
       else if(this.pwdMerchantRegisterForm.password.length < 6){
         alert('密码太短')
       }
@@ -55,7 +63,6 @@ export default {
       }
       else {
         // 这里可以添加注册的逻辑，比如发送请求到后端保存用户信息
-        debugger
         merchantRegister(this.pwdMerchantRegisterForm).then((res) => {
           debugger
           if (res.status == 200) {

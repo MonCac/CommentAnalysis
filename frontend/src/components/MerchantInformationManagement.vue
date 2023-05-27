@@ -102,12 +102,17 @@
 export default {
   mounted() {
     this.username = this.$route.query.username
+    debugger
+    this.business_id = this.$route.query.business_id
+    console.log(this.business_id)
+    debugger
     if (this.username != ''){
       this.loginData = true
     }
   },
   data() {
     return {
+      business_id: '',
       username: '',
       contact: '',
       gender: '',
