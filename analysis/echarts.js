@@ -24903,7 +24903,7 @@
       var payload = context.payload; // FIXME: remove updateView updateVisual
 
       var progressiveRender = seriesModel.pipelineContext.progressiveRender;
-      var view = context.view;
+      var view = context.suggestion;
       var updateMethod = payload && inner$2(payload).updateMethod;
       var methodName = progressiveRender ? 'incrementalPrepareRender' : updateMethod && view[updateMethod] ? updateMethod // `appendData` is also supported when data amount
       // is less than progressive threshold.
@@ -24919,7 +24919,7 @@
     var progressMethodMap = {
       incrementalPrepareRender: {
         progress: function (params, context) {
-          context.view.incrementalRender(params, context.model, context.ecModel, context.api, context.payload);
+          context.suggestion.incrementalRender(params, context.model, context.ecModel, context.api, context.payload);
         }
       },
       render: {
@@ -24929,7 +24929,7 @@
         // in any cases.
         forceFirstProgress: true,
         progress: function (params, context) {
-          context.view.render(context.model, context.ecModel, context.api, context.payload);
+          context.suggestion.render(context.model, context.ecModel, context.api, context.payload);
         }
       }
     };
@@ -26293,7 +26293,7 @@
         var targetEl = eventInfo.targetEl;
         var packedEvent = eventInfo.packedEvent;
         var model = eventInfo.model;
-        var view = eventInfo.view; // For event like 'globalout'.
+        var view = eventInfo.suggestion; // For event like 'globalout'.
 
         if (!model || !view) {
           return true;
@@ -53313,7 +53313,7 @@
       function View(name) {
         var _this = _super.call(this) || this;
 
-        _this.type = 'view';
+        _this.type = 'suggestion.py';
         _this.dimensions = ['x', 'y'];
         /**
          * Represents the transform brought by roam/zoom.
@@ -54939,7 +54939,7 @@
       TreeView.prototype._getNodeGlobalScale = function (seriesModel) {
         var coordSys = seriesModel.coordinateSystem;
 
-        if (coordSys.type !== 'view') {
+        if (coordSys.type !== 'suggestion.py') {
           return 1;
         }
 
@@ -56011,7 +56011,7 @@
       TreeSeriesModel.defaultOption = {
         // zlevel: 0,
         z: 2,
-        coordinateSystem: 'view',
+        coordinateSystem: 'suggestion.py',
         // the position of the whole view
         left: '12%',
         top: '12%',
@@ -59468,7 +59468,7 @@
     function simpleLayout(seriesModel) {
       var coordSys = seriesModel.coordinateSystem;
 
-      if (coordSys && coordSys.type !== 'view') {
+      if (coordSys && coordSys.type !== 'suggestion.py') {
         return;
       }
 
@@ -59499,7 +59499,7 @@
         var layout = seriesModel.get('layout');
         var coordSys = seriesModel.coordinateSystem;
 
-        if (coordSys && coordSys.type !== 'view') {
+        if (coordSys && coordSys.type !== 'suggestion.py') {
           var data_1 = seriesModel.getData();
           var dimensions_1 = [];
           each(coordSys.dimensions, function (coordDim) {
@@ -59580,7 +59580,7 @@
     function getNodeGlobalScale(seriesModel) {
       var coordSys = seriesModel.coordinateSystem;
 
-      if (coordSys.type !== 'view') {
+      if (coordSys.type !== 'suggestion.py') {
         return 1;
       }
 
@@ -59626,7 +59626,7 @@
     function circularLayout(seriesModel, basedOn, draggingNode, pointer) {
       var coordSys = seriesModel.coordinateSystem;
 
-      if (coordSys && coordSys.type !== 'view') {
+      if (coordSys && coordSys.type !== 'suggestion.py') {
         return;
       }
 
@@ -59928,7 +59928,7 @@
       ecModel.eachSeriesByType('graph', function (graphSeries) {
         var coordSys = graphSeries.coordinateSystem;
 
-        if (coordSys && coordSys.type !== 'view') {
+        if (coordSys && coordSys.type !== 'suggestion.py') {
           return;
         }
 
@@ -60062,7 +60062,7 @@
       ecModel.eachSeriesByType('graph', function (seriesModel) {
         var coordSysType = seriesModel.get('coordinateSystem');
 
-        if (!coordSysType || coordSysType === 'view') {
+        if (!coordSysType || coordSysType === 'suggestion.py') {
           var data_1 = seriesModel.getData();
           var positions = data_1.mapArray(function (idx) {
             var itemModel = data_1.getItemModel(idx);
@@ -60894,7 +60894,7 @@
     }
 
     function isViewCoordSys(coordSys) {
-      return coordSys.type === 'view';
+      return coordSys.type === 'suggestion.py';
     }
 
     var GraphView =
@@ -61795,7 +61795,7 @@
       GraphSeriesModel.defaultOption = {
         // zlevel: 0,
         z: 2,
-        coordinateSystem: 'view',
+        coordinateSystem: 'suggestion.py',
         // Default option for all coordinate systems
         // xAxisIndex: 0,
         // yAxisIndex: 0,
@@ -66081,7 +66081,7 @@
       SankeySeriesModel.defaultOption = {
         // zlevel: 0,
         z: 2,
-        coordinateSystem: 'view',
+        coordinateSystem: 'suggestion.py',
         left: '5%',
         top: '5%',
         right: '20%',

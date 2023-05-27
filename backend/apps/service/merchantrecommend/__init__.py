@@ -44,13 +44,13 @@ def recommendByChoice():
     con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
                           charset='utf8')
     cursor = con.cursor()  # 游标做查询
-    sql = f"select `name`, stars, address ,(stars * 2000 + review_count * 0.05) AS score   " \
+    sql = f"select busxiness_id,`name`, stars, address ,(stars * 2000 + review_count * 0.05) AS score   " \
         f"FROM  business where is_open =1  order by {params} DESC LIMIT 12 "
     cursor.execute(sql)  # 查sql语句
     cursor.close()
     con.close()
     results = cursor.fetchall()  # 封装查询结果，fetchone一条，固定写法
-    key = ('name', 'stars', 'address', 'score')
+    key = ('busxiness_id','name', 'stars', 'address', 'score')
     resultList = []
     for row in results:
         resultList.append(dict(zip(key, row)))

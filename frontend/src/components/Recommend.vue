@@ -322,7 +322,7 @@ export default {
           for(var i=0; i<=11; i++){
             debugger
             console.log("ok")
-            this.recommendedMerchants[i].id = i+1
+            this.recommendedMerchants[i].id = res.data[i].business_id
             this.recommendedMerchants[i].name = res.data[i].name
             this.recommendedMerchants[i].stars = res.data[i].stars
             this.recommendedMerchants[i].address = res.data[i].address
