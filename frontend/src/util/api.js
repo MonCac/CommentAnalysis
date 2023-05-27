@@ -77,11 +77,11 @@ export function changeMerchantCity(params) {
 }
 
 // 搜索
-export function normalSearch(params) {
+export function normalSearch(paramss) {
     return request({
         url: "/normalsearch",
         method: "get",
-        params
+        params: {friendRecommend :paramss}
     });
 }
 
@@ -173,10 +173,13 @@ export function userManagementSuggestion() {
 }
 
 // 相似商户评价推荐好友
-export function evaluationRecommendFriend() {
+export function evaluationRecommendFriend(paramss) {
+    debugger
+    console.log(paramss)
     return request({
         url: "/evaluationrecommendfriend",
-        method: "get"
+        method: "get",
+        params: {friendRecommend :paramss}
     });
 }
 
