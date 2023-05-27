@@ -31,6 +31,7 @@ class TextRandJob(SparkSessionBase):
         #     .agg(count(col('Categories')).alias('count'))\
         #     .orderBy(col('count').desc())\
         #     .show(10)
+
 #统计category的数量
         # b_df.select(explode(split(col('categories'), ', ').alias('categories'))) \
         #     .distinct()\
@@ -168,10 +169,14 @@ class TextRandJob(SparkSessionBase):
 #             .orderBy(col('year').asc())\
 #             .show()
 
+#我需要一个优质用户数量统计功能，以至于我能统计出本年优质用户的数量，并且通过用户的数量对比得出优质用户的比例
+#描述：获取用户的优质用户属性，统计优质用户的数量， 与总用户数量比对，得出优质用户比例。验收要求：
+#验收准则：统计每年优质用户、普通用户比例
+
 #用户故事：我需要一个每年沉默用户（未写评论）比例统计功能，以至于我能统计出沉默用户的比例
 #描述：获取用户的评论数，将当年评论数为零的人统计出来，计算这类沉默用户和总用户的比例。
 # 统计要求：获取用户本年评论数为零的用户并统计数量，与总用户比对得到比例
-#验收准则：获得每年沉默用户占所有用户的比例
+#验收准则：显示每年总用户数、沉默用户数（未写评论）的比例
         # u_df.join(r_df,u_df[user_id]==)
         #     .select(year(to_date('user_yelping_since')).alias('year')) \
         #     .groupBy('year') \
@@ -179,7 +184,11 @@ class TextRandJob(SparkSessionBase):
         #     .orderBy(col('year').asc()) \
         #     .show()
 
-
+#统计出每年的新用户数、评论数、精英用户、tip数、打卡数.
+#列出结果表格
+#列出结果折线图
+#阐述你对结果的洞察分析
+#执行时间
 
 
 
