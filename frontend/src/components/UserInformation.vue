@@ -2,7 +2,7 @@
   <div class="home">
     <header class="navbar">
       <div class="nav-info" v-if="loginData">
-        <div @click="personalClick">个人空间</div>
+        <div >个人空间</div>
         <div @click="logout">[ 登 出 ]</div>
       </div>
       <div class="nav-info" v-if="!loginData">
@@ -88,6 +88,12 @@
 
 <script>
 export default {
+  mounted() {
+    this.id = this.$route.query.username
+    if (this.id != ''){
+      this.loginData = true
+    }
+  },
   data() {
     return {
       username: '张三',
@@ -125,20 +131,20 @@ export default {
       newSignature: '',
       input: '',
       loginData: false,
+      id: ''
     };
   },
   methods: {
     login() {
       // 登录逻辑
-      this.loginData = true;
+      this.$router.push('/login');
     },
     logout() {
       // 登出逻辑
-      this.loginData = false;
+      this.$router.replace('/login');
+      sessionStorage.clear();
     },
-    personalClick() {
-      // 跳转到个人空间
-    },
+
     search() {
       // 搜索逻辑
     },

@@ -5,7 +5,6 @@ import UserRegister from '../components/UserRegister.vue'
 import MerchantRegister from '../components/MerchantRegister.vue'
 import Recommend from '../components/Recommend.vue'
 import UserInformation from '../components/UserInformation.vue'
-import UserInformationManagement from '../components/UserInformationManagement.vue'
 import MerchantInformationManagement from '../components/MerchantInformationManagement'
 import MerchantDisplay from '../components/MerchantDisplay.vue'
 
@@ -33,10 +32,6 @@ const routes = [
   {
     path: '/userinformation',
     component: UserInformation
-  },
-  {
-    path: '/userinformationmanagement',
-    component: UserInformationManagement
   },
   {
     path:'/merchantdisplay',

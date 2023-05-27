@@ -53,17 +53,6 @@
 </template>
 
 <script>
-import {
-    ref,
-    reactive,
-    toRefs,
-    getCurrentInstance
-  } from 'vue'
-  import qs from 'qs'
-  import axios from 'axios'
-  import {
-    useRouter
-  } from 'vue-router'
   import { login } from "../util/api";
   export default {
     data() {
@@ -82,7 +71,7 @@ import {
       console.log(`用户名：${this.pwdLoginForm.username}，密码：${this.pwdLoginForm.password}`)
       login(this.pwdLoginForm).then((res) => {
         if (res.status == 200){
-          this.$router.push('/recommend')
+          this.$router.push({path:'/recommend', query:{username: this.pwdLoginForm.username}})
         }
         else{
           console.log("出错了")

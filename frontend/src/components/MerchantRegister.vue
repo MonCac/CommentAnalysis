@@ -61,11 +61,13 @@ export default {
           if (res.status == 200) {
             debugger
             console.log("ok")
+            alert('注册成功')
+            this.$router.push('/login')
             debugger
           }
           else {
             debugger
-            console.log("出错了")
+            alert('出错了')
             debugger
           }
         })
