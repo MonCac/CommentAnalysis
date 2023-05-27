@@ -223,10 +223,11 @@ export default {
       input: '',
       data: '',
       value: '',
-      id: 'hVOJJaaKRdQvB__BMq5yDA',
+      id: '',
     };
   },
   computed: {},
+  
   created() {
     this.value = this.$route.query.value;
     if (this.$route.query.page === '2') {
@@ -246,7 +247,10 @@ export default {
     this.friendRecommend()
   },
   mounted() {
-    this.loginData = getSession('loginData');
+    this.id = this.$route.query.username
+    if (this.id != ''){
+      this.loginData = true
+    }
   },
   methods: {
     login() {
@@ -256,7 +260,7 @@ export default {
       console.log(tab, event);
     },
     personalClick() {
-      this.$router.push('/userinformation');
+      this.$router.push({path:'/userinformation', query:{username: this.id}})
     },
     search() {
       this.data = this.input;
