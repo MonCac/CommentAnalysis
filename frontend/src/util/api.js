@@ -162,10 +162,15 @@ export function marketAnalysisSuggestion(params) {
 }
 
 // 设施需求建议
-export function facilityRequirementsSuggestion() {
+export function facilityRequirementsSuggestion(paramss) {
+    debugger
+    console.log("gogogo")
+    console.log(paramss)
+    debugger
     return request({
         url: "/facilityrequirementssuggestion",
-        method: "get"
+        method: "get",
+        params:{ facilityrequirementssuggestion : paramss }
     });
 }
 

@@ -45,8 +45,9 @@
               <el-card v-for="merchant in recommendedMerchants" :key="merchant.id" class="merchant-card">
                 <img class="merchant-img" :src="merchant.imgUrl" alt="商家图片">
                 <div @click="seeaInformation(merchant.id)" class="merchant-info">
+                  <div @click="seeaInformation(merchant.id)" class="merchant-business_id">{{ merchant.business_id }}</div>
                   <div @click="seeaInformation(merchant.id)" class="merchant-name">{{ merchant.name }}</div>
-                  <div @click="seeaInformation(merchant.id)" class="merchant-stars">{{ merchant.type }}</div>
+                  <div @click="seeaInformation(merchant.id)" class="merchant-stars">{{ merchant.stars }}</div>
                   <div @click="seeaInformation(merchant.id)" class="merchant-address">{{ merchant.address }}</div>
                 </div>
               </el-card>
@@ -70,12 +71,13 @@
             </div>
             <div class="merchant-items">
               <el-card v-for="merchant in recommendedMerchants" :key="merchant.id" class="merchant-card">
-                  <img class="merchant-img" :src="merchant.imgUrl" alt="商家图片">
-                  <div class="merchant-info">
-                    <div class="merchant-name">{{ merchant.name }}</div>
-                    <div class="merchant-type">{{ merchant.type }}</div>
-                    <div class="merchant-address">{{ merchant.address }}</div>
-                  </div>
+                <img class="merchant-img" :src="merchant.imgUrl" alt="商家图片">
+                <div @click="seeaInformation(merchant.id)" class="merchant-info">
+                  <div @click="seeaInformation(merchant.id)" class="merchant-business_id">{{ merchant.business_id }}</div>
+                  <div @click="seeaInformation(merchant.id)" class="merchant-name">{{ merchant.name }}</div>
+                  <div @click="seeaInformation(merchant.id)" class="merchant-stars">{{ merchant.stars }}</div>
+                  <div @click="seeaInformation(merchant.id)" class="merchant-address">{{ merchant.address }}</div>
+                </div>
               </el-card>
             </div>
           </el-card>
@@ -118,6 +120,7 @@ export default {
     recommendedMerchants: [
       {
         id: 1,
+        business_id:'_ab50qdWOk0DdB6XOrBitw',
         name: 'Acme Oyster House',
         stars: '4.0',
         address: '724 Iberville St',
@@ -125,6 +128,7 @@ export default {
       },
       {
         id: 2,
+        business_id:'ac1AeYqs8Z4_e2X5M3if2A',
         name: 'Oceana Grill',
         stars: '4.0',
         address: '739 Conti St',
@@ -132,6 +136,7 @@ export default {
       },
       {
         id: 3,
+        business_id:'GXFMD0Z4jEVZBCsbPf4CTQ',
         name: 'Hattie B’s Hot Chicken - Nashville',
         stars: '4.5',
         address: '112 19th Ave S',
@@ -139,6 +144,7 @@ export default {
       },
       {
         id: 4,
+        business_id:'ytynqOUb3hjKeJfRj5Tshw',
         name: 'Reading Terminal Market',
         stars: '4.5',
         address: '51 N 12th St',
@@ -146,6 +152,7 @@ export default {
      },
       {
         id: 5,
+        business_id:'oBNrLz4EDhiscSlbOl8uAw',
         name: 'Ruby Slipper - New Orleans',
         stars: '4.5',
         address: '200 Magazine St',
@@ -153,6 +160,7 @@ export default {
       },
       {
         id: 6,
+        business_id:'iSRTaT9WngzB8JJ2YKJUig',
         name: "Mother's Restaurant",
         stars: ' 3.5',
         address: '401 Poydras St',
@@ -160,6 +168,7 @@ export default {
       },
       {
         id: 7,
+        business_id:'VQcCL9PiNL_wkGf-uF3fjg',
         name: 'Royal House',
         stars: '4.0',
         address: '441 Royal St',
@@ -167,6 +176,7 @@ export default {
       },
       {
         id: 8,
+        business_id:'_C7QiQQc47AOEv4PE3Kong',
         name: "Commander's Palace",
         stars: '4.5',
         address: '1403 Washington Ave',
@@ -174,6 +184,7 @@ export default {
       },
       {
         id: 9,
+        business_id:'GBTPC53ZrG1ZBY3DT8Mbcw',
         name: 'Luke',
         stars: '4.0',
         address: '333 Saint Charles Ave',
@@ -181,6 +192,7 @@ export default {
       },
       {
         id: 10,
+        business_id:'6a4gLLFSgr-Q6CZXDLzBGQ',
         name: 'Cochon',
         stars: '4.0',
         address: '930 Tchoupitoulas St',
@@ -188,6 +200,7 @@ export default {
       },
       {
         id: 11,
+        business_id:'1b5mnK8bMnnju_cvU65GqQ',
         name: 'Biscuit Love: Gulch',
         stars: '4.0',
         address: '316 11th Ave S',
@@ -195,6 +208,7 @@ export default {
       },
       {
         id: 12,
+        business_id:'PP3BBaVxZLcJU54uP_wL6Q',
         name: "Pat's King of Steaks",
         stars: ' 3.0',
         address: '1237 E Passyunk Ave',
@@ -322,7 +336,8 @@ export default {
           for(var i=0; i<=11; i++){
             debugger
             console.log("ok")
-            this.recommendedMerchants[i].id = res.data[i].business_id
+            this.recommendedMerchants[i].id = i+1
+            this.recommendedMerchants[i].business_id = res.data[i].business_id
             this.recommendedMerchants[i].name = res.data[i].name
             this.recommendedMerchants[i].stars = res.data[i].stars
             this.recommendedMerchants[i].address = res.data[i].address

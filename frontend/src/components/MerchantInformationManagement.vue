@@ -82,7 +82,7 @@
         <ul>
           <li v-for="comment in comments" :key="comment.id">
             <div class="comment-header">
-              <span class="comment-author">{{ username }}</span>
+              <span class="comment-author">{{ comment.type }}</span>
               <span class="comment-time">{{ comment.time }}</span>
             </div>
             <div class="comment-content">{{ comment.content }}</div>
@@ -99,7 +99,13 @@
 </template>
 
 <script>
+
+import { facilityRequirementsSuggestion } from "../util/api"
+
 export default {
+  created() {
+    this.selectSuggestion(this.business_id)
+  },
   mounted() {
     this.username = this.$route.query.username
     debugger
@@ -112,26 +118,30 @@ export default {
   },
   data() {
     return {
-      business_id: '',
+      business_id:'aK6R2akvIK9ijw3FvDy8vw',
       username: '',
       contact: '',
       gender: '',
       birthday: '',
       address: '',
       signature: '',
+
       comments: [
         {
           id: 1,
+          type:'market suggestion',
           time: '',
           content: '这是一条评论',
         },
         {
           id: 2,
+          type:'facility suggestion',
           time: '2022-05-02',
           content: '这是另一条评论',
         },
         {
           id: 3,
+          type:'user suggestion',
           time: '2022-05-02',
           content: '这是另一条评论',
         },
@@ -156,6 +166,28 @@ export default {
     };
   },
   methods: {
+    selectSuggestion(target) {
+      facilityRequirementsSuggestion(target).then((res) => {
+
+        if (res.status == 200){
+          debugger
+          console.log("ok")
+          for(var i=0; i<=2; i++){
+            debugger
+            console.log("ok")
+            console.log(res.data[i])
+            debugger
+            this.comments[i].id = i+1
+            this.comments[i].time = res.data[i].tips_timestamp
+            this.comments[i].content = res.data[i].tips_text
+
+          }
+        }
+        else{
+          console.log("wrong")
+        }
+      })
+    },
     login() {
       // 登录逻辑
       this.loginData = true;

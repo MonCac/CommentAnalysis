@@ -20,7 +20,7 @@ def recommendDefault():
     con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
                           charset='utf8')
     cursor = con.cursor()  # 游标做查询
-    sql = f"SELECT `name`,address,stars, (stars * 100 + review_count) AS score " \
+    sql = f"SELECT business_id,`name`,address,stars, (stars * 100 + review_count) AS score " \
         f"FROM business WHERE is_open = 1 ORDER BY score DESC LIMIT 12;"
 
     cursor.execute(sql)  # 查sql语句
@@ -70,4 +70,4 @@ def recommendPersonalized(params):
 
 
 if __name__ == '__main__':
-    print(recommendByQuantization())
+    print(recommendDefault())

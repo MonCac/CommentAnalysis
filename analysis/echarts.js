@@ -53313,7 +53313,7 @@
       function View(name) {
         var _this = _super.call(this) || this;
 
-        _this.type = 'suggestion.py';
+        _this.type = 'view.py';
         _this.dimensions = ['x', 'y'];
         /**
          * Represents the transform brought by roam/zoom.
@@ -54939,7 +54939,7 @@
       TreeView.prototype._getNodeGlobalScale = function (seriesModel) {
         var coordSys = seriesModel.coordinateSystem;
 
-        if (coordSys.type !== 'suggestion.py') {
+        if (coordSys.type !== 'view.py') {
           return 1;
         }
 
@@ -56011,7 +56011,7 @@
       TreeSeriesModel.defaultOption = {
         // zlevel: 0,
         z: 2,
-        coordinateSystem: 'suggestion.py',
+        coordinateSystem: 'view.py',
         // the position of the whole view
         left: '12%',
         top: '12%',
@@ -59468,7 +59468,7 @@
     function simpleLayout(seriesModel) {
       var coordSys = seriesModel.coordinateSystem;
 
-      if (coordSys && coordSys.type !== 'suggestion.py') {
+      if (coordSys && coordSys.type !== 'view.py') {
         return;
       }
 
@@ -59499,7 +59499,7 @@
         var layout = seriesModel.get('layout');
         var coordSys = seriesModel.coordinateSystem;
 
-        if (coordSys && coordSys.type !== 'suggestion.py') {
+        if (coordSys && coordSys.type !== 'view.py') {
           var data_1 = seriesModel.getData();
           var dimensions_1 = [];
           each(coordSys.dimensions, function (coordDim) {
@@ -59580,7 +59580,7 @@
     function getNodeGlobalScale(seriesModel) {
       var coordSys = seriesModel.coordinateSystem;
 
-      if (coordSys.type !== 'suggestion.py') {
+      if (coordSys.type !== 'view.py') {
         return 1;
       }
 
@@ -59626,7 +59626,7 @@
     function circularLayout(seriesModel, basedOn, draggingNode, pointer) {
       var coordSys = seriesModel.coordinateSystem;
 
-      if (coordSys && coordSys.type !== 'suggestion.py') {
+      if (coordSys && coordSys.type !== 'view.py') {
         return;
       }
 
@@ -59928,7 +59928,7 @@
       ecModel.eachSeriesByType('graph', function (graphSeries) {
         var coordSys = graphSeries.coordinateSystem;
 
-        if (coordSys && coordSys.type !== 'suggestion.py') {
+        if (coordSys && coordSys.type !== 'view.py') {
           return;
         }
 
@@ -60062,7 +60062,7 @@
       ecModel.eachSeriesByType('graph', function (seriesModel) {
         var coordSysType = seriesModel.get('coordinateSystem');
 
-        if (!coordSysType || coordSysType === 'suggestion.py') {
+        if (!coordSysType || coordSysType === 'view.py') {
           var data_1 = seriesModel.getData();
           var positions = data_1.mapArray(function (idx) {
             var itemModel = data_1.getItemModel(idx);
@@ -60894,7 +60894,7 @@
     }
 
     function isViewCoordSys(coordSys) {
-      return coordSys.type === 'suggestion.py';
+      return coordSys.type === 'view.py';
     }
 
     var GraphView =
@@ -61795,7 +61795,7 @@
       GraphSeriesModel.defaultOption = {
         // zlevel: 0,
         z: 2,
-        coordinateSystem: 'suggestion.py',
+        coordinateSystem: 'view.py',
         // Default option for all coordinate systems
         // xAxisIndex: 0,
         // yAxisIndex: 0,
@@ -66081,7 +66081,7 @@
       SankeySeriesModel.defaultOption = {
         // zlevel: 0,
         z: 2,
-        coordinateSystem: 'suggestion.py',
+        coordinateSystem: 'view.py',
         left: '5%',
         top: '5%',
         right: '20%',

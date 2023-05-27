@@ -2,7 +2,7 @@ import json
 
 from flask import request
 
-from backend.apps.service.loginandregister import basefunction
+from backend.apps.service.LoginAndRegister import basefunction
 import pymysql
 
 
