@@ -5,7 +5,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.use(ElementUI)
-router.replace('/merchantinformationmanagement')
+router.replace('/login')
 // axios.defaults.baseURL = 'http://localhost:5000'
 new Vue({
   router,

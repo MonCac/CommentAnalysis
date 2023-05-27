@@ -39,10 +39,10 @@
             <div class="merchant-items">
               <el-card v-for="merchant in recommendedMerchants" :key="merchant.id" class="merchant-card">
                 <img class="merchant-img" :src="merchant.imgUrl" alt="商家图片">
-                <div class="merchant-info">
-                  <div class="merchant-name">{{ merchant.name }}</div>
-                  <div class="merchant-type">{{ merchant.type }}</div>
-                  <div class="merchant-address">{{ merchant.address }}</div>
+                <div @click="seeaInformation(merchant.id)" class="merchant-info">
+                  <div @click="seeaInformation(merchant.id)" class="merchant-name">{{ merchant.name }}</div>
+                  <div @click="seeaInformation(merchant.id)" class="merchant-type">{{ merchant.type }}</div>
+                  <div @click="seeaInformation(merchant.id)" class="merchant-address">{{ merchant.address }}</div>
                 </div>
               </el-card>
             </div>
@@ -227,7 +227,7 @@ export default {
     };
   },
   computed: {},
-  
+
   created() {
     this.value = this.$route.query.value;
     if (this.$route.query.page === '2') {
@@ -248,7 +248,7 @@ export default {
   },
   mounted() {
     this.id = this.$route.query.username
-    if (this.id != ''){
+    if (this.id != '') {
       this.loginData = true
     }
   },
@@ -260,7 +260,7 @@ export default {
       console.log(tab, event);
     },
     personalClick() {
-      this.$router.push({path:'/userinformation', query:{username: this.id}})
+      this.$router.push({ path: '/userinformation', query: { username: this.id } })
     },
     search() {
       this.data = this.input;
@@ -285,10 +285,11 @@ export default {
       evaluationRecommendFriend(this.id).then((res) => {
         if (res.status == 200) {
           console.log("ok")
+          debugger
           for (var i = 0; i <= 9; i++) {
             this.recommendedFriends[i].id = res.data[i].id
             this.recommendedFriends[i].name = res.data[i].name
-            this.recommendedFriends[i].intro = '我是'+res.data[i].name+'，很高兴认识你！'
+            this.recommendedFriends[i].intro = '我是' + res.data[i].name + '，很高兴认识你！'
           }
 
         }
@@ -296,8 +297,15 @@ export default {
           console.log("出错了")
         }
       })
+    },
+    seeaInformation(merchantId) {
+      debugger
+      console.log(merchantId)
+      debugger
+      this.$router.push({ path: '/merchantdisplay', query: { id: merchantId } })
     }
   },
+
 };
 </script>
 <style>
@@ -468,25 +476,30 @@ footer a {
 .tabs .el-tabs__nav-wrap {
   background-color: #f2f1ea;
 }
+
 .tabs .el-tabs__nav-wrap::after {
   background-color: #f2f1ea;
 }
+
 .tabs .el-tabs__active-bar {
   background-color: #b5aa9a;
 }
+
 .tabs .el-tabs__nav {
   margin-left: 17%;
 }
+
 .tabs .el-tabs__item.is-active {
   color: #3f4247;
   font-size: 16px;
   font-weight: 600;
 }
+
 .tabs .el-tabs__item {
   font-size: 16px;
 }
+
 .tabs .el-tabs__item:hover {
   color: #3f4247;
   font-weight: 600;
-}
-</style>
+}</style>

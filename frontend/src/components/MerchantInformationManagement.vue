@@ -100,18 +100,24 @@
 
 <script>
 export default {
+  mounted() {
+    this.username = this.$route.query.username
+    if (this.username != ''){
+      this.loginData = true
+    }
+  },
   data() {
     return {
-      username: '张三',
-      contact: '123456789',
-      gender: '男',
-      birthday: '1990-01-01',
-      address: '北京市海淀区',
-      signature: '生命在于折腾！',
+      username: '',
+      contact: '',
+      gender: '',
+      birthday: '',
+      address: '',
+      signature: '',
       comments: [
         {
           id: 1,
-          time: '2022-05-01',
+          time: '',
           content: '这是一条评论',
         },
         {
