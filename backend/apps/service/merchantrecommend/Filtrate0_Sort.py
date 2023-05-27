@@ -2,12 +2,12 @@ import pymysql
 
 
 
-def choose_one(param):
+def choose_one(paramss):
     con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
                           charset='utf8')
     cursor = con.cursor()  # 游标做查询
-    sql = f"select `name`,  {param}  " \
-        f"FROM  business where is_open =1 order by {param} DESC LIMIT 10 "
+    sql = f"select `name`,  {paramss}  " \
+        f"FROM  business where is_open =1 order by {paramss} DESC LIMIT 12 "
     cursor.execute(sql)  # 查sql语句
     results = cursor.fetchall()  # 封装查询结果，fetchone一条，固定写法
     cursor.close()

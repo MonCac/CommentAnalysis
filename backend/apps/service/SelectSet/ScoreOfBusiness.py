@@ -38,5 +38,4 @@ class TextRandJob(SparkSessionBase):
             .show(1500, truncate=False)
 
 
-if __name__ == '__main__':
-    TextRandJob().start()
+

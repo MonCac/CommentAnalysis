@@ -117,17 +117,21 @@ export function recommendDefault(params) {
     return request({
         url: "/recommenddefault",
         method: "get",
-        params
+        // params
     });
 }
 
 // 选择推荐方式
-export function recommendByChoice(params) {
+export function recommendByChoice(paramss) {
+    debugger
+    console.log("gogogo")
+    console.log(paramss)
+    debugger
     return request({
         url: "/recommendbychoice",
         method: "get",
-        params
-    });
+        params: {recommendByChoice: paramss}
+    })
 }
 
 // 量化排序推荐
@@ -149,10 +153,11 @@ export function recommendPersonalized(params) {
 }
 
 // 市场分析建议
-export function marketAnalysisSuggestion() {
+export function marketAnalysisSuggestion(params) {
     return request({
         url: "/marketanalysissuggestion",
-        method: "get"
+        method: "get",
+        // params: {: paramss}
     });
 }
 

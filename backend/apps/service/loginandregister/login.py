@@ -1,4 +1,4 @@
-from backend.apps.service.loginandregister import db, main
+from backend.apps.service.LoginAndRegister import db, main
 
 
 

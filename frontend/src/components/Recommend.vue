@@ -32,8 +32,13 @@
               <span>商户推荐</span>
               <div class="sort">
                 <el-select v-model="value" clearable placeholder="默认排序">
-                  <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
-                </el-select>
+                  <el-option v-for="item in options"
+                        :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                      @click.native="sortMerchant(item.label)"
+                      />
+                  </el-select>
               </div>
             </div>
             <div class="merchant-items">
@@ -41,7 +46,7 @@
                 <img class="merchant-img" :src="merchant.imgUrl" alt="商家图片">
                 <div @click="seeaInformation(merchant.id)" class="merchant-info">
                   <div @click="seeaInformation(merchant.id)" class="merchant-name">{{ merchant.name }}</div>
-                  <div @click="seeaInformation(merchant.id)" class="merchant-type">{{ merchant.type }}</div>
+                  <div @click="seeaInformation(merchant.id)" class="merchant-stars">{{ merchant.type }}</div>
                   <div @click="seeaInformation(merchant.id)" class="merchant-address">{{ merchant.address }}</div>
                 </div>
               </el-card>
@@ -49,7 +54,31 @@
           </el-card>
         </el-tab-pane>
         <el-tab-pane label="商户筛选" name="second">
-
+          <el-card class="merchant-list">
+            <div slot="header" class="clearfix">
+              <span>商户筛选</span>
+              <div class="sort">
+                <el-select v-model="value" clearable placeholder="默认排序">
+                  <el-option v-for="item in options"
+                        :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                      @click.native="sortMerchant(item.label)"
+                      />
+                  </el-select>
+              </div>
+            </div>
+            <div class="merchant-items">
+              <el-card v-for="merchant in recommendedMerchants" :key="merchant.id" class="merchant-card">
+                  <img class="merchant-img" :src="merchant.imgUrl" alt="商家图片">
+                  <div class="merchant-info">
+                    <div class="merchant-name">{{ merchant.name }}</div>
+                    <div class="merchant-type">{{ merchant.type }}</div>
+                    <div class="merchant-address">{{ merchant.address }}</div>
+                  </div>
+              </el-card>
+            </div>
+          </el-card>
         </el-tab-pane>
         <el-tab-pane label="好友推荐" name="third">
           <div class="friend-list">
@@ -77,71 +106,103 @@
 </template>
 <script>
 
+import { recommendByChoice } from "../util/api"
+
+
 import { evaluationRecommendFriend } from "../util/api"
 
 export default {
   data() {
-    return {
-      recommendedMerchants: [
-        {
-          id: 1,
-          name: '小肥羊',
-          type: '火锅',
-          address: '上海市徐汇区田林路',
-          imgUrl: 'https://picsum.photos/200'
-        },
-        {
-          id: 2,
-          name: '星巴克',
-          type: '咖啡',
-          address: '上海市长宁区虹桥路',
-          imgUrl: 'https://picsum.photos/200'
-        },
-        {
-          id: 3,
-          name: '华莱士',
-          type: '快餐',
-          address: '上海市闵行区吴中路',
-          imgUrl: 'https://picsum.photos/200'
-        },
-        {
-          id: 4,
-          name: '必胜客',
-          type: '披萨',
-          address: '上海市宝山区长江西路',
-          imgUrl: 'https://picsum.photos/200'
-        },
-        {
-          id: 5,
-          name: '麦当劳',
-          type: '快餐',
-          address: '上海市黄浦区南京东路',
-          imgUrl: 'https://picsum.photos/200'
-        },
-        {
-          id: 6,
-          name: '海底捞',
-          type: '火锅',
-          address: '上海市杨浦区国权路',
-          imgUrl: 'https://picsum.photos/200'
-        },
-        {
-          id: 7,
-          name: '必胜客',
-          type: '披萨',
-          address: '上海市闸北区大宁路',
-          imgUrl: 'https://picsum.photos/200'
-        },
-        {
-          id: 8,
-          name: '肯德基',
-          type: '快餐',
-          address: '上海市静安区南京西路',
-          imgUrl: 'https://picsum.photos/200'
-        }
-        // 添加更多商家数据
-      ],
-      recommendedFriends: [
+  return {
+    banner: [],
+    recommendedMerchants: [
+      {
+        id: 1,
+        name: 'Acme Oyster House',
+        stars: '4.0',
+        address: '724 Iberville St',
+        imgUrl: 'https://picsum.photos/200'
+      },
+      {
+        id: 2,
+        name: 'Oceana Grill',
+        stars: '4.0',
+        address: '739 Conti St',
+        imgUrl: 'https://picsum.photos/200'
+      },
+      {
+        id: 3,
+        name: 'Hattie B’s Hot Chicken - Nashville',
+        stars: '4.5',
+        address: '112 19th Ave S',
+        imgUrl: 'https://picsum.photos/200'
+      },
+      {
+        id: 4,
+        name: 'Reading Terminal Market',
+        stars: '4.5',
+        address: '51 N 12th St',
+        imgUrl: 'https://picsum.photos/200'
+     },
+      {
+        id: 5,
+        name: 'Ruby Slipper - New Orleans',
+        stars: '4.5',
+        address: '200 Magazine St',
+        imgUrl: 'https://picsum.photos/200'
+      },
+      {
+        id: 6,
+        name: "Mother's Restaurant",
+        stars: ' 3.5',
+        address: '401 Poydras St',
+        imgUrl: 'https://picsum.photos/200'
+      },
+      {
+        id: 7,
+        name: 'Royal House',
+        stars: '4.0',
+        address: '441 Royal St',
+        imgUrl: 'https://picsum.photos/200'
+      },
+      {
+        id: 8,
+        name: "Commander's Palace",
+        stars: '4.5',
+        address: '1403 Washington Ave',
+        imgUrl: 'https://picsum.photos/200'
+      },
+      {
+        id: 9,
+        name: 'Luke',
+        stars: '4.0',
+        address: '333 Saint Charles Ave',
+        imgUrl: 'https://picsum.photos/200'
+      },
+      {
+        id: 10,
+        name: 'Cochon',
+        stars: '4.0',
+        address: '930 Tchoupitoulas St',
+        imgUrl: 'https://picsum.photos/200'
+      },
+      {
+        id: 11,
+        name: 'Biscuit Love: Gulch',
+        stars: '4.0',
+        address: '316 11th Ave S',
+        imgUrl: 'https://picsum.photos/200'
+      },
+      {
+        id: 12,
+        name: "Pat's King of Steaks",
+        stars: ' 3.0',
+        address: '1237 E Passyunk Ave',
+        imgUrl: 'https://picsum.photos/200'
+      }
+      // 添加更多商家数据
+    ],
+    recommendedFriends: [
         {
           id: 1,
           name: '张三',
@@ -204,28 +265,28 @@ export default {
         }
         // 添加更多好友数据
       ],
-      options: [
-        {
-          value: 'Option1',
-          label: '按星级优先',
-        },
-        {
-          value: 'Option2',
-          label: '按评论数优先',
-        },
-        {
-          value: 'Option3',
-          label: '按好评优先',
-        },
-      ],
-      activeName: 'first',
-      loginData: false,
-      input: '',
-      data: '',
-      value: '',
-      id: '',
-    };
-  },
+    options: [
+      {
+        value: 'Option1',
+        label: 'stars',
+      },
+      {
+        value: 'Option2',
+        label: 'review_count',
+      },
+      {
+        value: 'Option3',
+        label: 'score',
+      }
+    ],
+    activeName: 'first',
+    loginData: false,
+    input: '',
+    data: '',
+    value: '',
+    id:'',
+  };
+},
   computed: {},
 
   created() {
@@ -247,12 +308,35 @@ export default {
     this.friendRecommend()
   },
   mounted() {
+    this.sortMerchant(target);
     this.id = this.$route.query.username
     if (this.id != '') {
       this.loginData = true
     }
   },
   methods: {
+    sortMerchant(target) {
+      recommendByChoice(target).then((res) => {
+        if (res.status == 200){
+          console.log("ok");
+          for(var i=0; i<=11; i++){
+            debugger
+            console.log("ok")
+            this.recommendedMerchants[i].id = i+1
+            this.recommendedMerchants[i].name = res.data[i].name
+            this.recommendedMerchants[i].stars = res.data[i].stars
+            this.recommendedMerchants[i].address = res.data[i].address
+          }
+        }
+        else{
+
+          console.log("出错了")
+
+        }
+
+
+      })
+    },
     login() {
       this.$router.push('/login');
     },

@@ -21,8 +21,6 @@ def marketAnalysisSuggestion(params):
     else:
         return userManagementSuggestion(params)
 
-    return
-
 
 # 设施需求建议
 @suggestion.route('/facilityrequirementssuggestion')

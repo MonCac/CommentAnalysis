@@ -1,4 +1,4 @@
-from backend.apps.service.loginandregister import db, main,  check
+from backend.apps.service.LoginAndRegister import db, main,  check
 
 # 1为商铺，0为用户
 def regist_user():
