@@ -1,46 +1,77 @@
 <!-- 商户注册界面  -->
 <template>
   <div class="wrapper">
-  <div class="register-container">
-    <h2 class="title">商户注册</h2>
-    <form class="form" @submit.prevent="register">
-      <div class="form-group">
-        <label for="username">商户名</label>
-        <input type="text" id="username" v-model="username" placeholder="请输入用户名" required>
+    <div class="register-container">
+      <h2 class="title">商户注册</h2>
+      <form class="form">
+        <div class="form-group">
+          <label for="username">商户名</label>
+          <input type="text" id="username" v-model="pwdMerchantRegisterForm.username" placeholder="请输入用户名" required>
+        </div>
+        <div class="form-group">
+          <label for="password">密码</label>
+          <input type="password" id="password" v-model="pwdMerchantRegisterForm.password" placeholder="请输入密码" required>
+        </div>
+        <div class="form-group">
+          <label for="confirm-password">确认密码</label>
+          <input type="password" id="confirm-password" v-model="confirmPassword" placeholder="请再次输入密码" required>
+        </div>
+        <button type="submit" class="btn" @click="register">注册</button>
+      </form>
+      <div class="footer">
+        <span>已有账号？</span>
+        <a href="#" @click.prevent="$router.push('/login')">立即登录</a>
       </div>
-      <div class="form-group">
-        <label for="password">密码</label>
-        <input type="password" id="password" v-model="password" placeholder="请输入密码" required>
-      </div>
-      <div class="form-group">
-        <label for="confirm-password">确认密码</label>
-        <input type="password" id="confirm-password" v-model="confirmPassword" placeholder="请再次输入密码" required>
-      </div>
-      <button type="submit" class="btn"  @click="register">注册</button>
-    </form>
-    <div class="footer">
-      <span>已有账号？</span>
-      <a href="#" @click.prevent="$router.push('/login')">立即登录</a>
     </div>
   </div>
-</div>
 </template>
 
 <script>
+import { merchantRegister } from "../util/api"
+
 export default {
- data() {
+  data() {
     return {
-      username: '',
-      password: '',
+      pwdMerchantRegisterForm: {
+        username: '',
+        password: ''
+      },
       confirmPassword: ''
     }
   },
   methods: {
     register() {
-      // 这里可以添加注册的逻辑，比如发送请求到后端保存用户信息
-      debugger
-      console.log(`用户名：${this.username}，密码：${this.password}，确认密码：${this.confirmPassword}`)
-      debugger
+      if (this.pwdMerchantRegisterForm.password != this.confirmPassword) {
+        alert('密码不一致')
+      } 
+      else if(this.pwdMerchantRegisterForm.username.length < 6){
+        alert('商户名太短')
+      }
+      else if(this.pwdMerchantRegisterForm.password.length < 6){
+        alert('密码太短')
+      }
+      else if(this.pwdMerchantRegisterForm.password.length > 40){
+        alert('密码太长')
+      }
+      else {
+        // 这里可以添加注册的逻辑，比如发送请求到后端保存用户信息
+        debugger
+        merchantRegister(this.pwdMerchantRegisterForm).then((res) => {
+          debugger
+          if (res.status == 200) {
+            debugger
+            console.log("ok")
+            alert('注册成功')
+            this.$router.push('/login')
+            debugger
+          }
+          else {
+            debugger
+            alert('出错了')
+            debugger
+          }
+        })
+      }
     }
   }
 }
@@ -53,8 +84,10 @@ export default {
   align-items: center;
   height: 100vh;
   background-image: url("../img/normal.jpeg");
-      background-size: cover; /* 背景图覆盖整个页面 */
-      background-repeat: no-repeat; /* 背景图不重复 */
+  background-size: cover;
+  /* 背景图覆盖整个页面 */
+  background-repeat: no-repeat;
+  /* 背景图不重复 */
   width: 100%;
 
 }
@@ -76,7 +109,8 @@ export default {
   font-size: 24px;
   margin-bottom: 0;
   text-align: center;
-  display: inline-block; /* 添加 inline-block 属性 */
+  display: inline-block;
+  /* 添加 inline-block 属性 */
 }
 
 .form {
@@ -131,5 +165,4 @@ input[type="password"] {
 
 .footer a:hover {
   text-decoration: underline;
-}
-</style>
+}</style>

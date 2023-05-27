@@ -12,6 +12,7 @@ print(22222)
 def hello():
     return 'hhhhh'
 
+
 @basefunction.route('/userregister')
 def userRegister():
     print(111111)
@@ -39,9 +40,12 @@ def userRegister():
 
 # 登录
 @basefunction.route('/login')
-def login(params):
-    username = params[0]
-    password = params[1]
+def login():
+    params = request.args.get("login")
+    params = str(params)
+    json_obj = json.loads(params)
+    username = json_obj['username']
+    password = json_obj['password']
     con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
                           charset='utf8')
     cursor = con.cursor()  # 游标做查询
@@ -67,12 +71,19 @@ def login(params):
 # 用户注册
 
 
-
 # 商户注册
 @basefunction.route('/merchantregister')
-def merchantRegister(params):
-    username = params[0]
-    password = params[1]
+def merchantRegister():
+    params = request.args.get("register")
+    print(params)
+    params = str(params)
+    json_obj = json.loads(params)
+    print(params)
+    print(json_obj)
+    print(2131)
+    username = json_obj['username']
+    print(username)
+    password = json_obj['password']
     status = 1
     con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
                           charset='utf8')
@@ -124,7 +135,9 @@ def changeMerchantAddress(params):
     con.commit()
     return "修改成功"
 
+
 print(33333)
+
 
 # 修改商户状态
 @basefunction.route('/changemerchantstate')

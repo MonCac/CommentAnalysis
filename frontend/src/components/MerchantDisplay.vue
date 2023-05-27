@@ -80,8 +80,15 @@
 
 <script>
 export default {
+  mounted() {
+    this.id = this.$route.query.id
+    if (this.id != ''){
+      this.loginData = true
+    }
+  },
   data() {
     return {
+      id: '',
       daysOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
       merchant: {
         name: 'Example Merchant',

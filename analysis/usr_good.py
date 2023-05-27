@@ -21,34 +21,19 @@ class TextRandJob(SparkSessionBase):
         u_df = hc.table('users')
         c_df = hc.table('checkin')
         t_df = hc.table('tips')
-#我需要一个优质用户数量统计功能，以至于我能统计出本年优质用户的数量，并且通过用户的数量对比得出优质用户的比例
-#描述：获取用户的优质用户属性，统计优质用户的数量， 与总用户数量比对，得出优质用户比例。验收要求：
-#验收准则：统计每年优质用户、普通用户比例
-        u_df.join(r_df,u_df['user_id']==r_df['rev_user_id'])\
-            .select('user_name','user_review_count',year(to_date('rev_Date')).alias('year'))\
-            .groupBy('year','user_id')\
-            .agg(count('*').alias('review_count'))
-            .orderBy(col('user_review_count').desc()) \
-            .show()
-# 计算每个年份的总评论数和总评分
-yearly_stats = r_df .groupBy(year(to_date('rev_Date')).alias('year')) \
-    .agg(
-        count("*").alias("total_reviews"),
-    )
 
-# 将每个评论所属的用户数据与每个评论的年份数据合并
-            r_df.join(u_df, r_df["rev_user_id"] == u_df["user_id"]) \
-                .select(year("rev_date").alias("year"), "user_id", "total_reviews", "total_rating")
+# 将 review 表和 user 表进行关联，获取每条评论对应的用户名和评论时间
+r_u_df = r_df.join(u_df, r_df[rev_user_id] == u_df[user_id]) \
+                  .select("review_id", "user_name", "rev_date")
 
-# 计算每个年份的优质用户比例
-yearly_user_stats = review_user_year \
-    .groupBy("year") \
-    .agg(
-        sum(
-            when(col("total_rating") / col("total_reviews") >= 4, 1)
-        ).alias("good_users"),
-        countDistinct("user_id").alias("total_users")
-    ) \
-    .withColumn("good_user_ratio", col("good_users") / col("total_users"))
+# 将评论时间转换为年份
+review_user_year_df = r_u_df.withColumn(year("rev_date".alias("year")))
 
-yearly_user_stats.show()
+# 统计每年的评论总数和优质用户数
+yearly_review_count_df = review_user_year_df.groupBy("year")
+                        .agg(countDistinct("review_id").alias("review_count"),countDistinct("user_name").alias("active_user_count"))
+yearly_review_count_df.show()
+
+# 计算每年的优质用户比例
+yearly_review_count_ratio_df = yearly_review_count_df.withColumn("quality_ratio", col("active_user_count") / col("review_count"))
+yearly_review_count_ratio_df.show()
