@@ -318,6 +318,7 @@ export default {
   computed: {},
 
   created() {
+    debugger
     this.value = this.$route.query.value;
     if (this.$route.query.page === '2') {
       this.activeName = 'second';
@@ -333,14 +334,17 @@ export default {
     }
     debugger
     console.log(this.recommendedFriends)
-    this.friendRecommend()
+    // this.friendRecommend()
   },
   mounted() {
-    this.sortMerchant(target);
+    debugger
     this.id = this.$route.query.username
+    debugger
+    console.log(this.id)
     if (this.id != '') {
       this.loginData = true
     }
+    debugger
   },
   methods: {
     sortMerchant(target) {
