@@ -25,13 +25,13 @@
 
           <el-col :span="24" class="button1-container">
             <el-button-group>
-              <el-button @click="submit1" v-model="cons_1" class="filter1-submit">Restaurants</el-button>
-              <el-button @click="submit2" v-model="cons_2" class="filter1-submit">Food</el-button>
-              <el-button @click="submit3" v-model="cons_3" class="filter1-submit">Shopping</el-button>
-              <el-button @click="submit4" v-model="cons_4" class="filter1-submit">Home Services</el-button>
-              <el-button @click="submit5" v-model="cons_5" class="filter1-submit">Beauty & Spas</el-button>
-              <el-button @click="submit6" v-model="cons_6" class="filter1-submit">Nightlife</el-button>
-              <el-button @click="submit7" v-model="cons_7" class="filter1-submit">Health & Medical</el-button>
+              <el-button @click="submit1" class="filter1-submit">Restaurants</el-button>
+              <el-button @click="submit2" class="filter1-submit">Food</el-button>
+              <el-button @click="submit3" class="filter1-submit">Shopping</el-button>
+              <el-button @click="submit4" class="filter1-submit">Home Services</el-button>
+              <el-button @click="submit5" class="filter1-submit">Beauty & Spas</el-button>
+              <el-button @click="submit6" class="filter1-submit">Nightlife</el-button>
+              <el-button @click="submit7" class="filter1-submit">Health & Medical</el-button>
             </el-button-group>
           </el-col>
         </div>
@@ -46,13 +46,9 @@
               <span>商户推荐</span>
               <div class="sort">
                 <el-select v-model="value" clearable placeholder="默认排序">
-                  <el-option v-for="item in options"
-                        :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
-                      @click.native="sortMerchant(item.label)"
-                      />
-                  </el-select>
+                  <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"
+                    @click.native="sortMerchant(item.label)" />
+                </el-select>
               </div>
             </div>
             <div class="merchant-items">
@@ -122,18 +118,20 @@ import { recommendByState } from "../util/api"
 import { recommendByCity } from "../util/api"
 import { recommendByStateAndCity } from "../util/api"
 import { evaluationRecommendFriend } from "../util/api"
+import { fuzzySearch } from "../util/api"
+import { normalSearch } from "../util/api"
 
 export default {
   data() {
     return {
       place: {
-        state:'',
-        city:''
+        state: '',
+        city: ''
       },
       recommendedMerchants: [
         {
           id: 1,
-          business_id: '_ab50qdWOk0DdB6XOrBitw',
+          business_id: '_a',
           name: 'Acme Oyster House',
           stars: '4.0',
           address: '724 Iberville St',
@@ -312,19 +310,11 @@ export default {
       data: '',
       value: '',
       id: '',
-      cons_1: 'Restaurants',
-      cons_2: 'Food',
-      cons_3: 'Shopping',
-      cons_4: 'Home Services',
-      cons_5: 'Beauty & Spas',
-      cons_6: 'Nightlife',
-      cons_7: 'Health & Medical',
     };
   },
   computed: {},
 
   created() {
-    debugger
     this.value = this.$route.query.value;
     if (this.$route.query.page === '2') {
       this.activeName = 'second';
@@ -338,18 +328,13 @@ export default {
       this.input = this.value;
       this.activeName = 'second';
     }
-    console.log(this.recommendedFriends)
-    // this.friendRecommend()
+    this.friendRecommend()
   },
   mounted() {
-    debugger
     this.id = this.$route.query.username
-    debugger
-    console.log(this.id)
     if (this.id != '') {
       this.loginData = true
     }
-    debugger
   },
   methods: {
     sortMerchant(target) {
@@ -357,7 +342,6 @@ export default {
         if (res.status == 200) {
           console.log("ok");
           for (var i = 0; i <= 11; i++) {
-            debugger
             console.log("ok")
             this.recommendedMerchants[i].id = i + 1
             this.recommendedMerchants[i].business_id = res.data[i].business_id
@@ -392,6 +376,7 @@ export default {
           console.log("ok")
           for (var i = 0; i <= 9; i++) {
             this.recommendedMerchants[i].id = res.data[i].business_id
+            this.recommendedMerchants[i].business_id = res.data[i].business_id
             this.recommendedMerchants[i].name = res.data[i].name
             this.recommendedMerchants[i].type = res.data[i].categories
             this.recommendedMerchants[i].address = res.data[i].address
@@ -417,74 +402,66 @@ export default {
       console.log('添加好友:', friend);
     },
     submit() {
-      if(this.place.state == ''){
+      if (this.place.state == '') {
         // 只输入了city
         recommendByCity(this.place.city).then((res) => {
           if (res.status == 200) {
-            debugger
             console.log("ok")
 
-          for (var i = 0; i <= 11; i++) {
-            debugger
-            console.log("ok")
-            this.recommendedMerchants[i].id = i + 1
-            this.recommendedMerchants[i].business_id = res.data[i].business_id
-            this.recommendedMerchants[i].name = res.data[i].name
-            this.recommendedMerchants[i].stars = res.data[i].stars
-            this.recommendedMerchants[i].address = res.data[i].address
+            for (var i = 0; i <= 11; i++) {
+              this.recommendedMerchants[i].id = i + 1
+              this.recommendedMerchants[i].business_id = res.data[i].business_id
+              this.recommendedMerchants[i].name = res.data[i].name
+              this.recommendedMerchants[i].stars = res.data[i].stars
+              this.recommendedMerchants[i].address = res.data[i].address
+            }
           }
-        }
-        else{
-          console.log("wrong")
-        }
+          else {
+            console.log("wrong")
+          }
         })
-      }else if(this.place.city == ''){
+      } else if (this.place.city == '') {
         // 只输入了state
         recommendByState(this.place.state).then((res) => {
-        if (res.status == 200) {
-          console.log("ok");
-          for (var i = 0; i <= 11; i++) {
-            debugger
-            console.log("ok")
-            this.recommendedMerchants[i].id = i + 1
-            this.recommendedMerchants[i].business_id = res.data[i].business_id
-            this.recommendedMerchants[i].name = res.data[i].name
-            this.recommendedMerchants[i].stars = res.data[i].stars
-            this.recommendedMerchants[i].address = res.data[i].address
+          if (res.status == 200) {
+            console.log("ok");
+            for (var i = 0; i <= 11; i++) {
+              this.recommendedMerchants[i].id = i + 1
+              this.recommendedMerchants[i].business_id = res.data[i].business_id
+              this.recommendedMerchants[i].name = res.data[i].name
+              this.recommendedMerchants[i].stars = res.data[i].stars
+              this.recommendedMerchants[i].address = res.data[i].address
+            }
           }
-        }
-        else{
-          console.log("wrong")
-        }
+          else {
+            console.log("wrong")
+          }
         })
 
-      }else{
+      } else {
         // 州和区域都输入
         recommendByStateAndCity(this.place).then((res) => {
           if (res.status == 200) {
-          console.log("ok");
-          for (var i = 0; i <= 11; i++) {
-            debugger
-            console.log("ok")
-            this.recommendedMerchants[i].id = i + 1
-            this.recommendedMerchants[i].business_id = res.data[i].business_id
-            this.recommendedMerchants[i].name = res.data[i].name
-            this.recommendedMerchants[i].stars = res.data[i].stars
-            this.recommendedMerchants[i].address = res.data[i].address
+            console.log("ok");
+            for (var i = 0; i <= 11; i++) {
+              this.recommendedMerchants[i].id = i + 1
+              this.recommendedMerchants[i].business_id = res.data[i].business_id
+              this.recommendedMerchants[i].name = res.data[i].name
+              this.recommendedMerchants[i].stars = res.data[i].stars
+              this.recommendedMerchants[i].address = res.data[i].address
+            }
           }
-        }
-        else{
-          console.log("wrong")
-        }
+          else {
+            console.log("wrong")
+          }
         })
 
       }
     },
     friendRecommend() {
+      this.id = this.$route.query.username
       evaluationRecommendFriend(this.id).then((res) => {
         if (res.status == 200) {
-          console.log("ok")
-          debugger
           for (var i = 0; i <= 9; i++) {
             this.recommendedFriends[i].id = res.data[i].id
             this.recommendedFriends[i].name = res.data[i].name
@@ -498,37 +475,139 @@ export default {
       })
     },
     seeaInformation(merchantId) {
-      debugger
-      console.log(merchantId)
-      debugger
       this.$router.push({ path: '/merchantdisplay', query: { id: merchantId } })
     },
     submit1() {
-
+      this.data = 'Restaurants';
+      fuzzySearch(this.data).then((res) => {
+        if (res.status == 200) {
+          console.log("ok")
+          for (var i = 0; i <= 9; i++) {
+            this.recommendedMerchants[i].id = res.data[i].business_id
+            this.recommendedMerchants[i].business_id = res.data[i].business_id
+            this.recommendedMerchants[i].name = res.data[i].name
+            this.recommendedMerchants[i].type = res.data[i].categories
+            this.recommendedMerchants[i].address = res.data[i].address
+          }
+        }
+        else {
+          console.log("出错")
+        }
+      })
     },
 
     submit2() {
-
+      this.data = 'Food';
+      fuzzySearch(this.data).then((res) => {
+        if (res.status == 200) {
+          console.log("ok")
+          for (var i = 0; i <= 9; i++) {
+            this.recommendedMerchants[i].id = res.data[i].business_id
+            this.recommendedMerchants[i].business_id = res.data[i].business_id
+            this.recommendedMerchants[i].name = res.data[i].name
+            this.recommendedMerchants[i].type = res.data[i].categories
+            this.recommendedMerchants[i].address = res.data[i].address
+          }
+        }
+        else {
+          console.log("出错")
+        }
+      })
     },
 
     submit3() {
-
+      this.data = 'Shopping';
+      fuzzySearch(this.data).then((res) => {
+        if (res.status == 200) {
+          console.log("ok")
+          for (var i = 0; i <= 9; i++) {
+            this.recommendedMerchants[i].id = res.data[i].business_id
+            this.recommendedMerchants[i].business_id = res.data[i].business_id
+            this.recommendedMerchants[i].name = res.data[i].name
+            this.recommendedMerchants[i].type = res.data[i].categories
+            this.recommendedMerchants[i].address = res.data[i].address
+          }
+        }
+        else {
+          console.log("出错")
+        }
+      })
     },
 
     submit4() {
-
+      this.data = 'Home Services';
+      fuzzySearch(this.data).then((res) => {
+        if (res.status == 200) {
+          console.log("ok")
+          for (var i = 0; i <= 9; i++) {
+            this.recommendedMerchants[i].id = res.data[i].business_id
+            this.recommendedMerchants[i].business_id = res.data[i].business_id
+            this.recommendedMerchants[i].name = res.data[i].name
+            this.recommendedMerchants[i].type = res.data[i].categories
+            this.recommendedMerchants[i].address = res.data[i].address
+          }
+        }
+        else {
+          console.log("出错")
+        }
+      })
     },
 
     submit5() {
-
+      this.data = 'Beauty & Spas';
+      fuzzySearch(this.data).then((res) => {
+        if (res.status == 200) {
+          console.log("ok")
+          for (var i = 0; i <= 9; i++) {
+            this.recommendedMerchants[i].id = res.data[i].business_id
+            this.recommendedMerchants[i].business_id = res.data[i].business_id
+            this.recommendedMerchants[i].name = res.data[i].name
+            this.recommendedMerchants[i].type = res.data[i].categories
+            this.recommendedMerchants[i].address = res.data[i].address
+          }
+        }
+        else {
+          console.log("出错")
+        }
+      })
     },
 
     submit6() {
-
+      this.data = 'Nightlife';
+      fuzzySearch(this.data).then((res) => {
+        if (res.status == 200) {
+          console.log("ok")
+          for (var i = 0; i <= 9; i++) {
+            this.recommendedMerchants[i].id = res.data[i].business_id
+            this.recommendedMerchants[i].business_id = res.data[i].business_id
+            this.recommendedMerchants[i].name = res.data[i].name
+            this.recommendedMerchants[i].type = res.data[i].categories
+            this.recommendedMerchants[i].address = res.data[i].address
+          }
+        }
+        else {
+          console.log("出错")
+        }
+      })
     },
 
     submit7() {
-
+      this.data = 'Health & Medical';
+      fuzzySearch(this.data).then((res) => {
+        if (res.status == 200) {
+          console.log("ok")
+          for (var i = 0; i <= 9; i++) {
+            this.recommendedMerchants[i].id = res.data[i].business_id
+            this.recommendedMerchants[i].business_id = res.data[i].business_id
+            this.recommendedMerchants[i].name = res.data[i].name
+            this.recommendedMerchants[i].type = res.data[i].categories
+            this.recommendedMerchants[i].address = res.data[i].address
+          }
+        }
+        else {
+          console.log("出错")
+        }
+      })
     },
   },
 

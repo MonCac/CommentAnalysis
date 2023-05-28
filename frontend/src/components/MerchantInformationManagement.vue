@@ -77,11 +77,9 @@ export default {
   mounted() {
 
     this.username = this.$route.query.username
-    debugger
     this.business_id = this.$route.query.business_id
     this.selectSuggestion(this.business_id)
     console.log(this.business_id)
-    debugger
     if (this.username != ''){
       this.loginData = true
     }
@@ -146,13 +144,9 @@ export default {
       facilityRequirementsSuggestion(target).then((res) => {
 
         if (res.status == 200){
-          debugger
           console.log("ok")
           for(var i=0; i<=2; i++){
-            debugger
             console.log("ok")
-            console.log(res.data[i])
-            debugger
             this.comments[i].id = i+1
             this.comments[i].time = res.data[i].tips_timestamp
             this.comments[i].content = res.data[i].tips_text
@@ -190,8 +184,6 @@ export default {
       if (this.editGender) {
         // 保存性别
         this.gender = this.newGender;
-        console.log(this.gender)
-        debugger
         this.modStateForm.status=this.gender
         this.modStateForm.business_id=this.business_id
         changeMerchantState(this.modStateForm).then((res) => {

@@ -11,10 +11,6 @@ export function login(paramss) {
 
 // 用户注册
 export function userRegister(paramss) {
-    debugger
-    console.log("gogogo")
-    console.log(paramss)
-    debugger
     return request({
         url: "/userregister",
         method: "get",
@@ -60,8 +56,6 @@ export function changeMerchantAddress(paramss) {
 
 // 修改商户状态
 export function changeMerchantState(paramss) {
-    console.log(paramss)
-    debugger
     return request({
         url: "/changemerchantstate",
         method: "get",
@@ -80,7 +74,6 @@ export function changeMerchantCity(paramss) {
 
 // 搜索
 export function normalSearch(paramss) {
-    console.log(paramss)
     return request({
         url: "/normalsearch",
         method: "get",
@@ -89,18 +82,16 @@ export function normalSearch(paramss) {
 }
 
 // 模糊搜索
-export function fuzzySearch(params) {
+export function fuzzySearch(paramss) {
     return request({
         url: "/fuzzysearch",
         method: "get",
-        params
+        params :{submit1:paramss}
     });
 }
 
 // 展示界面
 export function showInfo(paramss) {
-    debugger
-    console.log(paramss)
     return request({
         url: "/showinfo",
         method: "get",
@@ -119,10 +110,6 @@ export function recommendByBrowsing(params) {
 
 // 根据state推荐商家
 export function recommendByState(paramss) {
-    debugger
-    console.log("gogogo")
-    console.log(paramss)
-    debugger
     return request({
         url: "/recommendbystate",
         method: "get",
@@ -132,10 +119,6 @@ export function recommendByState(paramss) {
 
 // 根据city推荐商家
 export function recommendByCity(paramss) {
-    debugger
-    console.log("gogogo")
-    console.log(paramss)
-    debugger
     return request({
         url: "/recommendbycity",
         method: "get",
@@ -145,10 +128,6 @@ export function recommendByCity(paramss) {
 
 // 根据state和city推荐商家
 export function recommendByStateAndCity(paramss) {
-    debugger
-    console.log("gogogo")
-    console.log(paramss)
-    debugger
     return request({
         url: "/recommendbystateandcity",
         method: "get",
@@ -167,10 +146,6 @@ export function recommendByStateAndCity(paramss) {
 
 // 选择推荐方式
 export function recommendByChoice(paramss) {
-    debugger
-    console.log("gogogo")
-    console.log(paramss)
-    debugger
     return request({
         url: "/recommendbychoice",
         method: "get",
@@ -207,10 +182,6 @@ export function marketAnalysisSuggestion(params) {
 
 // 设施需求建议
 export function facilityRequirementsSuggestion(paramss) {
-    debugger
-    console.log("gogogo")
-    console.log(paramss)
-    debugger
     return request({
         url: "/facilityrequirementssuggestion",
         method: "get",

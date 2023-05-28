@@ -16,7 +16,6 @@ def normalSearch():
     cursor.close()
     con.close()
     results = cursor.fetchall()  # 封装查询结果，fetchone一条，固定写法
-    print(results)
     key = ("business_id","name","categories","address")
     resultList = []
     for row in results:
@@ -25,14 +24,21 @@ def normalSearch():
 
 # 模糊搜索
 @search.route('/fuzzysearch')
-def fuzzySearch(params):
+def fuzzySearch():
+    params = request.args.get("submit1")
+    params = str(params)
     cursor = con.cursor()  # 游标做查询
-    sql = f"select business_id, `name` from business where categories like '%{params}%' order by stars,review_count limit 10;"
+    sql = f"select business_id,`name`,categories,address from business where categories like '%{params}%' order by stars,review_count limit 10;"
     cursor.execute(sql)  # 查sql语句
     results = (cursor.fetchall())  # 封装查询结果，fetchone一条，固定写法
     cursor.close()
     con.close()
-    return results
+    key = ("business_id", "name", "categories", "address")
+    resultList = []
+    for row in results:
+        resultList.append(dict(zip(key, row)))
+    print(resultList)
+    return resultList
 
 @search.route('/showinfo')
 def showInfo():

@@ -60,9 +60,7 @@ export default {
             console.log("ok")
           }
           else {
-            debugger
             console.log("出错了")
-            debugger
           }
         })
       }

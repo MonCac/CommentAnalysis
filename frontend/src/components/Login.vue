@@ -107,11 +107,9 @@ export default {
       console.log(tab, event)
     },
     goUserRegister() {
-      debugger
       this.$router.push('/userregister')
     },
     goMerchantRegister() {
-      debugger
       this.$router.push('/merchantregister')
     }
   }

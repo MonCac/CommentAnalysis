@@ -64,11 +64,7 @@
 import { showInfo } from '../util/api';
 export default {
   mounted() {
-      debugger
-      console.log(this.id)
       this.id = this.$route.query.id
-      console.log(this.id)
-      debugger
       
       if (this.id != ''){
         this.loginData = true
@@ -110,7 +106,6 @@ export default {
   },
   methods: {
     showShopInfo(){
-        debugger
         showInfo(this.$route.query.id).then((res)=>{
           if (res.status == 200) {
             console.log("ok")
@@ -121,7 +116,6 @@ export default {
             this.merchant.rating=res.data[0].stars
             this.merchant.ratingCount=res.data[0].review_count
             this.merchant.isOpen=res.data[0].is_open
-            debugger
             let temp=0
             let jsonObj1 = JSON.parse(res.data[0].attributes)
             for(let key in jsonObj1){
@@ -129,21 +123,13 @@ export default {
               if(temp>5){
                 break
               }
-              console.log(key)
               this.merchant.features.push(key)
-              console.log(this.merchant.features)
             }
             let jsonObj2=res.data[0].categories.split(",")
             for(let i=0;i<jsonObj2.length;i++){
               this.merchant.categories.push(jsonObj2[i])
             }
-            let jsonTime=JSON.parse(res.data[0].hours)
-            console.log(jsonTime)
-            debugger
-            let obj=jsonTime['Monday']
-            this.merchant.hours['Monday']=obj
-            debugger
-            console.log(this.merchant.hours)
+            this.merchant.isOpen=res.data[0].hours
           }
           else {
             console.log("出错")

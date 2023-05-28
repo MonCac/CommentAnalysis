@@ -1,84 +1,33 @@
-<!--
-	此示例下载自 https://echarts.apache.org/examples/zh/editor.html?c=pie-simple&code=PYBwLglsB2AEC8sDeAoWtJgDYFMBcya6GOAHmAQOQBKOAZjgE5OzB2wCGsA6jgEYBnCGByUANEXQCArnxHkqAMQ4BrHLAAiHMB3GTYuOhViUAxjmgjGlIgF8J6MMGBZIIAqmIZGEAOa-mKmEcAFsbdHsiXADoABMPfWAfC2NKADcmSFMOLD0vQ1SC8NhIqSYIHAECAG19Ty9YaA4Q_BMAQVNzAQFYRUZgMIcGsABPEFbKEAq8hsYOWIhpKpMAVgAGAFIZr1jtDhq6ppaqAAUACwgseZwsEAvdMVg0nOlWgEYAJgAOAE4P0uISCOEwAKs0QA8ni9Wl81msVgD0EDmqDpKYBDBxFCsK8CAB2L6wxHIYFUACScQgHCaIBcEAEWOeONaADYfm8EUMkaSTAA5DgCM5pS64RnQggst4E4nI458nAAd1gAHlGLhqQzHkzcbAVl8WXiZTyaBZgGLmQR1j9DVySSiqABRWIhGBOaDmnUAFgNnMO9pMAGUOBBLLAADLAaT0j2tT0AZjZRv9lCDli4ACEOIw-FnIdrWh8fr8k3LKOngPTRFrxbAPp68W8SxMAMLqxgK7RMGMEN4_OFNqgAWRwOggyW7sA5cZ-A8DwdDJxHTAEfGkjF8E7ens9X1nKYhjBUmuxOrecc9vq8som3EuIRDvjdm4-LLje761JUWBDz4-Nr9pYBmAAB04aRtG1YWpOayEnuQGgYuVgrmuG6Qae8L_CgAC6troPo6ChHcAr0gkDTEMEIRASMuCkWRxCCvMwAKumOKMD2ay4Q0DGxExyp0HQAgjgAGgQHH4VxZyMQqzYuEkVDrjmAAUHGwCpanASsACUxRkbY4l6V4BmwFhKC2AA3EAA
-	⚠ 请注意，该图表不是 Apache ECharts 官方示例，而是由用户代码生成的。请注意鉴别其内容。
--->
 <!DOCTYPE html>
-<html lang="zh-CN" style="height: 100%">
+<html>
 <head>
-  <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>首页</title>
+    <script src='jquery.js' type='text/javascript'></script>
+    <script src='echarts.js' type='text/javascript'></script>
 </head>
-<body style="height: 100%; margin: 0">
-  <div id="container" style="height: 100%"></div>
+<body>
+<span id="span1"></span><span id="span2"></span><span id="span3"></span><span id="span4"></span>
+<span id="span5"></span><span id="span6"></span><span id="span7"></span><span id="span8"></span>
+<span id="span9"></span><span id="span10"></span><span id="span11"></span><span id="span12"></span>
+<span id="span13"></span><span id="span14"></span><span id="span15"></span><span id="span16"></span>
+<script>
+    document.getElementById("span1").innerHTML = '<object type="text/html" data="shop/diverse_shopreview_nums.html" width="50%" height="500px"></object>';
+    document.getElementById("span2").innerHTML = '<object type="text/html" data="shop/商户最多的州和城市.html" width="50%" height="500px"></object>';
+    document.getElementById("span3").innerHTML = '<object type="text/html" data="shop/diverse_shopstar.html" width="50%" height="500px"></object>';
+    document.getElementById("span4").innerHTML = '<object type="text/html" data="shop/商户类型统计.html" width="50%" height="500px"></object>';
+    document.getElementById("span5").innerHTML = '<object type="text/html" data="shop/城市平均得分统计.html" width="50%" height="500px"></object>';
+    document.getElementById("span6").innerHTML = '<object type="text/html" data="shop/最常见的商户及平均分.html" width="50%" height="500px"></object>';
+    document.getElementById("span7").innerHTML = '<object type="text/html" data="打卡分析/check_shop.html" width="50%" height="500px"></object>';
+    document.getElementById("span8").innerHTML = '<object type="text/html" data="打卡分析/checkin_city.html" width="50%" height="500px"></object>';
+    document.getElementById("span9").innerHTML = '<object type="text/html" data="打卡分析/打卡数量统计.html" width="50%" height="500px"></object>';
+    document.getElementById("span10").innerHTML = '<object type="text/html" data="用户分析/新用户数量统计.html" width="50%" height="500px"></object>';
+    document.getElementById("span11").innerHTML = '<object type="text/html" data="用户分析/用户粉丝评论分析.html" width="50%" height="500px"></object>';
+    document.getElementById("span12").innerHTML = '<object type="text/html" data="评分分析/商家五星好评统计.html" width="50%" height="500px"></object>';
+    document.getElementById("span13").innerHTML = '<object type="text/html" data="评分分析/评论评分统计.html" width="50%" height="500px"></object>';
+    document.getElementById("span14").innerHTML = '<object type="text/html" data="评论分析/review_count.html" width="50%" height="500px"></object>';
+    document.getElementById("span15").innerHTML = '<object type="text/html" data="评论分析/review_type.html" width="50%" height="500px"></object>';
+    document.getElementById("span16").innerHTML = '<object type="text/html" data="评论分析/review_user.html" width="50%" height="500px"></object>';
 
-
-  <script type="text/javascript" src="echarts.js"></script>
-
-  <script type="text/javascript">
-    var dom = document.getElementById('container');
-    var myChart = echarts.init(dom, null, {
-      renderer: 'canvas',
-      useDirtyRect: false
-    });
-    var app = {};
-
-    var option;
-
-    option = {
-  title: {
-    text: 'Referer of a Website',
-    subtext: 'Fake Data',
-    left: 'center'
-  },
-  tooltip: {
-    trigger: 'item'
-  },
-  legend: {
-    orient: 'vertical',
-    left: 'left'
-  },
-  series: [
-    {
-      name: 'Access From',
-      type: 'pie',
-      radius: '50%',
-      data: [
-    {name: 'Philadelphia', value: 12892},
-    {name: 'Tampa', value: 8005},
-    {name: 'Tucson', value: 7880},
-    {name: 'Indianapolis', value: 6915},
-    {name: 'Nashville', value: 6178},
-    {name: 'New Orleans', value: 5867},
-    {name: 'Reno', value: 5097},
-    {name: 'Edmonton', value: 4675},
-    {name: 'Saint Louis', value: 4369},
-    {name: 'Santa Barbara', value: 2989},
-    {name: 'Boise', value: 2471},
-    {name: 'Clearwater', value: 1900},
-    {name: 'Metairie', value: 1539},
-    {name: 'Saint Petersburg', value: 1448},
-    {name: 'Sparks', value: 1345},
-    {name: 'Wilmington', value: 1263},
-    {name: 'Franklin', value: 1227},
-    {name: 'St. Louis', value: 1088},
-    {name: 'St. Petersburg', value: 1052}
-],
-
-      emphasis: {
-        itemStyle: {
-          shadowBlur: 10,
-          shadowOffsetX: 0,
-          shadowColor: 'rgba(0, 0, 0, 0.5)'
-        }
-      }
-    }
-  ]
-};
-
-    if (option && typeof option === 'object') {
-      myChart.setOption(option);
-    }
-
-    window.addEventListener('resize', myChart.resize);
-  </script>
+</script>
 </body>
-</html>

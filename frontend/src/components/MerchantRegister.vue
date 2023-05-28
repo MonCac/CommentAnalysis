@@ -64,18 +64,13 @@ export default {
       else {
         // 这里可以添加注册的逻辑，比如发送请求到后端保存用户信息
         merchantRegister(this.pwdMerchantRegisterForm).then((res) => {
-          debugger
           if (res.status == 200) {
-            debugger
             console.log("ok")
             alert('注册成功')
             this.$router.push('/login')
-            debugger
           }
           else {
-            debugger
             alert('出错了')
-            debugger
           }
         })
       }

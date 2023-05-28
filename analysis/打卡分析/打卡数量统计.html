@@ -11,7 +11,7 @@
   <div id="container" style="height: 100%"></div>
 
 
-  <script type="text/javascript" src="../echarts.js"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
   <!-- Uncomment this line if you want to dataTool extension
   <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.2/dist/extension/dataTool.min.js"></script>
   -->
@@ -41,6 +41,9 @@
     var option;
 
     option = {
+      title: {
+    text: '每年打卡的总数'
+  },
   xAxis: {
     type: 'category',
     data: [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
