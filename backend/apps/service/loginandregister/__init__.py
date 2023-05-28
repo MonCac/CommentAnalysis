@@ -2,10 +2,11 @@ import json
 
 import pymysql
 from flask import Blueprint, request
-from backend.apps.service.connect import con
+from backend.apps.service.connect import dataConnect
 # 客户登录以及注册等基本功能
 basefunction = Blueprint('basefunction', __name__)
 print(22222)
+
 
 
 @basefunction.route('/')
@@ -16,6 +17,7 @@ def hello():
 # 用户注册
 @basefunction.route('/userregister')
 def userRegister():
+    con = dataConnect()
     print(111111)
     print(231)
     params = request.args.get("register")
@@ -40,6 +42,7 @@ def userRegister():
 # 登录
 @basefunction.route('/login')
 def login():
+    con=dataConnect()
     status=0
     params = request.args.get("login")
     params = str(params)
@@ -78,6 +81,7 @@ def login():
 # 商户注册
 @basefunction.route('/merchantregister')
 def merchantRegister():
+    con = dataConnect()
     params = request.args.get("register")
     params = str(params)
     json_obj = json.loads(params)
@@ -95,6 +99,7 @@ def merchantRegister():
 # 修改密码
 @basefunction.route('/changepassword')
 def changePassword(params):
+    con = dataConnect()
     password = params[1]
     username = params[0]
     cursor = con.cursor()
@@ -107,6 +112,7 @@ def changePassword(params):
 # 修改商户名称
 @basefunction.route('/changemerchantname')
 def changeMerchantName(params):
+    con = dataConnect()
     business_id = params[0]
     name = params[1]
     cursor = con.cursor()
@@ -119,6 +125,7 @@ def changeMerchantName(params):
 # 修改商户地址
 @basefunction.route('/changemerchantaddress')
 def changeMerchantAddress():
+    con = dataConnect()
     params=request.args.get("saveAddress")
     params = str(params)
     json_obj = json.loads(params)
@@ -134,6 +141,7 @@ def changeMerchantAddress():
 # 修改商户状态
 @basefunction.route('/changemerchantstate')
 def changeMerchantState():
+    con = dataConnect()
     params = request.args.get("saveGender")
     print(params)
     params = str(params)
@@ -151,6 +159,7 @@ def changeMerchantState():
 # 修改商户所在州和城市
 @basefunction.route('/changemerchantcity')
 def changeMerchantCity(params):
+    con = dataConnect()
     business_id = params[0]
     state = params[1]
     city = params[2]

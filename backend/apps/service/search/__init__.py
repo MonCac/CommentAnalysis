@@ -1,6 +1,6 @@
 import pymysql
 from flask import Blueprint, request
-from backend.apps.service.connect import con
+from backend.apps.service.connect import dataConnect
 # 推荐好友功能
 
 search = Blueprint('search', __name__)
@@ -8,6 +8,7 @@ search = Blueprint('search', __name__)
 
 @search.route('/normalsearch')
 def normalSearch():
+    con = dataConnect()
     params = request.args.get("search")
     params = str(params)
     cursor = con.cursor()  # 游标做查询
@@ -25,6 +26,7 @@ def normalSearch():
 # 模糊搜索
 @search.route('/fuzzysearch')
 def fuzzySearch():
+    con = dataConnect()
     params = request.args.get("submit1")
     params = str(params)
     cursor = con.cursor()  # 游标做查询
@@ -42,6 +44,7 @@ def fuzzySearch():
 
 @search.route('/showinfo')
 def showInfo():
+    con = dataConnect()
     params = request.args.get("showShopInfo")
     params = str(params)
     print(params)

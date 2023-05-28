@@ -1,7 +1,7 @@
 import pymysql
 import json
 from flask import Blueprint, request
-from backend.apps.service.connect import con
+from backend.apps.service.connect import dataConnect
 # 推荐好友功能
 
 friendrecommend = Blueprint('friendrecommend', __name__)
@@ -10,6 +10,7 @@ friendrecommend = Blueprint('friendrecommend', __name__)
 
 @friendrecommend.route('/evaluationrecommendfriend')
 def evaluationRecommendFriend():
+    con = dataConnect()
     params = request.args.get("friendRecommend")
     user_id = str(params)
     cursor = con.cursor()

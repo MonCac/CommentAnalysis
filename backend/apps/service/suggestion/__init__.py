@@ -1,6 +1,6 @@
 import pymysql
 from flask import *
-from backend.apps.service.connect import con
+from backend.apps.service.connect import dataConnect
 suggestion = Blueprint('suggestion', __name__)
 
 
@@ -25,6 +25,7 @@ suggestion = Blueprint('suggestion', __name__)
 # 设施需求建议
 @suggestion.route('/facilityrequirementssuggestion')
 def facilityRequirementsSuggestion():
+    con = dataConnect()
     params = request.args.get('facilityrequirementssuggestion')
     params = str(params)
     print(params)
@@ -52,7 +53,7 @@ def facilityRequirementsSuggestion():
 #     sql = f" select tips.tips_text from business join tips" \
 #         f" on  business.business_id = tips.tips_business_id " \
 #         f"where business.business_id = '{params}'"
-#     cursor.execute(sql)  # 查sql语句
+#     cursor.execute(sql)  # 查ssql语句
 #     results = cursor.fetchall()  # 封装查询结果，fetchone一条，固定写法
 #     cursor.close()
 #     con.close()

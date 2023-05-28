@@ -1,7 +1,7 @@
 import pymysql
 from flask import *
 from backend.apps.service.merchantrecommend import Filtrate0_Sort, Filtrate1_Sort, Filtrate2_Sort
-from backend.apps.service.connect import con
+from backend.apps.service.connect import dataConnect
 # 推荐好友功能
 
 merchantrecommend = Blueprint('merchantrecommend', __name__)
@@ -10,6 +10,7 @@ merchantrecommend = Blueprint('merchantrecommend', __name__)
 # 根据state推荐商家
 @merchantrecommend.route('/recommendbystate')
 def recommendByState():
+    con = dataConnect()
     params = request.args.get('recommendByState')
     params = str(params)
     cursor = con.cursor()  # 游标做查询
@@ -29,6 +30,7 @@ def recommendByState():
 # 根据city推荐商家
 @merchantrecommend.route('/recommendbycity')
 def recommendByCity():
+    con = dataConnect()
     params = request.args.get('recommendByCity')
     params = str(params)
     cursor = con.cursor()  # 游标做查询
@@ -49,6 +51,7 @@ def recommendByCity():
 # 根据state和city推荐商家
 @merchantrecommend.route('/recommendbystateandcity')
 def recommendByStateAndCity():
+    con = dataConnect()
     params = request.args.get('recommendByStateAndCity')
     params = str(params)
     json_obj = json.loads(params)
@@ -91,6 +94,7 @@ def recommendByStateAndCity():
 # 选择推荐方式
 @merchantrecommend.route('/recommendbychoice')
 def recommendByChoice():
+    con = dataConnect()
     params = request.args.get('recommendByChoice')
     params = str(params)
     cursor = con.cursor()  # 游标做查询
