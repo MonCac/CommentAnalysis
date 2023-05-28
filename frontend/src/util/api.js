@@ -54,25 +54,27 @@ export function changeMerchantAddress(paramss) {
     return request({
         url: "/changemerchantaddress",
         method: "get",
-        params: {search :paramss}
+        params: {saveAddress :paramss}
     });
 }
 
 // 修改商户状态
-export function changeMerchantState(params) {
+export function changeMerchantState(paramss) {
+    console.log(paramss)
+    debugger
     return request({
         url: "/changemerchantstate",
         method: "get",
-        params
+        params:{saveGender :paramss}
     });
 }
 
 // 修改商户所在城市
-export function changeMerchantCity(params) {
+export function changeMerchantCity(paramss) {
     return request({
         url: "/changemerchantcity",
         method: "get",
-        params
+        params:{saveGender:paramss}
     });
 }
 

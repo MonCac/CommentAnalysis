@@ -31,13 +31,11 @@
         <div class="info-item">
           <span class="label">是否营业：</span>
           <span v-if="!editGender">{{ gender }}</span>
-          <select v-else v-model="newGender" class="edit-select">
-            <option value="ture">是</option>
-            <option value="false">否</option>
-          </select>
+          <input v-else v-model="newGender" type="text" class="edit-input" />
+          <button @click="saveGender" class="edit-btn">{{ editGender ? '保存' : '编辑' }}</button>
         </div>
         <div class="info-item">
-    <button @click="saveOpeningHours" class="edit-btn">{{ editOpeningHours ? '保存' : '编辑' }}</button>
+
   </div>
         <div class="info-item">
           <span class="label">地址：</span>
@@ -70,19 +68,20 @@
 
 <script>
 
-import { changeMerchantAddress, facilityRequirementsSuggestion } from "../util/api"
+import { changeMerchantAddress,changeMerchantState, facilityRequirementsSuggestion } from "../util/api"
 
 export default {
-  created() {},
+  created() {
+
+  },
   mounted() {
-    
+
     this.username = this.$route.query.username
     debugger
-    console.log(this.business_id)
     this.business_id = this.$route.query.business_id
+    this.selectSuggestion(this.business_id)
     console.log(this.business_id)
     debugger
-    this.selectSuggestion(this.business_id)
     if (this.username != ''){
       this.loginData = true
     }
@@ -96,7 +95,14 @@ export default {
       birthday: '',
       address: '',
       signature: '',
-
+      modStateForm: {
+        status: 0,
+        business_id: ''
+      },
+      modAddressForm: {
+        address:'',
+        business_id: ''
+      },
       comments: [
         {
           id: 1,
@@ -132,13 +138,13 @@ export default {
       editOpeningHours: false,
       selectedDays: [],
       openingHours: '营业时间',
+      business_id:'',
     };
   },
   methods: {
     selectSuggestion(target) {
-      debugger
-      console.log(target)
       facilityRequirementsSuggestion(target).then((res) => {
+
         if (res.status == 200){
           debugger
           console.log("ok")
@@ -184,6 +190,18 @@ export default {
       if (this.editGender) {
         // 保存性别
         this.gender = this.newGender;
+        console.log(this.gender)
+        debugger
+        this.modStateForm.status=this.gender
+        this.modStateForm.business_id=this.business_id
+        changeMerchantState(this.modStateForm).then((res) => {
+        if (res.status == 200) {
+          console.log("ok")
+        }
+        else {
+          console.log("出错了")
+        }
+      })
       }
       this.editGender = !this.editGender;
     },
@@ -198,18 +216,18 @@ export default {
       if (this.editAddress) {
         // 保存住址
         this.address = this.newAddress;
-      }
-      this.editAddress = !this.editAddress;
-      changeMerchantAddress(this.address).then((res) => {
+        changeMerchantAddress(this.modAddressForm).then((res) => {
         if (res.status == 200) {
           console.log("ok")
-          console.log(res)
-          debugger
+          this.modAddressForm.address=this.address
+          this.modAddressForm.business_id=this.business_id
         }
         else {
-          console.log("出错")
+          console.log("出错了")
         }
       })
+      }
+      this.editAddress = !this.editAddress;
     },
     saveSignature() {
       if (this.editSignature) {

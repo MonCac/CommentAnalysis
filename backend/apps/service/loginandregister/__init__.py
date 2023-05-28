@@ -114,14 +114,12 @@ def changePassword(params):
 
 # 修改商户名称
 @basefunction.route('/changemerchantname')
-def changeMerchantName(params):
-    business_id = params[0]
-    name = params[1]
+def changeMerchantName():
     con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
                           charset='utf8')
     cursor = con.cursor()
-    sql = f"update business set `name`='{name}' where business_id='{business_id}';"
-    cursor.execute(sql)
+    # sql = f"update business set `name`='{name}' where business_id='{business_id}';"
+    # cursor.execute(sql)
     con.commit()
     return "修改成功"
 
@@ -131,9 +129,9 @@ def changeMerchantName(params):
 def changeMerchantAddress():
     params=request.args.get("saveAddress")
     params = str(params)
-    print(params)
-    business_id = params[0]
-    address = params[1]
+    json_obj = json.loads(params)
+    address = json_obj['address']
+    business_id = json_obj['business_id']
     con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
                           charset='utf8')
     cursor = con.cursor()
@@ -143,16 +141,20 @@ def changeMerchantAddress():
     return "修改成功"
 
 
-print(33333)
-
-
 # 修改商户状态
 @basefunction.route('/changemerchantstate')
-def changeMerchantState(params):
+def changeMerchantState():
+    params = request.args.get("saveGender")
+    print(params)
+    params = str(params)
+    json_obj = json.loads(params)
+    is_open = json_obj['status']
+    print(is_open)
+    business_id = json_obj['business_id']
     con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
                           charset='utf8')
     cursor = con.cursor()
-    sql = f"update business set is_open=1-is_open where business_id='{params}';"
+    sql = f"update business set is_open=1-is_open where business_id='{business_id}';"
     cursor.execute(sql)
     con.commit()
     return "修改成功"
