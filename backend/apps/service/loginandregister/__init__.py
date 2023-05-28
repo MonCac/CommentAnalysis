@@ -2,7 +2,7 @@ import json
 
 import pymysql
 from flask import Blueprint, request
-
+from backend.apps.service.connect import con
 # 客户登录以及注册等基本功能
 basefunction = Blueprint('basefunction', __name__)
 print(22222)
@@ -30,8 +30,6 @@ def userRegister():
     password = json_obj['password']
     print(password)
     status = 0
-    con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
-                          charset='utf8')
     cursor = con.cursor()
     sql = f"insert into pwd(username,password,status) values('{username}','{password}', '{status}');"
     cursor.execute(sql)
@@ -48,8 +46,6 @@ def login():
     json_obj = json.loads(params)
     username = json_obj['username']
     password = json_obj['password']
-    con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
-                          charset='utf8')
     cursor = con.cursor()  # 游标做查询
     sql = f"select password,status from pwd where username='{username}';"
     cursor.execute(sql)
@@ -89,8 +85,6 @@ def merchantRegister():
     password = json_obj['password']
     business_id=json_obj['business_id']
     status = 1
-    con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
-                          charset='utf8')
     cursor = con.cursor()
     sql = f"insert into pwd(username,password,status,business_id) values('{username}','{password}', '{status}','{business_id}');"
     cursor.execute(sql)
@@ -103,8 +97,6 @@ def merchantRegister():
 def changePassword(params):
     password = params[1]
     username = params[0]
-    con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
-                          charset='utf8')
     cursor = con.cursor()
     sql = f"update pwd set password='{password}' where username='{username}';"
     cursor.execute(sql)
@@ -114,9 +106,9 @@ def changePassword(params):
 
 # 修改商户名称
 @basefunction.route('/changemerchantname')
-def changeMerchantName():
-    con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
-                          charset='utf8')
+def changeMerchantName(params):
+    business_id = params[0]
+    name = params[1]
     cursor = con.cursor()
     # sql = f"update business set `name`='{name}' where business_id='{business_id}';"
     # cursor.execute(sql)
@@ -132,8 +124,6 @@ def changeMerchantAddress():
     json_obj = json.loads(params)
     address = json_obj['address']
     business_id = json_obj['business_id']
-    con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
-                          charset='utf8')
     cursor = con.cursor()
     sql = f"update business set address='{address}' where business_id='{business_id}';"
     cursor.execute(sql)
@@ -151,8 +141,6 @@ def changeMerchantState():
     is_open = json_obj['status']
     print(is_open)
     business_id = json_obj['business_id']
-    con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
-                          charset='utf8')
     cursor = con.cursor()
     sql = f"update business set is_open=1-is_open where business_id='{business_id}';"
     cursor.execute(sql)
@@ -166,8 +154,6 @@ def changeMerchantCity(params):
     business_id = params[0]
     state = params[1]
     city = params[2]
-    con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
-                          charset='utf8')
     cursor = con.cursor()
     sql = f"update business set state='{state}',city='{city}' where business_id='{business_id}';"
     cursor.execute(sql)

@@ -1,7 +1,7 @@
 import pymysql
 import json
 from flask import Blueprint, request
-
+from backend.apps.service.connect import con
 # 推荐好友功能
 
 friendrecommend = Blueprint('friendrecommend', __name__)
@@ -12,8 +12,6 @@ friendrecommend = Blueprint('friendrecommend', __name__)
 def evaluationRecommendFriend():
     params = request.args.get("friendRecommend")
     user_id = str(params)
-    con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
-                          charset='utf8')
     cursor = con.cursor()
     #包含用户姓名，但搜索速度较慢
     sql = f" select a.rev_user_id,user_name from review a join review b on a.rev_business_id=b.rev_business_id" \

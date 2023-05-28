@@ -1,7 +1,7 @@
 import pymysql
 from flask import *
 from backend.apps.service.merchantrecommend import Filtrate0_Sort, Filtrate1_Sort, Filtrate2_Sort
-
+from backend.apps.service.connect import con
 # 推荐好友功能
 
 merchantrecommend = Blueprint('merchantrecommend', __name__)
@@ -12,8 +12,6 @@ merchantrecommend = Blueprint('merchantrecommend', __name__)
 def recommendByState():
     params = request.args.get('recommendByState')
     params = str(params)
-    con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
-                          charset='utf8')
     cursor = con.cursor()  # 游标做查询
     sql = f"select business_id,`name`, stars, address ,(stars * 2000 + review_count * 0.05) AS score " \
         f"FROM  business where is_open =1 AND state = '{params}'    order by score DESC LIMIT 12 "
@@ -33,8 +31,6 @@ def recommendByState():
 def recommendByCity():
     params = request.args.get('recommendByCity')
     params = str(params)
-    con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
-                          charset='utf8')
     cursor = con.cursor()  # 游标做查询
     sql = f"select business_id,`name`, stars, address ,(stars * 2000 + review_count * 0.05) AS score " \
         f"FROM  business where is_open =1 AND city = '{params}' order by score  DESC LIMIT 12 "
@@ -59,8 +55,6 @@ def recommendByStateAndCity():
     state = json_obj['state']
     city = json_obj['city']
 
-    con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
-                          charset='utf8')
     cursor = con.cursor()  # 游标做查询
     sql = f"select business_id,`name`, stars, address ,(stars * 2000 + review_count * 0.05) AS score " \
         f"FROM  business where is_open =1 AND state = '{state}'AND city = '{city}' order by score DESC LIMIT 12 "
@@ -99,8 +93,6 @@ def recommendByStateAndCity():
 def recommendByChoice():
     params = request.args.get('recommendByChoice')
     params = str(params)
-    con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
-                          charset='utf8')
     cursor = con.cursor()  # 游标做查询
     sql = f"select business_id,`name`, stars, address ,(stars * 2000 + review_count * 0.05) AS score   " \
         f"FROM  business where is_open =1  order by {params} DESC LIMIT 12 "

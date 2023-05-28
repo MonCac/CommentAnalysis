@@ -1,6 +1,6 @@
 import pymysql
 from flask import Blueprint, request
-
+from backend.apps.service.connect import con
 # 推荐好友功能
 
 search = Blueprint('search', __name__)
@@ -10,8 +10,6 @@ search = Blueprint('search', __name__)
 def normalSearch():
     params = request.args.get("search")
     params = str(params)
-    con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
-                          charset='utf8')
     cursor = con.cursor()  # 游标做查询
     sql = f"select  business_id,`name`,categories,address from business where `name` like '%{params}%' and is_open=1 order by stars DESC,review_count DESC limit 10;"
     cursor.execute(sql)  # 查sql语句
@@ -28,8 +26,6 @@ def normalSearch():
 # 模糊搜索
 @search.route('/fuzzysearch')
 def fuzzySearch(params):
-    con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
-                          charset='utf8')
     cursor = con.cursor()  # 游标做查询
     sql = f"select business_id, `name` from business where categories like '%{params}%' order by stars,review_count limit 10;"
     cursor.execute(sql)  # 查sql语句
@@ -43,8 +39,6 @@ def showInfo():
     params = request.args.get("showShopInfo")
     params = str(params)
     print(params)
-    con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
-                          charset='utf8')
     cursor = con.cursor()  # 游标做查询
     sql = f"select  business_id,`name`,address,city,state,stars,review_count,is_open,attributes,categories,hours from business where business_id='{params}';"
     cursor.execute(sql)  # 查sql语句

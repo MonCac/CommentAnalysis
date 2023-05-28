@@ -1,6 +1,6 @@
 import pymysql
 from flask import *
-
+from backend.apps.service.connect import con
 suggestion = Blueprint('suggestion', __name__)
 
 
@@ -8,8 +8,6 @@ suggestion = Blueprint('suggestion', __name__)
 # 市场分析建议
 # @suggestion.route('/marketanalysissuggestion')
 # def marketAnalysisSuggestion(params):
-#     con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
-#                           charset='utf8')
 #     cursor = con.cursor()  # 游标做查询
 #
 #     sql = f"select categories from business where business_id = '{params}'"
@@ -31,8 +29,6 @@ def facilityRequirementsSuggestion():
     params = str(params)
     print(params)
 
-    con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
-                          charset='utf8')
     cursor = con.cursor()  # 游标做查询
 
     sql = f" select tips_timestamp,tips_text from  tips" \
@@ -51,8 +47,6 @@ def facilityRequirementsSuggestion():
 # # 用户经营建议
 # @suggestion.route('/usermanagementsuggestion')
 # def userManagementSuggestion(params):
-#     con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
-#                           charset='utf8')
 #     cursor = con.cursor()  # 游标做查询
 #
 #     sql = f" select tips.tips_text from business join tips" \
