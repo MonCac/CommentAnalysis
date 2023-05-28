@@ -1,7 +1,7 @@
 import pymysql
 from backend.apps.service.merchantrecommend import merchantrecommend, Filtrate2_Sort, Filtrate1_Sort, Filtrate0_Sort
 from flask import request
-
+from backend.apps.service.connect import con
 # 根据浏览推荐商家
 @merchantrecommend.route('/recommendbybrowsing')
 def recommendByBrowsing(params):
@@ -17,8 +17,6 @@ def recommendByPosition(params):
 # 默认推荐排序
 @merchantrecommend.route('/recommenddefault')
 def recommendDefault():
-    con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
-                          charset='utf8')
     cursor = con.cursor()  # 游标做查询
     sql = f"SELECT business_id,`name`,address,stars, (stars * 100 + review_count) AS score " \
         f"FROM business WHERE is_open = 1 ORDER BY score DESC LIMIT 12;"
@@ -35,8 +33,6 @@ def recommendDefault():
 @merchantrecommend.route('/recommendbychoice')
 def recommendByChoice():
     params = request.args.get('recommendByChoice')
-    con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
-                          charset='utf8')
     cursor = con.cursor()  # 游标做查询
     sql = f"select `name`, stars, address   " \
         f"FROM  business where is_open =1 order by {params} DESC LIMIT 12 "
@@ -50,8 +46,6 @@ def recommendByChoice():
 # 量化排序推荐
 @merchantrecommend.route('/recommendbyquantization')
 def recommendByQuantization():
-    con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
-                          charset='utf8')
     cursor = con.cursor()  # 游标做查询
     sql = f"SELECT state  FROM business "
 

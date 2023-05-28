@@ -1,10 +1,9 @@
 import pymysql
+from backend.apps.service.connect import con
 
 
 
 def choose_one(paramss):
-    con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
-                          charset='utf8')
     cursor = con.cursor()  # 游标做查询
     sql = f"select `name`,  {paramss}  " \
         f"FROM  business where is_open =1 order by {paramss} DESC LIMIT 12 "
@@ -16,8 +15,6 @@ def choose_one(paramss):
 
 
 def choose_two(param1, param2):
-    con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
-                          charset='utf8')
     cursor = con.cursor()  # 游标做查询
     sql = f"select `name`,  {param1} ,{param2} " \
         f"FROM  business where is_open =1 order by {param1} DESC, {param2} DESC LIMIT 10 "
@@ -29,8 +26,6 @@ def choose_two(param1, param2):
 
 
 def test1():
-    con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
-                          charset='utf8')
     cursor = con.cursor()  # 游标做查询
     sql = f" SELECT * from business join " \
         f" (select rev_business_id, count(rev_business_id)as cnt from review where rev_stars = 5 group by rev_business_id)as rev_df" \
@@ -46,8 +41,6 @@ def test1():
 
 
 def test2():
-    con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
-                          charset='utf8')
     cursor = con.cursor()  # 游标做查询
 
     sql = f"select rev_business_id, count(rev_business_id)as cnt from review where rev_stars = 5 " \
