@@ -19,7 +19,6 @@ def userRegister():
     print(111111)
     print(231)
     params = request.args.get("register")
-    print(params)
     params = str(params)
     json_obj = json.loads(params)
     print(params)
