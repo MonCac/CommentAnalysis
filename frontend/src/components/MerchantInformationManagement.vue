@@ -73,9 +73,7 @@
 import { changeMerchantAddress, facilityRequirementsSuggestion } from "../util/api"
 
 export default {
-  created() {
-
-  },
+  created() {},
   mounted() {
     
     this.username = this.$route.query.username
@@ -84,7 +82,6 @@ export default {
     this.business_id = this.$route.query.business_id
     console.log(this.business_id)
     debugger
-
     this.selectSuggestion(this.business_id)
     if (this.username != ''){
       this.loginData = true
@@ -92,6 +89,7 @@ export default {
   },
   data() {
     return {
+      business_id:'',
       username: '',
       contact: '',
       gender: '',

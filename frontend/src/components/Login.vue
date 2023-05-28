@@ -9,7 +9,7 @@
       <el-tabs v-model="activeName">
         <el-tab-pane label="用户登录" name="user">
           <!-- 用户账号密码登录表单 -->
-          <el-form ref="pwdLoginFormRef" :model="pwdLoginForm" :rules="pwdLoginFormRules">
+          <el-form ref="pwdLoginFormRef" :model="pwdLoginForm">
             <!-- 用户名 -->
             <el-form-item prop="username" label="用户名">
               <el-input placeholder="请输入用户名" prefix-icon="el-icon-user-solid" v-model="pwdLoginForm.username" required>
@@ -79,7 +79,7 @@ export default {
           if (res.data['status'] == 1) {
             alert('密码错误')
           } else {
-            this.$router.push({ path: '/recommend', query: { username: this.pwdLoginForm.username, business_id: res.data.business_id } })
+            this.$router.push({ path: '/recommend', query: { username: this.pwdLoginForm.username, business_id: res.data.b } })
           }
         }
         else {
@@ -95,7 +95,7 @@ export default {
           if (res.data['status'] == 1) {
             alert('密码错误')
           } else {
-            this.$router.push({ path: '/merchantinformationmanagement', query: { username: this.pwdLoginForm.username, business_id: res.data.business_id } })
+            this.$router.push({ path: '/merchantinformationmanagement', query: { username: this.pwdLoginForm.username, business_id: res.data.b } })
           }
         }
         else {
