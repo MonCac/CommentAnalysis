@@ -11,7 +11,7 @@
       <!-- nav-info -->
       <el-row class="row">
         <el-col :span="8">
-          <img src="../img/logo.png" class="logo-img" />
+          <img src="../img/logo.png" class="logo-img"  @click="goRecommend"/>
         </el-col>
         <el-col :span="1"></el-col>
         <el-col :span="8">
@@ -148,7 +148,10 @@ export default {
       this.$router.replace('/login');
       sessionStorage.clear();
     },
+    goRecommend(){
+      this.$router.push({ path: '/recommend', query: { username: this.id } })
 
+    },
     search() {
       this.data = this.input;
       this.activeName = 'second';
