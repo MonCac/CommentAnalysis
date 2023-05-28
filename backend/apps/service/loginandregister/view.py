@@ -17,9 +17,9 @@ def login(params):
     cursor.execute(sql)
     results = (cursor.fetchone())
     if results is None:  # 如果查询结果是空
-        return (f"用户'{username}'不存在")
         cursor.close()
         con.close()
+        return f"用户'{username}'不存在"
     else:
         cursor.close()
         con.close()
