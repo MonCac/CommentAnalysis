@@ -1,11 +1,9 @@
 import pymysql
 from pymysql import IntegrityError  # 引用内置函数
-from backend.apps.service.LoginAndRegister import main
-
+from backend.apps.service.loginandregister import main
+from backend.apps.service.connect import con
 
 def query(username):  # 查询，校验注册及登录
-    con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='school',
-                          charset='utf8')
     cursor = con.cursor()  # 游标做查询
     sql = f"select password from pwd where username='{username}';"
     # 将sql语句参数化sql前面写个f里面的username给它用花括号参数化
@@ -25,8 +23,6 @@ def query(username):  # 查询，校验注册及登录
 
 
 def dml_insert(username, password, status):  # 注册信息储存
-    con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='school',
-                          charset='utf8')
     cursor = con.cursor()
     sql = f"insert into pwd(username,password,status) values('{username}','{password}', '{status}');"
     # 这里注册信息用了个python报错异常处理try/except
