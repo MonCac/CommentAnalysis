@@ -156,12 +156,13 @@ export default {
       })
     },
     login() {
+      this.$router.push('/login');
       // 登录逻辑
-      this.loginData = true;
     },
     logout() {
+      this.$router.replace('/login');
+
       // 登出逻辑
-      this.loginData = false;
     },
     personalClick() {
       // 跳转到个人空间
