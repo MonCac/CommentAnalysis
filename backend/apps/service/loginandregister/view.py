@@ -2,7 +2,7 @@ import json
 
 from flask import request
 
-from backend.apps.service.LoginAndRegister import basefunction
+from backend.apps.service.loginandregister import basefunction
 import pymysql
 
 
@@ -34,7 +34,19 @@ def login(params):
 
 
 # 用户注册
-
+@basefunction.route('/userregister')
+def userRegister(params):
+    print(111111)
+    username = params[0]
+    password = params[1]
+    status = 0
+    con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
+                          charset='utf8')
+    cursor = con.cursor()
+    sql = f"insert into pwd(username,password,status) values('{username}','{password}', '{status}');"
+    cursor.execute(sql)
+    con.commit()
+    return "注册成功"
 
 
 # 商户注册
@@ -93,7 +105,6 @@ def changeMerchantAddress(params):
     con.commit()
     return "修改成功"
 
-print(33333)
 
 # 修改商户状态
 @basefunction.route('/changemerchantstate')

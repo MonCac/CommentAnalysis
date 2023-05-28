@@ -30,7 +30,7 @@
 import Axios from "axios"
 import { userRegister } from "../util/api"
 export default {
-  data() {
+ data() {
     return {
       pwdUserRegisterForm: {
         username: '',

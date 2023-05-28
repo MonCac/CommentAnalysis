@@ -16,11 +16,25 @@
         <el-col :span="1">
 
         </el-col>
-        <el-col :span="8">
-          <el-input v-model="input" placeholder="请输入搜索内容">
-            <el-button slot="append" @click="search">搜索</el-button>
-          </el-input>
-        </el-col>
+        <div>
+          <el-col :span="8">
+            <el-input v-model="input" placeholder="请输入搜索内容">
+              <el-button slot="append" @click="search">搜索</el-button>
+            </el-input>
+          </el-col>
+
+          <el-col :span="24" class="button1-container">
+            <el-button-group>
+              <el-button @click="submit1" v-model="cons_1" class="filter1-submit">Restaurants</el-button>
+              <el-button @click="submit2" v-model="cons_2" class="filter1-submit">Food</el-button>
+              <el-button @click="submit3" v-model="cons_3" class="filter1-submit">Shopping</el-button>
+              <el-button @click="submit4" v-model="cons_4" class="filter1-submit">Home Services</el-button>
+              <el-button @click="submit5" v-model="cons_5" class="filter1-submit">Beauty & Spas</el-button>
+              <el-button @click="submit6" v-model="cons_6" class="filter1-submit">Nightlife</el-button>
+              <el-button @click="submit7" v-model="cons_7" class="filter1-submit">Health & Medical</el-button>
+            </el-button-group>
+          </el-col>
+        </div>
       </el-row>
       <!--  nav-search -->
     </header>
@@ -298,13 +312,19 @@ export default {
       data: '',
       value: '',
       id: '',
-      // input1: '',
-      // input2: '',
+      cons_1: 'Restaurants',
+      cons_2: 'Food',
+      cons_3: 'Shopping',
+      cons_4: 'Home Services',
+      cons_5: 'Beauty & Spas',
+      cons_6: 'Nightlife',
+      cons_7: 'Health & Medical',
     };
   },
   computed: {},
 
   created() {
+    debugger
     this.value = this.$route.query.value;
     if (this.$route.query.page === '2') {
       this.activeName = 'second';
@@ -318,15 +338,18 @@ export default {
       this.input = this.value;
       this.activeName = 'second';
     }
-    debugger
     console.log(this.recommendedFriends)
-    this.friendRecommend()
+    // this.friendRecommend()
   },
   mounted() {
+    debugger
     this.id = this.$route.query.username
+    debugger
+    console.log(this.id)
     if (this.id != '') {
       this.loginData = true
     }
+    debugger
   },
   methods: {
     sortMerchant(target) {
@@ -363,8 +386,21 @@ export default {
     },
     search() {
       this.data = this.input;
-      this.$router.push('/');
       this.activeName = 'second';
+      normalSearch(this.data).then((res) => {
+        if (res.status == 200) {
+          console.log("ok")
+          for (var i = 0; i <= 9; i++) {
+            this.recommendedMerchants[i].id = res.data[i].business_id
+            this.recommendedMerchants[i].name = res.data[i].name
+            this.recommendedMerchants[i].type = res.data[i].categories
+            this.recommendedMerchants[i].address = res.data[i].address
+          }
+        }
+        else {
+          console.log("出错")
+        }
+      })
     },
     order() {
       this.$router.push({ path: '/order' });
@@ -387,7 +423,7 @@ export default {
           if (res.status == 200) {
             debugger
             console.log("ok")
-           
+
           for (var i = 0; i <= 11; i++) {
             debugger
             console.log("ok")
@@ -466,7 +502,34 @@ export default {
       console.log(merchantId)
       debugger
       this.$router.push({ path: '/merchantdisplay', query: { id: merchantId } })
-    }
+    },
+    submit1() {
+
+    },
+
+    submit2() {
+
+    },
+
+    submit3() {
+
+    },
+
+    submit4() {
+
+    },
+
+    submit5() {
+
+    },
+
+    submit6() {
+
+    },
+
+    submit7() {
+
+    },
   },
 
 };
@@ -685,5 +748,17 @@ footer a {
 .filter-submit {
   margin-right: 60px;
   background-color: #409EFF;
+}
+
+.button1-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.filter1-submit {
+  margin: 0 10px;
+  white-space: nowrap;
+  background-color: #409EFF;
+
 }
 </style>

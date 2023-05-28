@@ -42,6 +42,7 @@ def userRegister():
 # 登录
 @basefunction.route('/login')
 def login():
+    status=0
     params = request.args.get("login")
     params = str(params)
     json_obj = json.loads(params)
@@ -52,33 +53,46 @@ def login():
     cursor = con.cursor()  # 游标做查询
     sql = f"select password,status from pwd where username='{username}';"
     cursor.execute(sql)
-    results = (cursor.fetchone())
+    results = cursor.fetchone()
     sql_business = f"select business_id from pwd where username='{username}';"
     cursor.execute(sql_business)
-    result_business = cursor.fetchone()
+    result_business=cursor.fetchone()
     key = ("business_id")
-    print(dict(zip(key, result_business)))
-    return dict(zip(key, result_business))
+    result_business=dict(zip(key, result_business))
+    data=json.dumps(result_business)
+    print(data)
+    if results is None:  # 如果查询结果是空
+        status=0  # 用户名不存在
+    else:
+        if password == results[0]:
+            status=2  # 登录成功
+        else:
+            status=1  # 密码错误
+    data=json.loads(data)
+    data['status']=status
+    result_business = json.dumps(data)
+    print(result_business)
+    return result_business
+
+
+
+# 用户注册
 
 
 # 商户注册
 @basefunction.route('/merchantregister')
 def merchantRegister():
     params = request.args.get("register")
-    print(params)
     params = str(params)
     json_obj = json.loads(params)
-    print(params)
-    print(json_obj)
-    print(2131)
     username = json_obj['username']
-    print(username)
     password = json_obj['password']
+    business_id=json_obj['business_id']
     status = 1
     con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
                           charset='utf8')
     cursor = con.cursor()
-    sql = f"insert into pwd(username,password,status) values('{username}','{password}', '{status}');"
+    sql = f"insert into pwd(username,password,status,business_id) values('{username}','{password}', '{status}','{business_id}');"
     cursor.execute(sql)
     con.commit()
     return "注册成功"
@@ -114,7 +128,10 @@ def changeMerchantName(params):
 
 # 修改商户地址
 @basefunction.route('/changemerchantaddress')
-def changeMerchantAddress(params):
+def changeMerchantAddress():
+    params=request.args.get("saveAddress")
+    params = str(params)
+    print(params)
     business_id = params[0]
     address = params[1]
     con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
