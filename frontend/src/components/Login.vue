@@ -31,7 +31,7 @@
         </el-tab-pane>
         <el-tab-pane label="商户登录" name="merchant">
           <!-- 账号密码登录表单 -->
-          <el-form ref="pwdLoginFormRef" :model="pwdLoginForm" :rules="pwdLoginFormRules">
+          <el-form ref="pwdLoginFormRef" :model="pwdLoginForm">
             <!-- 用户名 -->
             <el-form-item prop="username" label="商户名">
               <el-input placeholder="请输入商户名" clearable prefix-icon="el-icon-user-solid" v-model="pwdLoginForm.username">
@@ -45,7 +45,8 @@
             </el-form-item>
             <!-- 按钮区域 -->
             <el-form-item class="login-btns">
-              <button class="el-button el-button--primary" @click="pwdMerchantLogin" :disabled="loading">{{ loading ? '登录中'
+              <button class="el-button el-button--primary" @click="pwdMerchantLogin" :disabled="loading">{{ loading ?
+                '登录中'
                 : '登录' }}</button>
               <button class="el-button el-button--text" @click='goMerchantRegister'>注册</button>
             </el-form-item>
@@ -75,7 +76,11 @@ export default {
       console.log(`用户名：${this.pwdLoginForm.username}，密码：${this.pwdLoginForm.password}`)
       login(this.pwdLoginForm).then((res) => {
         if (res.status == 200) {
-          this.$router.push({ path: '/recommend', query: { username: this.pwdLoginForm.username, business_id: res.data.business_id } })
+          if (res.data['status'] == 1) {
+            alert('密码错误')
+          } else {
+            this.$router.push({ path: '/recommend', query: { username: this.pwdLoginForm.username, business_id: res.data.business_id } })
+          }
         }
         else {
           console.log("出错了")
@@ -87,7 +92,11 @@ export default {
       console.log(`用户名：${this.pwdLoginForm.username}，密码：${this.pwdLoginForm.password}`)
       login(this.pwdLoginForm).then((res) => {
         if (res.status == 200) {
-          this.$router.push({ path: '/merchantinformationmanagement', query: { username: this.pwdLoginForm.username } })
+          if (res.data['status'] == 1) {
+            alert('密码错误')
+          } else {
+            this.$router.push({ path: '/merchantinformationmanagement', query: { username: this.pwdLoginForm.username, business_id: res.data.business_id } })
+          }
         }
         else {
           console.log("出错了")
@@ -167,5 +176,6 @@ export default {
 
 .el-button--text {
   color: #409EFF;
-}</style>
+}
+</style>
 
