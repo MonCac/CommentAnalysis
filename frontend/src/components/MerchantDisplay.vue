@@ -14,7 +14,7 @@
       <!-- nav-info -->
       <el-row class="row">
         <el-col :span="8">
-          <img src="../img/logo.png" class="logo-img"/>
+          <img src="../img/logo.png" class="logo-img" />
         </el-col>
         <el-col :span="8">
           <el-input v-model="input" placeholder="请输入搜索内容">
@@ -24,53 +24,53 @@
       </el-row>
       <!--  nav-search -->
     </header>
-  <div class="merchant-details">
-    <h1>{{ merchant.name }}</h1>
-    <div class="address">{{ merchant.address }}</div>
-    <div class="city-state">{{ merchant.city }}, {{ merchant.state }}</div>
-    <div class="rating">
-      <span class="stars">
-        <template v-for="i in convertRatingToStarsCount(merchant.rating)">
-          <i class="star" :class="{ filled: i >= 1 }"></i>
-          <i class="half-star" v-if="i >= 0.5 && i < 1"></i>
-        </template>
-      </span>
-      <span class="rating-count">{{ merchant.ratingCount }} Reviews</span>
-    </div>
-    <div class="status" :class="{ open: merchant.isOpen }">{{ merchant.isOpen ? 'Open Now' : 'Closed' }}</div>
-    <div class="features">
-      <div v-for="feature in merchant.features" :key="feature" class="feature">{{ feature }}</div>
-    </div>
-    <div class="categories">
-      <div v-for="category in merchant.categories" :key="category" class="category">{{ category }}</div>
-    </div>
-    <div class="hours">
-      <div class="hours-title">Hours:</div>
-      <div class="hours-days">
-        <div v-for="day in daysOfWeek" :key="day" class="day">{{ day }}</div>
+    <div class="merchant-details">
+      <h1>{{ merchant.name }}</h1>
+      <div class="address">{{ merchant.address }}</div>
+      <div class="city-state">{{ merchant.city }}, {{ merchant.state }}</div>
+      <div class="rating">
+        <span class="stars">
+          <template v-for="i in convertRatingToStarsCount(merchant.rating)">
+            <i class="star" :class="{ filled: i >= 1 }"></i>
+            <i class="half-star" v-if="i >= 0.5 && i < 1"></i>
+          </template>
+        </span>
+        <span class="rating-count">{{ merchant.ratingCount }} Reviews</span>
       </div>
-      <div class="hours-times">
-        <div v-for="(hours, day) in merchant.hours" :key="day" class="hours-day">
-          <div v-for="time in hours" :key="time" class="time">{{ time }}</div>
+      <div class="status" :class="{ open: merchant.isOpen }">{{ merchant.isOpen ? 'Open Now' : 'Closed' }}</div>
+      <div class="features">
+        <div v-for="feature in merchant.features" :key="feature" class="feature">{{ feature }}</div>
+      </div>
+      <div class="categories">
+        <div v-for="category in merchant.categories" :key="category" class="category">{{ category }}</div>
+      </div>
+      <div class="hours">
+        <div class="hours-title">Hours:</div>
+        <div class="hours-days">
+          <div v-for="day in daysOfWeek" :key="day" class="day">{{ day }}</div>
+        </div>
+        <div class="hours-times">
+          <div v-for="(hours, day) in merchant.hours" :key="day" class="hours-day">
+            <div v-for="time in hours" :key="time" class="time">{{ time }}</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
-  import { debug } from 'console';
+import { debug } from 'console';
 import { showInfo } from '../util/api';
 export default {
   mounted() {
-      this.id = this.$route.query.id
-      
-      if (this.id != ''){
-        this.loginData = true
-      }
-    },
-  created(){
+    this.id = this.$route.query.id
+
+    if (this.id != '') {
+      this.loginData = true
+    }
+  },
+  created() {
     this.showShopInfo()
   },
   data() {
@@ -94,48 +94,56 @@ export default {
           Friday: ['8:00 AM - 5:00 PM'],
           Saturday: ['10:00 AM - 3:00 PM', '5:00 PM - 10:00 PM'],
           Sunday: ['10:00 AM - 3:00 PM', '5:00 PM - 10:00 PM']
-        }},
-        comments: [ { id: 1, author: 'John Doe',
-                      date: '2023-05-25 12:00:00',
-                      body: 'This merchant is great!' },
-                   { id: 2, author: 'Jane Smith', 
-                     date: '2023-05-25 13:00:00', 
-                     body: 'I had a terrible experience here!' } ], 
-        newComment: { author: '', body: '' } 
+        }
+      },
+      comments: [{
+        id: 1, author: 'John Doe',
+        date: '2023-05-25 12:00:00',
+        body: 'This merchant is great!'
+      },
+      {
+        id: 2, author: 'Jane Smith',
+        date: '2023-05-25 13:00:00',
+        body: 'I had a terrible experience here!'
+      }],
+      newComment: { author: '', body: '' }
     };
   },
   methods: {
-    showShopInfo(){
-        showInfo(this.$route.query.id).then((res)=>{
-          if (res.status == 200) {
-            console.log("ok")
-            this.merchant.name=res.data[0].name
-            this.merchant.address=res.data[0].address
-            this.merchant.city=res.data[0].city
-            this.merchant.state=res.data[0].state
-            this.merchant.rating=res.data[0].stars
-            this.merchant.ratingCount=res.data[0].review_count
-            this.merchant.isOpen=res.data[0].is_open
-            let temp=0
-            let jsonObj1 = JSON.parse(res.data[0].attributes)
-            for(let key in jsonObj1){
-              temp=temp+1
-              if(temp>5){
-                break
-              }
-              this.merchant.features.push(key)
+    showShopInfo() {
+      showInfo(this.$route.query.id).then((res) => {
+        if (res.status == 200) {
+          console.log("ok")
+          this.merchant.name = res.data[0].name
+          this.merchant.address = res.data[0].address
+          this.merchant.city = res.data[0].city
+          this.merchant.state = res.data[0].state
+          this.merchant.rating = res.data[0].stars
+          this.merchant.ratingCount = res.data[0].review_count
+          this.merchant.isOpen = res.data[0].is_open
+          let temp = 0
+          let jsonObj1 = JSON.parse(res.data[0].attributes)
+          for (let key in jsonObj1) {
+            temp = temp + 1
+            if (temp > 5) {
+              break
             }
-            let jsonObj2=res.data[0].categories.split(",")
-            for(let i=0;i<jsonObj2.length;i++){
-              this.merchant.categories.push(jsonObj2[i])
-            }
-            this.merchant.isOpen=res.data[0].hours
+            this.merchant.features.push(key)
           }
-          else {
-            console.log("出错")
+          let jsonObj2 = res.data[0].categories.split(",")
+          for (let i = 0; i < jsonObj2.length; i++) {
+            this.merchant.categories.push(jsonObj2[i])
           }
-        })
-      },
+          this.merchant.isOpen = res.data[0].hours
+        }
+        else {
+          console.log("出错")
+        }
+      })
+    },
+    logout() {
+      this.$router.push('/login');
+    },
     login() {
       this.$router.push('/login');
     },
@@ -144,12 +152,13 @@ export default {
       const halfStar = Math.round(rating - fullStars) === 0.5;
       return fullStars + (halfStar ? 0.5 : 0);
     },
-    addComment() { const newId = this.comments.length + 1; 
-                     const currentDate = new Date(); 
-                     const formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()} ${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}`;
-                     const newComment = { id: newId, author: this.newComment.author, date: formattedDate, body: this.newComment.body }; 
-                     this.comments.push(newComment); 
-                     this.newComment = { author: '', body: '' }; 
+    addComment() {
+      const newId = this.comments.length + 1;
+      const currentDate = new Date();
+      const formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()} ${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}`;
+      const newComment = { id: newId, author: this.newComment.author, date: formattedDate, body: this.newComment.body };
+      this.comments.push(newComment);
+      this.newComment = { author: '', body: '' };
     }
   }
 }
@@ -157,6 +166,7 @@ export default {
 
 <style>
 @import '../css/page.css';
+
 .merchant-details {
   max-width: 1200px;
   margin: 0 auto;
@@ -303,67 +313,66 @@ export default {
 }
 
 .merchant-details .comments {
-margin-top: 30px;
+  margin-top: 30px;
 }
 
 .merchant-details .comments h2 {
-font-size: 24px;
-font-weight: bold;
-margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
 
 .merchant-details .comments .comment {
-margin-bottom: 30px;
-padding-bottom: 20px;
-border-bottom: 1px solid #ccc;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ccc;
 }
 
 .merchant-details .comments .comment-header {
-display: flex;
-justify-content: space-between;
-margin-bottom: 10px;
-font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 16px;
 }
 
 .merchant-details .comments .comment-author {
-font-weight: bold;
+  font-weight: bold;
 }
 
 .merchant-details .comments .comment-date {
-color: #666;
+  color: #666;
 }
 
 .merchant-details .comments .comment-body {
-font-size: 16px;
+  font-size: 16px;
 }
 
 .merchant-details .comment-form {
-display: flex;
-flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .merchant-details .comment-form h3 {
-font-size: 20px;
-font-weight: bold;
-margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
 
 .merchant-details .comment-form input,
 .merchant-details .comment-form textarea {
-padding: 10px;
-margin-bottom: 20px;
-font-size: 16px;
-border: 1px solid #ccc;
-border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .merchant-details .comment-form button {
-padding: 10px 20px;
-font-size: 16px;
-border: none;
-border-radius: 4px;
-background-color: #2196f3;
-color: #fff;
-cursor: pointer;
-}
-</style>
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #2196f3;
+  color: #fff;
+  cursor: pointer;
+}</style>
