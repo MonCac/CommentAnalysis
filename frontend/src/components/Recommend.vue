@@ -46,9 +46,13 @@
               <span>商户推荐</span>
               <div class="sort">
                 <el-select v-model="value" clearable placeholder="默认排序">
-                  <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"
-                    @click.native="sortMerchant(item.label)" />
-                </el-select>
+                  <el-option v-for="item in options"
+                        :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                      @click.native="sortMerchant(item.label)"
+                      />
+                  </el-select>
               </div>
             </div>
             <div class="merchant-items">
@@ -69,8 +73,8 @@
             <div slot="header" class="clearfix">
               <span class="'shaixuan'">商户筛选</span>
               <div class="input-container">
-                <el-input type="text" v-model="input1" placeholder="请输入州名" class="filter-input"></el-input>
-                <el-input type="text" v-model="input2" placeholder="请输入区域名" class="filter-input"></el-input>
+                <el-input type="text" v-model="place.state" placeholder="请输入州名" class="filter-input"></el-input>
+                <el-input type="text" v-model="place.city" placeholder="请输入区域名" class="filter-input"></el-input>
               </div>
               <el-button @click="submit" class="filter-submit">提交</el-button>
             </div>
@@ -114,15 +118,18 @@
 <script>
 
 import { recommendByChoice } from "../util/api"
-
-
+import { recommendByState } from "../util/api"
+import { recommendByCity } from "../util/api"
+import { recommendByStateAndCity } from "../util/api"
 import { evaluationRecommendFriend } from "../util/api"
-import { normalSearch } from "../util/api";
 
 export default {
   data() {
     return {
-      banner: [],
+      place: {
+        state:'',
+        city:''
+      },
       recommendedMerchants: [
         {
           id: 1,
@@ -305,8 +312,6 @@ export default {
       data: '',
       value: '',
       id: '',
-      input1: '',
-      input2: '',
       cons_1: 'Restaurants',
       cons_2: 'Food',
       cons_3: 'Shopping',
@@ -412,12 +417,67 @@ export default {
       console.log('添加好友:', friend);
     },
     submit() {
-      if (input1 == '') {
-        // 只输入了区域
-      } else if (input2 == '') {
-        // 只输入了州
-      } else {
+      if(this.place.state == ''){
+        // 只输入了city
+        recommendByCity(this.place.city).then((res) => {
+          if (res.status == 200) {
+            debugger
+            console.log("ok")
+
+          for (var i = 0; i <= 11; i++) {
+            debugger
+            console.log("ok")
+            this.recommendedMerchants[i].id = i + 1
+            this.recommendedMerchants[i].business_id = res.data[i].business_id
+            this.recommendedMerchants[i].name = res.data[i].name
+            this.recommendedMerchants[i].stars = res.data[i].stars
+            this.recommendedMerchants[i].address = res.data[i].address
+          }
+        }
+        else{
+          console.log("wrong")
+        }
+        })
+      }else if(this.place.city == ''){
+        // 只输入了state
+        recommendByState(this.place.state).then((res) => {
+        if (res.status == 200) {
+          console.log("ok");
+          for (var i = 0; i <= 11; i++) {
+            debugger
+            console.log("ok")
+            this.recommendedMerchants[i].id = i + 1
+            this.recommendedMerchants[i].business_id = res.data[i].business_id
+            this.recommendedMerchants[i].name = res.data[i].name
+            this.recommendedMerchants[i].stars = res.data[i].stars
+            this.recommendedMerchants[i].address = res.data[i].address
+          }
+        }
+        else{
+          console.log("wrong")
+        }
+        })
+
+      }else{
         // 州和区域都输入
+        recommendByStateAndCity(this.place).then((res) => {
+          if (res.status == 200) {
+          console.log("ok");
+          for (var i = 0; i <= 11; i++) {
+            debugger
+            console.log("ok")
+            this.recommendedMerchants[i].id = i + 1
+            this.recommendedMerchants[i].business_id = res.data[i].business_id
+            this.recommendedMerchants[i].name = res.data[i].name
+            this.recommendedMerchants[i].stars = res.data[i].stars
+            this.recommendedMerchants[i].address = res.data[i].address
+          }
+        }
+        else{
+          console.log("wrong")
+        }
+        })
+
       }
     },
     friendRecommend() {

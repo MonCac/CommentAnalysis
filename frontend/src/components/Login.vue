@@ -6,7 +6,7 @@
     </div>
     <!-- 登录表单区域-->
     <div class="login-box">
-      <el-tabs v-model="activeName" @tab-click="handleClick">
+      <el-tabs v-model="activeName">
         <el-tab-pane label="用户登录" name="user">
           <!-- 用户账号密码登录表单 -->
           <el-form ref="pwdLoginFormRef" :model="pwdLoginForm" :rules="pwdLoginFormRules">
