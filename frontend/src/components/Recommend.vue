@@ -32,13 +32,9 @@
               <span>商户推荐</span>
               <div class="sort">
                 <el-select v-model="value" clearable placeholder="默认排序">
-                  <el-option v-for="item in options"
-                        :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
-                      @click.native="sortMerchant(item.label)"
-                      />
-                  </el-select>
+                  <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"
+                    @click.native="sortMerchant(item.label)" />
+                </el-select>
               </div>
             </div>
             <div class="merchant-items">
@@ -57,17 +53,12 @@
         <el-tab-pane label="商户筛选" name="second">
           <el-card class="merchant-list">
             <div slot="header" class="clearfix">
-              <span>商户筛选</span>
-              <div class="sort">
-                <el-select v-model="value" clearable placeholder="默认排序">
-                  <el-option v-for="item in options"
-                        :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
-                      @click.native="sortMerchant(item.label)"
-                      />
-                  </el-select>
+              <span class="'shaixuan'">商户筛选</span>
+              <div class="input-container">
+                <el-input type="text" v-model="input1" placeholder="请输入州名" class="filter-input"></el-input>
+                <el-input type="text" v-model="input2" placeholder="请输入区域名" class="filter-input"></el-input>
               </div>
+              <el-button @click="submit" class="filter-submit">提交</el-button>
             </div>
             <div class="merchant-items">
               <el-card v-for="merchant in recommendedMerchants" :key="merchant.id" class="merchant-card">
@@ -115,108 +106,108 @@ import { evaluationRecommendFriend } from "../util/api"
 
 export default {
   data() {
-  return {
-    banner: [],
-    recommendedMerchants: [
-      {
-        id: 1,
-        business_id:'_ab50qdWOk0DdB6XOrBitw',
-        name: 'Acme Oyster House',
-        stars: '4.0',
-        address: '724 Iberville St',
-        imgUrl: 'https://picsum.photos/200'
-      },
-      {
-        id: 2,
-        business_id:'ac1AeYqs8Z4_e2X5M3if2A',
-        name: 'Oceana Grill',
-        stars: '4.0',
-        address: '739 Conti St',
-        imgUrl: 'https://picsum.photos/200'
-      },
-      {
-        id: 3,
-        business_id:'GXFMD0Z4jEVZBCsbPf4CTQ',
-        name: 'Hattie B’s Hot Chicken - Nashville',
-        stars: '4.5',
-        address: '112 19th Ave S',
-        imgUrl: 'https://picsum.photos/200'
-      },
-      {
-        id: 4,
-        business_id:'ytynqOUb3hjKeJfRj5Tshw',
-        name: 'Reading Terminal Market',
-        stars: '4.5',
-        address: '51 N 12th St',
-        imgUrl: 'https://picsum.photos/200'
-     },
-      {
-        id: 5,
-        business_id:'oBNrLz4EDhiscSlbOl8uAw',
-        name: 'Ruby Slipper - New Orleans',
-        stars: '4.5',
-        address: '200 Magazine St',
-        imgUrl: 'https://picsum.photos/200'
-      },
-      {
-        id: 6,
-        business_id:'iSRTaT9WngzB8JJ2YKJUig',
-        name: "Mother's Restaurant",
-        stars: ' 3.5',
-        address: '401 Poydras St',
-        imgUrl: 'https://picsum.photos/200'
-      },
-      {
-        id: 7,
-        business_id:'VQcCL9PiNL_wkGf-uF3fjg',
-        name: 'Royal House',
-        stars: '4.0',
-        address: '441 Royal St',
-        imgUrl: 'https://picsum.photos/200'
-      },
-      {
-        id: 8,
-        business_id:'_C7QiQQc47AOEv4PE3Kong',
-        name: "Commander's Palace",
-        stars: '4.5',
-        address: '1403 Washington Ave',
-        imgUrl: 'https://picsum.photos/200'
-      },
-      {
-        id: 9,
-        business_id:'GBTPC53ZrG1ZBY3DT8Mbcw',
-        name: 'Luke',
-        stars: '4.0',
-        address: '333 Saint Charles Ave',
-        imgUrl: 'https://picsum.photos/200'
-      },
-      {
-        id: 10,
-        business_id:'6a4gLLFSgr-Q6CZXDLzBGQ',
-        name: 'Cochon',
-        stars: '4.0',
-        address: '930 Tchoupitoulas St',
-        imgUrl: 'https://picsum.photos/200'
-      },
-      {
-        id: 11,
-        business_id:'1b5mnK8bMnnju_cvU65GqQ',
-        name: 'Biscuit Love: Gulch',
-        stars: '4.0',
-        address: '316 11th Ave S',
-        imgUrl: 'https://picsum.photos/200'
-      },
-      {
-        id: 12,
-        business_id:'PP3BBaVxZLcJU54uP_wL6Q',
-        name: "Pat's King of Steaks",
-        stars: ' 3.0',
-        address: '1237 E Passyunk Ave',
-        imgUrl: 'https://picsum.photos/200'
-      }
-      // 添加更多商家数据
-    ],
-    recommendedFriends: [
+    return {
+      banner: [],
+      recommendedMerchants: [
+        {
+          id: 1,
+          business_id: '_ab50qdWOk0DdB6XOrBitw',
+          name: 'Acme Oyster House',
+          stars: '4.0',
+          address: '724 Iberville St',
+          imgUrl: 'https://picsum.photos/200'
+        },
+        {
+          id: 2,
+          business_id: 'ac1AeYqs8Z4_e2X5M3if2A',
+          name: 'Oceana Grill',
+          stars: '4.0',
+          address: '739 Conti St',
+          imgUrl: 'https://picsum.photos/200'
+        },
+        {
+          id: 3,
+          business_id: 'GXFMD0Z4jEVZBCsbPf4CTQ',
+          name: 'Hattie B’s Hot Chicken - Nashville',
+          stars: '4.5',
+          address: '112 19th Ave S',
+          imgUrl: 'https://picsum.photos/200'
+        },
+        {
+          id: 4,
+          business_id: 'ytynqOUb3hjKeJfRj5Tshw',
+          name: 'Reading Terminal Market',
+          stars: '4.5',
+          address: '51 N 12th St',
+          imgUrl: 'https://picsum.photos/200'
+        },
+        {
+          id: 5,
+          business_id: 'oBNrLz4EDhiscSlbOl8uAw',
+          name: 'Ruby Slipper - New Orleans',
+          stars: '4.5',
+          address: '200 Magazine St',
+          imgUrl: 'https://picsum.photos/200'
+        },
+        {
+          id: 6,
+          business_id: 'iSRTaT9WngzB8JJ2YKJUig',
+          name: "Mother's Restaurant",
+          stars: ' 3.5',
+          address: '401 Poydras St',
+          imgUrl: 'https://picsum.photos/200'
+        },
+        {
+          id: 7,
+          business_id: 'VQcCL9PiNL_wkGf-uF3fjg',
+          name: 'Royal House',
+          stars: '4.0',
+          address: '441 Royal St',
+          imgUrl: 'https://picsum.photos/200'
+        },
+        {
+          id: 8,
+          business_id: '_C7QiQQc47AOEv4PE3Kong',
+          name: "Commander's Palace",
+          stars: '4.5',
+          address: '1403 Washington Ave',
+          imgUrl: 'https://picsum.photos/200'
+        },
+        {
+          id: 9,
+          business_id: 'GBTPC53ZrG1ZBY3DT8Mbcw',
+          name: 'Luke',
+          stars: '4.0',
+          address: '333 Saint Charles Ave',
+          imgUrl: 'https://picsum.photos/200'
+        },
+        {
+          id: 10,
+          business_id: '6a4gLLFSgr-Q6CZXDLzBGQ',
+          name: 'Cochon',
+          stars: '4.0',
+          address: '930 Tchoupitoulas St',
+          imgUrl: 'https://picsum.photos/200'
+        },
+        {
+          id: 11,
+          business_id: '1b5mnK8bMnnju_cvU65GqQ',
+          name: 'Biscuit Love: Gulch',
+          stars: '4.0',
+          address: '316 11th Ave S',
+          imgUrl: 'https://picsum.photos/200'
+        },
+        {
+          id: 12,
+          business_id: 'PP3BBaVxZLcJU54uP_wL6Q',
+          name: "Pat's King of Steaks",
+          stars: ' 3.0',
+          address: '1237 E Passyunk Ave',
+          imgUrl: 'https://picsum.photos/200'
+        }
+        // 添加更多商家数据
+      ],
+      recommendedFriends: [
         {
           id: 1,
           name: '张三',
@@ -279,28 +270,30 @@ export default {
         }
         // 添加更多好友数据
       ],
-    options: [
-      {
-        value: 'Option1',
-        label: 'stars',
-      },
-      {
-        value: 'Option2',
-        label: 'review_count',
-      },
-      {
-        value: 'Option3',
-        label: 'score',
-      }
-    ],
-    activeName: 'first',
-    loginData: false,
-    input: '',
-    data: '',
-    value: '',
-    id:'',
-  };
-},
+      options: [
+        {
+          value: 'Option1',
+          label: 'stars',
+        },
+        {
+          value: 'Option2',
+          label: 'review_count',
+        },
+        {
+          value: 'Option3',
+          label: 'score',
+        }
+      ],
+      activeName: 'first',
+      loginData: false,
+      input: '',
+      data: '',
+      value: '',
+      id: '',
+      input1: '',
+      input2: '',
+    };
+  },
   computed: {},
 
   created() {
@@ -331,19 +324,19 @@ export default {
   methods: {
     sortMerchant(target) {
       recommendByChoice(target).then((res) => {
-        if (res.status == 200){
+        if (res.status == 200) {
           console.log("ok");
-          for(var i=0; i<=11; i++){
+          for (var i = 0; i <= 11; i++) {
             debugger
             console.log("ok")
-            this.recommendedMerchants[i].id = i+1
+            this.recommendedMerchants[i].id = i + 1
             this.recommendedMerchants[i].business_id = res.data[i].business_id
             this.recommendedMerchants[i].name = res.data[i].name
             this.recommendedMerchants[i].stars = res.data[i].stars
             this.recommendedMerchants[i].address = res.data[i].address
           }
         }
-        else{
+        else {
 
           console.log("出错了")
 
@@ -379,6 +372,15 @@ export default {
     addFriend(friend) {
       // 添加好友的逻辑
       console.log('添加好友:', friend);
+    },
+    submit() {
+      if(input1 == ''){
+        // 只输入了区域
+      }else if(input2 == ''){
+        // 只输入了州
+      }else{
+        // 州和区域都输入
+      }
     },
     friendRecommend() {
       evaluationRecommendFriend(this.id).then((res) => {
@@ -601,4 +603,25 @@ footer a {
 .tabs .el-tabs__item:hover {
   color: #3f4247;
   font-weight: 600;
-}</style>
+}
+
+.shaixuan {
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+}
+
+.filter-input {
+  width: 150px;
+  margin-right: 10px;
+}
+
+.filter-submit {
+  margin-right: 60px;
+  background-color: #409EFF;
+}
+</style>
