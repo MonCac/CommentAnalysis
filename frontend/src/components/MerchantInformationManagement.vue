@@ -104,14 +104,18 @@ import { facilityRequirementsSuggestion } from "../util/api"
 
 export default {
   created() {
-    this.selectSuggestion(this.business_id)
+
   },
   mounted() {
+    
     this.username = this.$route.query.username
     debugger
+    console.log(this.business_id)
     this.business_id = this.$route.query.business_id
     console.log(this.business_id)
     debugger
+
+    this.selectSuggestion(this.business_id)
     if (this.username != ''){
       this.loginData = true
     }
@@ -136,14 +140,14 @@ export default {
         {
           id: 2,
           type:'facility suggestion',
-          time: '2022-05-02',
-          content: '这是另一条评论',
+          time: '无',
+          content: 'no tips',
         },
         {
           id: 3,
           type:'user suggestion',
-          time: '2022-05-02',
-          content: '这是另一条评论',
+          time: '无',
+          content: 'no tips',
         },
       ],
       editContact: false,
@@ -167,8 +171,9 @@ export default {
   },
   methods: {
     selectSuggestion(target) {
+      debugger
+      console.log(target)
       facilityRequirementsSuggestion(target).then((res) => {
-
         if (res.status == 200){
           debugger
           console.log("ok")

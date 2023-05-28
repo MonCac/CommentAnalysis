@@ -3,7 +3,6 @@ from flask import *
 
 suggestion = Blueprint('suggestion', __name__)
 
-suggestion = Blueprint('suggestion', __name__)
 
 
 # 市场分析建议

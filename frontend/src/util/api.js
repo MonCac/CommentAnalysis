@@ -103,23 +103,53 @@ export function recommendByBrowsing(params) {
     });
 }
 
-// 根据位置推荐商家
-export function recommendByPosition(params) {
+// 根据state推荐商家
+export function recommendByState(paramss) {
+    debugger
+    console.log("gogogo")
+    console.log(paramss)
+    debugger
     return request({
-        url: "/recommendbyposition",
+        url: "/recommendbystate",
         method: "get",
-        params
+        params: {recommendByState: paramss}
+    });
+}
+
+// 根据city推荐商家
+export function recommendByCity(paramss) {
+    debugger
+    console.log("gogogo")
+    console.log(paramss)
+    debugger
+    return request({
+        url: "/recommendbycity",
+        method: "get",
+        params: {recommendByCity: paramss}
+    });
+}
+
+// 根据state和city推荐商家
+export function recommendByStateAndCity(paramss) {
+    debugger
+    console.log("gogogo")
+    console.log(paramss)
+    debugger
+    return request({
+        url: "/recommendbystateandcity",
+        method: "get",
+        params: {recommendByStateAndCity: paramss}
     });
 }
 
 // 默认推荐排序
-export function recommendDefault(params) {
-    return request({
-        url: "/recommenddefault",
-        method: "get",
-        // params
-    });
-}
+// export function recommendDefault(params) {
+//     return request({
+//         url: "/recommenddefault",
+//         method: "get",
+//         // params
+//     });
+// }
 
 // 选择推荐方式
 export function recommendByChoice(paramss) {
