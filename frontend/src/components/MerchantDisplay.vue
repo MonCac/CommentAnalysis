@@ -55,40 +55,30 @@
         </div>
       </div>
     </div>
-    <!-- User comments section -->
-    <div class="comments">
-      <h2>Comments</h2>
-        <div v-for="comment in comments" :key="comment.id" class="comment">
-          <div class="comment-header">
-            <span class="comment-author">{{ comment.author }}</span>
-            <span class="comment-date">{{ comment.date }}</span>
-          </div>
-          <div class="comment-body">{{ comment.body }}</div>
-        </div>
-        <form @submit.prevent="addComment" class="comment-form">
-          <h3>Add a comment</h3>
-            <label for="author">Name:</label>
-            <input v-model="newComment.author" type="text" id="author" required>
-            <label for="body">Comment:</label>
-            <textarea v-model="newComment.body" id="body" required></textarea>
-            <button type="submit">提交</button>
-        </form>
-    </div>
   </div>
 </div>
 </template>
 
 <script>
+  import { debug } from 'console';
+import { showInfo } from '../util/api';
 export default {
   mounted() {
-    this.id = this.$route.query.id
-    if (this.id != ''){
-      this.loginData = true
-    }
+      debugger
+      console.log(this.id)
+      this.id = this.$route.query.id
+      console.log(this.id)
+      debugger
+      
+      if (this.id != ''){
+        this.loginData = true
+      }
+    },
+  created(){
+    this.showShopInfo()
   },
   data() {
     return {
-      id: '',
       daysOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
       merchant: {
         name: 'Example Merchant',
@@ -98,8 +88,8 @@ export default {
         rating: 4.5,
         ratingCount: 100,
         isOpen: true,
-        features: ['Free Wi-Fi', 'Outdoor Seating', 'Parking'],
-        categories: ['Restaurant', 'Coffee Shop'],
+        features: [],
+        categories: [],
         hours: {
           Monday: ['8:00 AM - 5:00 PM'],
           Tuesday: ['8:00 AM - 5:00 PM'],
@@ -119,6 +109,47 @@ export default {
     };
   },
   methods: {
+    showShopInfo(){
+        debugger
+        showInfo(this.$route.query.id).then((res)=>{
+          if (res.status == 200) {
+            console.log("ok")
+            this.merchant.name=res.data[0].name
+            this.merchant.address=res.data[0].address
+            this.merchant.city=res.data[0].city
+            this.merchant.state=res.data[0].state
+            this.merchant.rating=res.data[0].stars
+            this.merchant.ratingCount=res.data[0].review_count
+            this.merchant.isOpen=res.data[0].is_open
+            debugger
+            let temp=0
+            let jsonObj1 = JSON.parse(res.data[0].attributes)
+            for(let key in jsonObj1){
+              temp=temp+1
+              if(temp>5){
+                break
+              }
+              console.log(key)
+              this.merchant.features.push(key)
+              console.log(this.merchant.features)
+            }
+            let jsonObj2=res.data[0].categories.split(",")
+            for(let i=0;i<jsonObj2.length;i++){
+              this.merchant.categories.push(jsonObj2[i])
+            }
+            let jsonTime=JSON.parse(res.data[0].hours)
+            console.log(jsonTime)
+            debugger
+            let obj=jsonTime['Monday']
+            this.merchant.hours['Monday']=obj
+            debugger
+            console.log(this.merchant.hours)
+          }
+          else {
+            console.log("出错")
+          }
+        })
+      },
     login() {
       this.$router.push('/login');
     },

@@ -90,6 +90,7 @@
 </template>
 
 <script>
+import { normalSearch } from '../util/api';
 export default {
   mounted() {
     this.id = this.$route.query.username
@@ -149,7 +150,28 @@ export default {
     },
 
     search() {
-      // 搜索逻辑
+      this.data = this.input;
+      this.activeName = 'second';
+      normalSearch(this.data).then((res) => {
+        if (res.status == 200) {
+          console.log("ok")
+          for (var i = 0; i <= 9; i++) {
+            console.log(i)
+            console.log(this.recommendedMerchants)
+            console.log(res.data)
+            debugger
+            this.recommendedMerchants[i].id = res.data[i].business_id
+            debugger
+            this.recommendedMerchants[i].name = res.data[i].name
+            debugger
+            this.recommendedMerchants[i].type = res.data[i].categories
+            this.recommendedMerchants[i].address = res.data[i].address
+          }
+        }
+        else {
+          console.log("出错")
+        }
+      })
     },
     saveContact() {
       if (this.editContact) {

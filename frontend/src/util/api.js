@@ -50,11 +50,11 @@ export function changeMerchantName(params) {
 }
 
 // 修改商户地址
-export function changeMerchantAddress(params) {
+export function changeMerchantAddress(paramss) {
     return request({
         url: "/changemerchantaddress",
         method: "get",
-        params
+        params: {search :paramss}
     });
 }
 
@@ -78,10 +78,11 @@ export function changeMerchantCity(params) {
 
 // 搜索
 export function normalSearch(paramss) {
+    console.log(paramss)
     return request({
         url: "/normalsearch",
         method: "get",
-        params: {friendRecommend :paramss}
+        params: {search :paramss}
     });
 }
 
@@ -91,6 +92,17 @@ export function fuzzySearch(params) {
         url: "/fuzzysearch",
         method: "get",
         params
+    });
+}
+
+// 展示界面
+export function showInfo(paramss) {
+    debugger
+    console.log(paramss)
+    return request({
+        url: "/showinfo",
+        method: "get",
+        params: {showShopInfo:paramss}
     });
 }
 
@@ -184,8 +196,6 @@ export function userManagementSuggestion() {
 
 // 相似商户评价推荐好友
 export function evaluationRecommendFriend(paramss) {
-    debugger
-    console.log(paramss)
     return request({
         url: "/evaluationrecommendfriend",
         method: "get",

@@ -1,5 +1,5 @@
 import pymysql
-from flask import Blueprint
+from flask import Blueprint, request
 
 # 推荐好友功能
 
@@ -7,17 +7,23 @@ search = Blueprint('search', __name__)
 
 
 @search.route('/normalsearch')
-def normalSearch(params):
+def normalSearch():
+    params = request.args.get("search")
+    params = str(params)
     con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
                           charset='utf8')
     cursor = con.cursor()  # 游标做查询
-    sql = f"select business_id, `name` from business where `name` like '%{params}%' order by stars,review_count limit 10;"
+    sql = f"select  business_id,`name`,categories,address from business where `name` like '%{params}%' and is_open=1 order by stars DESC,review_count DESC limit 10;"
     cursor.execute(sql)  # 查sql语句
-    results = (cursor.fetchall())  # 封装查询结果，fetchone一条，固定写法
     cursor.close()
     con.close()
-    return results
-
+    results = cursor.fetchall()  # 封装查询结果，fetchone一条，固定写法
+    print(results)
+    key = ("business_id","name","categories","address")
+    resultList = []
+    for row in results:
+        resultList.append(dict(zip(key, row)))
+    return resultList
 
 # 模糊搜索
 @search.route('/fuzzysearch')
@@ -31,3 +37,24 @@ def fuzzySearch(params):
     cursor.close()
     con.close()
     return results
+
+@search.route('/showinfo')
+def showInfo():
+    params = request.args.get("showShopInfo")
+    params = str(params)
+    print(params)
+    con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
+                          charset='utf8')
+    cursor = con.cursor()  # 游标做查询
+    sql = f"select  business_id,`name`,address,city,state,stars,review_count,is_open,attributes,categories,hours from business where business_id='{params}';"
+    cursor.execute(sql)  # 查sql语句
+    cursor.close()
+    con.close()
+    results = cursor.fetchall()  # 封装查询结果，fetchone一条，固定写法
+    print(results)
+    key = ("business_id","name","address","city","state","stars","review_count","is_open","attributes","categories","hours")
+    resultList = []
+    for row in results:
+        resultList.append(dict(zip(key, row)))
+    print(resultList)
+    return resultList

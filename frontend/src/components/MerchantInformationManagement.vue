@@ -24,16 +24,10 @@
       <!--  nav-search -->
     </header>
     <div class="personal-space">
-      
+
       <h1>{{ username }} 的个人空间</h1>
       <div class="user-info">
         <h2>商户信息</h2>
-        <div class="info-item">
-          <span class="label">联系方式：</span>
-          <span v-if="!editContact">{{ contact }}</span>
-          <input v-else v-model="newContact" type="text" class="edit-input" />
-          <button @click="saveContact" class="edit-btn">{{ editContact ? '保存' : '编辑' }}</button>
-        </div>
         <div class="info-item">
           <span class="label">是否营业：</span>
           <span v-if="!editGender">{{ gender }}</span>
@@ -41,26 +35,8 @@
             <option value="ture">是</option>
             <option value="false">否</option>
           </select>
-          <button @click="saveGender" class="edit-btn">{{ editGender ? '保存' : '编辑' }}</button>
         </div>
         <div class="info-item">
-    <span class="label">营业时间：</span>
-    <span v-if="!editOpeningHours">{{ openingHours }}</span>
-    <div v-else>
-      <div class="day-selection">
-        <label><input type="checkbox" v-model="selectedDays" value="monday">周一</label>
-        <label><input type="checkbox" v-model="selectedDays" value="tuesday">周二</label>
-        <label><input type="checkbox" v-model="selectedDays" value="wednesday">周三</label>
-        <label><input type="checkbox" v-model="selectedDays" value="thursday">周四</label>
-        <label><input type="checkbox" v-model="selectedDays" value="friday">周五</label>
-        <label><input type="checkbox" v-model="selectedDays" value="saturday">周六</label>
-        <label><input type="checkbox" v-model="selectedDays" value="sunday">周日</label>
-      </div>
-      <div class="time-selection">
-        <label>开始时间：<input type="time" v-model="startTime"></label>
-        <label>结束时间：<input type="time" v-model="endTime"></label>
-      </div>
-    </div>
     <button @click="saveOpeningHours" class="edit-btn">{{ editOpeningHours ? '保存' : '编辑' }}</button>
   </div>
         <div class="info-item">
@@ -69,14 +45,8 @@
           <input v-else v-model="newAddress" type="text" class="edit-input" />
           <button @click="saveAddress" class="edit-btn">{{ editAddress ? '保存' : '编辑' }}</button>
         </div>
-        <div class="info-item">
-          <span class="label">商家特色：</span>
-          <span v-if="!editSignature">{{ signature }}</span>
-          <textarea v-else v-model="newSignature" class="edit-input"></textarea>
-          <button @click="saveSignature" class="edit-btn">{{ editSignature ? '保存' : '编辑' }}</button>
-        </div>
       </div>
-    
+
       <div class="comment-list">
         <h2>经营建议</h2>
         <ul>
@@ -100,7 +70,7 @@
 
 <script>
 
-import { facilityRequirementsSuggestion } from "../util/api"
+import { changeMerchantAddress, facilityRequirementsSuggestion } from "../util/api"
 
 export default {
   created() {
@@ -118,7 +88,6 @@ export default {
   },
   data() {
     return {
-      business_id:'aK6R2akvIK9ijw3FvDy8vw',
       username: '',
       contact: '',
       gender: '',
@@ -160,8 +129,6 @@ export default {
       loginData: false,
       editOpeningHours: false,
       selectedDays: [],
-      startTime: '',
-      endTime: '',
       openingHours: '营业时间',
     };
   },
@@ -229,6 +196,16 @@ export default {
         this.address = this.newAddress;
       }
       this.editAddress = !this.editAddress;
+      changeMerchantAddress(this.address).then((res) => {
+        if (res.status == 200) {
+          console.log("ok")
+          console.log(res)
+          debugger
+        }
+        else {
+          console.log("出错")
+        }
+      })
     },
     saveSignature() {
       if (this.editSignature) {
@@ -289,7 +266,7 @@ export default {
 .label {
   font-weight: bold;
   font-size: large;
-  
+
 }
 
 .edit-input,

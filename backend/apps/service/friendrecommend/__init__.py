@@ -12,7 +12,6 @@ friendrecommend = Blueprint('friendrecommend', __name__)
 def evaluationRecommendFriend():
     params = request.args.get("friendRecommend")
     user_id = str(params)
-    print(user_id)
     con = pymysql.connect(host='192.168.102.130', port=3306, user='root', password='abx2002', database='yelp',
                           charset='utf8')
     cursor = con.cursor()
@@ -29,7 +28,6 @@ def evaluationRecommendFriend():
     resultList=[]
     for row in results:
          resultList.append(dict(zip(key, row)))
-    print(resultList)
     return resultList
 
 

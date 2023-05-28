@@ -9,7 +9,7 @@
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane label="用户登录" name="user">
           <!-- 用户账号密码登录表单 -->
-          <el-form ref="pwdLoginFormRef" :model="pwdLoginForm">
+          <el-form ref="pwdLoginFormRef" :model="pwdLoginForm" :rules="pwdLoginFormRules">
             <!-- 用户名 -->
             <el-form-item prop="username" label="用户名">
               <el-input placeholder="请输入用户名" prefix-icon="el-icon-user-solid" v-model="pwdLoginForm.username" required>
@@ -31,7 +31,7 @@
         </el-tab-pane>
         <el-tab-pane label="商户登录" name="merchant">
           <!-- 账号密码登录表单 -->
-          <el-form ref="pwdLoginFormRef" :model="pwdLoginForm" >
+          <el-form ref="pwdLoginFormRef" :model="pwdLoginForm" :rules="pwdLoginFormRules">
             <!-- 用户名 -->
             <el-form-item prop="username" label="商户名">
               <el-input placeholder="请输入商户名" clearable prefix-icon="el-icon-user-solid" v-model="pwdLoginForm.username">
@@ -87,9 +87,7 @@ export default {
       console.log(`用户名：${this.pwdLoginForm.username}，密码：${this.pwdLoginForm.password}`)
       login(this.pwdLoginForm).then((res) => {
         if (res.status == 200) {
-          console.log(res.data.b )
-          debugger
-          this.$router.push({ path: '/merchantinformationmanagement', query: { username: this.pwdLoginForm.username, business_id: res.data.b } })
+          this.$router.push({ path: '/merchantinformationmanagement', query: { username: this.pwdLoginForm.username } })
         }
         else {
           console.log("出错了")
